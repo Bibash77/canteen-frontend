@@ -3,15 +3,15 @@ import {CommonModule} from '@angular/common';
 import {
   NbActionsModule,
   NbButtonModule,
-  NbContextMenuModule,
+  NbContextMenuModule, NbDatepickerModule, NbDialogModule,
   NbIconModule,
   NbLayoutModule,
   NbMenuModule,
   NbSearchModule,
   NbSelectModule,
   NbSidebarModule,
-  NbThemeModule,
-  NbUserModule,
+  NbThemeModule, NbToastrModule,
+  NbUserModule, NbWindowModule,
 } from '@nebular/theme';
 import {NbEvaIconsModule} from '@nebular/eva-icons';
 
@@ -68,6 +68,21 @@ const PIPES = [
   NumberWithCommasPipe,
 ];
 
+const NB_THEME_PROVIDERS = [
+  ...NbThemeModule.forRoot(
+    {
+      name: 'default',
+    },
+    [DEFAULT_THEME, COSMIC_THEME, CORPORATE_THEME, DARK_THEME],
+  ).providers,
+  ...NbSidebarModule.forRoot().providers,
+  ...NbMenuModule.forRoot().providers,
+  ...NbDatepickerModule.forRoot().providers,
+  ...NbDialogModule.forRoot().providers,
+  ...NbWindowModule.forRoot().providers,
+  ...NbToastrModule.forRoot().providers,
+];
+
 @NgModule({
   imports: [...BASE_MODULES, ...NB_MODULES, ...OTHER_MODULES],
   exports: [...BASE_MODULES, ...NB_MODULES, ...OTHER_MODULES, ...PIPES, ...COMPONENTS],
@@ -78,14 +93,7 @@ export class ThemeModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: ThemeModule,
-      providers: [
-        ...NbThemeModule.forRoot(
-          {
-            name: 'default',
-          },
-          [DEFAULT_THEME, COSMIC_THEME, CORPORATE_THEME, DARK_THEME],
-        ).providers,
-      ],
+      providers: [...NB_THEME_PROVIDERS],
     } as ModuleWithProviders;
   }
 }
