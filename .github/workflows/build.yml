@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  push:
+    branches: 
+      - master
+  pull_request:
+    branches: 
+      - master
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Verify Script
+      run: echo Pipeline starting!!!
+    - name: NPM INSTALL and BUILD Angular App
+      run: |
+        npm install
+        ng build --prod
