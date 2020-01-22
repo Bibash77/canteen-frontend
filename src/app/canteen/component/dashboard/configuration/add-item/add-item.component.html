@@ -1,0 +1,31 @@
+<nb-card status="info">
+    <nb-card-header>Add Item</nb-card-header>
+    <nb-card-body>
+        <div class="row">
+                    <div class="col">
+                        <label for="itemName">Item Name</label>
+                        <input nbInput fullWidth type="text" id="itemName" placeholder="Enter Item name" class="form-control">
+                        </div>
+                        <div class="col">
+                                <label for="itemPrice">Price</label>
+                                <input nbInput fullWidth type="text" id="itemPrice" placeholder="Enter price of Item" class="form-control">
+                                </div>
+                   
+                    </div>
+                    <div class="row">
+                            <div class="col">
+                                <label for="deliveryTime">Delivery Time</label>
+                                <input nbInput fullWidth type="text" id="deliveryTime" placeholder="Enter Delivery Time" class="form-control">
+                                </div>
+                                <div class="col">
+                                        <label for="FullName">Status</label>
+                                        <select class="form-control">
+                                            <option>--Select Status--</option>
+                                        </select>
+                                        </div>
+                           
+                            </div>
+    </nb-card-body>
+    <nb-card-footer>  <button nbButton hero status="info" class="float-right">Add</button>
+    </nb-card-footer>
+  </nb-card>

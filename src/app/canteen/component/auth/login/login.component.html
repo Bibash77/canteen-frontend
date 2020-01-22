@@ -1,0 +1,49 @@
+<nb-layout>
+  <nb-layout-column id="ll">
+    <div class="text-center">
+      <h5>Divya Gyan Canteen For your Service</h5>
+      <p>Log in to continue</p>
+      <div class="container mt-3">
+        <div class="row">
+          <div class="card rounded col-md-6 offset-3 bg-transparent">
+            <div class="card-header mx-auto">
+              <span class="logo_title mt-5 text-secondary ml-lg-4"> Login Dashboard </span>
+              <!-- message here-->
+
+            </div>
+            <div class="card-body shadow">
+              <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm.value)">
+                <div class="form-group">
+                  <input #email="ngModel" class="form-control" name="email"
+                         ngModel placeholder="Username"
+                         required type="text">
+                </div>
+
+                <div class="input-group form-group">
+                  <input #password="ngModel" class="form-control" name="password" ngModel
+                         placeholder="Password" required type="password">
+                </div>
+
+                <div class="form-group">
+                  <a routerLink="/canteen/dashboard">
+                    <button nbButton status="info" class="float-right" type="submit">
+                    <span *ngIf="spinner" class="spinner-border spinner-border-sm"></span>
+                    Sign In
+                  </button>
+                  </a>
+                </div>
+              </form>
+            </div>
+            <div class="card-footer text-center">
+              <button nbButton fullWidth outline status="info" (click)="onRegister()">Sign Up</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nb-layout-column>
+  <nb-layout-footer>
+    <app-footer></app-footer>
+  </nb-layout-footer>
+</nb-layout>
+

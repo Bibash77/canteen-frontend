@@ -1,0 +1,74 @@
+<nb-layout>
+  <nb-layout-column>
+<div class="row">
+  <div class="col-md-12">
+    <nb-reveal-card>
+      <nb-card-front>
+        <nb-card accent="info">
+          <nb-card-header class="text-center shadow-sm">
+            <h5>Top Up</h5>
+          </nb-card-header>
+          <nb-card-body>
+            <table class="table table-striped table-bordered table-hover ">
+              <ng-container>
+                <thead>
+             <tr>
+               <th>Username</th>
+               <th>Current Balance</th>
+               <th>User Code</th>
+               <th>Action</th>
+             </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>Bibash</td>
+                  <td>700 NT</td>
+                  <td>0410</td>
+                  <td><button nbButton hero status="info" size="small">Deposit</button></td>
+                </tr>
+                <tr>
+                  <td>Tiffany</td>
+                  <td>700 NT</td>
+                  <td>1003</td>
+                  <td><button nbButton hero status="info" size="small">Deposit</button></td>
+                </tr>
+                </tbody>
+              </ng-container>
+            </table>
+          </nb-card-body>
+        </nb-card>
+      </nb-card-front>
+      <nb-card-back>
+        <nb-card size="medium" accent="info">
+          <nb-card-header class="text-center">
+            <button nbButton hero status="info" size="small" class="float-right" (click)="onAddItem()">Add-Item</button>  <h5>Food Items</h5>
+          </nb-card-header>
+          <nb-card-body>
+
+            <table class="table table-striped table-bordered table-hover ">
+              <ng-container>
+                <thead>
+                <th>Meal Name</th>
+                <th>price</th>
+                <th>Status</th>
+                <th>Action</th>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>Momo</td>
+                  <td>80 BC</td>
+                  <td>Out of Stock</td>
+                  <td><nb-toggle status="danger"></nb-toggle></td>
+                </tr>
+                </tbody>
+              </ng-container>
+            </table>
+          </nb-card-body>
+        </nb-card>
+      </nb-card-back>
+    </nb-reveal-card>
+  </div>
+
+</div>
+  </nb-layout-column>
+  </nb-layout>

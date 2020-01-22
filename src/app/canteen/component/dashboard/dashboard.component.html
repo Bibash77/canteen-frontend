@@ -1,1 +1,65 @@
-<p>dashboard works!</p>
+<nb-card accent="primary">
+  <nb-card-header><h5>What would you like to order at the moment ?</h5></nb-card-header>
+  <nb-card-body>
+    <table class="table table-striped table-bordered table-hover">
+      <thead>
+      <th>meal</th>
+      <th>price</th>
+      <th></th>
+      </thead>
+      <tbody>
+      <tr>
+        <td>Momo</td>
+        <td>80 Bc</td>
+        <td><button nbButton hero status="info" size="small">Order</button></td>
+      </tr>
+      </tbody>
+    </table>
+  </nb-card-body>
+</nb-card>
+<nb-card accent="primary">
+  <nb-accordion>
+    <nb-accordion-item>
+      <nb-accordion-item-header>
+       Transaction History
+      </nb-accordion-item-header>
+      <nb-accordion-item-body>
+  <nb-card-body>
+    <table class="table table-striped table-bordered table-hover ">
+      <ng-container>
+        <thead>
+        <tr>
+        <th>Meal Name</th>
+        <th>Ordered Date</th>
+        <th>Rate</th>
+        <th>Amount</th>
+        <th>Action</th>
+        </tr>
+        </thead>
+      </ng-container>
+    </table>
+  </nb-card-body>
+      </nb-accordion-item-body>
+    </nb-accordion-item>
+  </nb-accordion>
+</nb-card>
+
+<!--<nb-card>
+<nb-card-header>
+  <input id="search" class="search-input">
+  <button class="search-label btn-primary" for="search">
+    <i class="fa fa-filter"> Filter</i></button>
+</nb-card-header>
+  <nb-card-body>
+    <table class="table table-striped table-bordered table-hover ">
+      <ng-container>
+        <thead>
+        <th>Username</th>
+        <th>Balance</th>
+        <th>User Code</th>
+        <th>Action</th>
+        </thead>
+      </ng-container>
+    </table>
+  </nb-card-body>
+</nb-card>-->
