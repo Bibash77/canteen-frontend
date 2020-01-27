@@ -1,4 +1,4 @@
-import {UserType} from "../../../@core/userType";
+import {UserType} from '../../../@core/userType';
 
 export class User {
   id: number;
@@ -11,4 +11,5 @@ export class User {
   username: string;
   status: string;
   roleType: UserType;
+  userCode: string;
 }

@@ -1,31 +1,39 @@
-<nb-card status="info">
-    <nb-card-header>Add Item</nb-card-header>
-    <nb-card-body>
-        <div class="row">
-                    <div class="col">
-                        <label for="itemName">Item Name</label>
-                        <input nbInput fullWidth type="text" id="itemName" placeholder="Enter Item name" class="form-control">
-                        </div>
-                        <div class="col">
-                                <label for="itemPrice">Price</label>
-                                <input nbInput fullWidth type="text" id="itemPrice" placeholder="Enter price of Item" class="form-control">
-                                </div>
-                   
-                    </div>
-                    <div class="row">
-                            <div class="col">
-                                <label for="deliveryTime">Delivery Time</label>
-                                <input nbInput fullWidth type="text" id="deliveryTime" placeholder="Enter Delivery Time" class="form-control">
-                                </div>
-                                <div class="col">
-                                        <label for="FullName">Status</label>
-                                        <select class="form-control">
-                                            <option>--Select Status--</option>
-                                        </select>
-                                        </div>
-                           
-                            </div>
-    </nb-card-body>
-    <nb-card-footer>  <button nbButton hero status="info" class="float-right">Add</button>
-    </nb-card-footer>
-  </nb-card>
+<nb-card status="primary">
+  <nb-card-header>Add Item</nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="form">
+    <div class="row">
+      <div class="col">
+        <label for="itemName">Item Name</label>
+        <input class="form-control" fullWidth id="itemName" nbInput placeholder="Enter Item name"
+               type="text" formControlName="itemName">
+      </div>
+      <div class="col">
+        <label for="itemPrice">Price</label>
+        <input class="form-control" fullWidth id="itemPrice" nbInput placeholder="Enter price of Item"
+               type="text" formControlName="price">
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col">
+        <label for="deliveryTime">Delivery Time</label>
+        <input class="form-control" fullWidth id="deliveryTime" nbInput placeholder="Enter Delivery Time"
+               type="text" formControlName="cookingTime">
+      </div>
+      <div class="col">
+        <label>Status</label>
+        <select class="form-control" formControlName="itemStatus">
+          <option selected>--Select Status--</option>
+          <option value="INSTOCK">INSTOCK</option>
+          <option value="OUTOFSTOCK">OUTOFSTOCK</option>
+        </select>
+      </div>
+
+    </div>
+    </form>
+  </nb-card-body>
+  <nb-card-footer *ngIf="form.valid">
+    <button class="float-right" hero nbButton status="info" (click)="onSubmit()">Add</button>
+  </nb-card-footer>
+</nb-card>
