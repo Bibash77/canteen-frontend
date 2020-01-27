@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Item} from '../../modal/Item';
 import {ItemService} from '../configuration/add-item/item.service';
+import {AddItemComponent} from '../configuration/add-item/add-item.component';
+import {NbDialogService} from '@nebular/theme';
 
 @Component({
   selector: 'app-item-list',
@@ -9,7 +11,8 @@ import {ItemService} from '../configuration/add-item/item.service';
 })
 export class ItemListComponent implements OnInit {
 
-  constructor( private itemService: ItemService,) { }
+  constructor( private itemService: ItemService,
+               private dialogService: NbDialogService) { }
 
   item: Array<Item> = new Array<Item>();
 
@@ -24,4 +27,7 @@ export class ItemListComponent implements OnInit {
     ItemListComponent.loadData(this);
   }
 
+  onEditItem(singleItem) {  this.dialogService.open(AddItemComponent,
+    {closeOnBackdropClick: true , closeOnEsc: true, context: {singleItem}});
+  }
 }

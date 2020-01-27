@@ -1,5 +1,5 @@
 <nb-card status="primary">
-  <nb-card-header>Add Item</nb-card-header>
+  <nb-card-header>Configure Item</nb-card-header>
   <nb-card-body>
     <form [formGroup]="form">
     <div class="row">
@@ -34,6 +34,6 @@
     </form>
   </nb-card-body>
   <nb-card-footer *ngIf="form.valid">
-    <button class="float-right" hero nbButton status="info" (click)="onSubmit()">Add</button>
+    <button class="float-right" hero nbButton status="info" (click)="onSubmit()">Save</button>
   </nb-card-footer>
 </nb-card>

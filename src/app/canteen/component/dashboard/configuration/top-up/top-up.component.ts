@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {NbDialogRef} from '@nebular/theme';
 import {Wallet} from '../../../modal/wallet';
 import {WallletService} from './walllet-service.service';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-top-up',

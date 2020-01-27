@@ -12,7 +12,7 @@ import { Router} from '@angular/router';
 })
 export class AddItemComponent implements OnInit {
   form: FormGroup;
-
+  singleItem: any;
   constructor(private formBuilder: FormBuilder,
               private itemService: ItemService,
               public dialog: NbDialogRef<AddItemComponent>,
@@ -24,10 +24,11 @@ export class AddItemComponent implements OnInit {
   buildForm() {
     this.form = this.formBuilder.group(
       {
-        itemName: [undefined],
-        cookingTime: [undefined],
-        price: [undefined],
-        itemStatus: [undefined],
+        id: [this.singleItem.id !== undefined ? this.singleItem.id : undefined],
+        itemName: [this.singleItem.itemName !== undefined ? this.singleItem.itemName : undefined],
+        cookingTime: [this.singleItem.cookingTime !== undefined ? this.singleItem.cookingTime : undefined],
+        price: [this.singleItem.price !== undefined ? this.singleItem.price : undefined],
+        itemStatus: [this.singleItem.itemStatus !== undefined ? this.singleItem.itemStatus : undefined],
       }
     );
   }

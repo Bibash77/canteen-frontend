@@ -3,8 +3,8 @@ import {NbDialogService, NbWindowRef, NbWindowService} from '@nebular/theme';
 import { AddItemComponent } from './add-item/add-item.component';
 import {Item} from '../../modal/Item';
 import {ItemService} from './add-item/item.service';
-import {TopUpComponent} from "./top-up/top-up.component";
-import {UserService} from "../../auth/user.service";
+import {TopUpComponent} from './top-up/top-up.component';
+import {UserService} from '../../auth/user.service';
 
 @Component({
   selector: 'app-configuration',

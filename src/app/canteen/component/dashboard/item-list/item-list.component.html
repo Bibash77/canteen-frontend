@@ -4,14 +4,15 @@
     <th>Meal Name</th>
     <th>price</th>
     <th>Status</th>
-    <th>Order</th>
+    <th>Action</th>
     </thead>
     <tbody>
     <tr *ngFor="let singleItem of item">
       <td>{{singleItem.itemName}}</td>
       <td>Rs.{{singleItem.price}}</td>
       <td>{{singleItem.itemStatus}}</td>
-      <td><nb-toggle status="danger"></nb-toggle></td>
+      <td><button nbButton hero status="info" size="small" >Order</button>
+        <button nbButton hero status="success" size="small" (click)="onEditItem(singleItem)">Edit</button></td>
     </tr>
     </tbody>
   </ng-container>
