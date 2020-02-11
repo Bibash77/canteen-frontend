@@ -1,0 +1,31 @@
+<nb-layout withScroll>
+  <nb-layout-column>
+<div class="row">
+  <div class="col-md-12">
+    <nb-card>
+      <nb-card-body>
+    <nb-tabset>
+      <nb-tab tabTitle="Account-Setting" tabIcon="person-outline">
+        <app-user-config></app-user-config>
+      </nb-tab>
+      <nb-tab tabTitle="Add-Item" tabIcon="plus">
+        <nb-card accent="info">
+          <nb-card-header class="text-center">
+            <button nbButton hero status="info" size="small" class="float-right" (click)="onAddItem()">Add-Item</button>  <h5>Food Items</h5>
+          </nb-card-header>
+          <nb-card-body>
+           <app-item-list></app-item-list>
+          </nb-card-body>
+        </nb-card>
+      </nb-tab>
+      <nb-tab tabTitle="Transactions" tabIcon="briefcase" responsive>
+        <p>List of <strong>transactions</strong>.</p>
+      </nb-tab>
+    </nb-tabset>
+      </nb-card-body>
+    </nb-card>
+  </div>
+
+</div>
+  </nb-layout-column>
+  </nb-layout>

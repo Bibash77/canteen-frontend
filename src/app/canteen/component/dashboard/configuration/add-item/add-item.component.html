@@ -1,0 +1,39 @@
+<nb-card status="primary">
+  <nb-card-header>Configure Item</nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="form">
+    <div class="row">
+      <div class="col">
+        <label for="itemName">Item Name</label>
+        <input class="form-control" fullWidth id="itemName" nbInput placeholder="Enter Item name"
+               type="text" formControlName="itemName">
+      </div>
+      <div class="col">
+        <label for="itemPrice">Price</label>
+        <input class="form-control" fullWidth id="itemPrice" nbInput placeholder="Enter price of Item"
+               type="text" formControlName="price">
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col">
+        <label for="deliveryTime">Delivery Time</label>
+        <input class="form-control" fullWidth id="deliveryTime" nbInput placeholder="Enter Delivery Time"
+               type="text" formControlName="cookingTime">
+      </div>
+      <div class="col">
+        <label>Status</label>
+        <select class="form-control" formControlName="itemStatus">
+          <option selected>--Select Status--</option>
+          <option value="INSTOCK">INSTOCK</option>
+          <option value="OUTOFSTOCK">OUTOFSTOCK</option>
+        </select>
+      </div>
+
+    </div>
+    </form>
+  </nb-card-body>
+  <nb-card-footer *ngIf="form.valid">
+    <button class="float-right" hero nbButton status="info" (click)="onSubmit()">Save</button>
+  </nb-card-footer>
+</nb-card>

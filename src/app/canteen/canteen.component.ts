@@ -22,6 +22,8 @@ export class CanteenComponent implements OnInit {
   ngOnInit() {
     this.menu = [];
     this.menu.push(MENU_ITEMS.get('Dashboard'));
+    this.menu.push(MENU_ITEMS.get('Configure'));
+    this.menu.push(MENU_ITEMS.get('Notification'));
   }
 
 }

@@ -2,7 +2,7 @@ import {ModuleWithProviders, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {
   NbActionsModule,
-  NbButtonModule,
+  NbButtonModule, NbCardModule, NbCheckboxModule,
   NbContextMenuModule, NbDatepickerModule, NbDialogModule,
   NbIconModule,
   NbLayoutModule,
@@ -46,6 +46,8 @@ const NB_MODULES = [
   NbSelectModule,
   NbIconModule,
   NbEvaIconsModule,
+  NbCardModule,
+  NbCheckboxModule,
 ];
 
 const OTHER_MODULES = [];
