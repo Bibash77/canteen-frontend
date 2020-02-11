@@ -5,11 +5,11 @@ import {Item} from '../../modal/Item';
 import {ItemService} from './add-item/item.service';
 import {TopUpComponent} from './top-up/top-up.component';
 import {UserService} from '../../auth/user.service';
+import {AuthorityUtil} from '../../../../@core/utils/AuthorityUtil';
 
 @Component({
   selector: 'app-configuration',
-  templateUrl: './configuration.component.html',
-  styleUrls: ['./configuration.component.scss']
+  templateUrl: './configuration.component.html'
 })
 export class ConfigurationComponent implements OnInit {
   constructor(private dialogService: NbDialogService,
@@ -18,10 +18,10 @@ export class ConfigurationComponent implements OnInit {
               private userService: UserService) { }
 
   item: Array<Item> = new Array<Item>();
+  isAdmin;
 
   static loadData(configure: ConfigurationComponent) {
     configure.itemService.getAll().subscribe(value => {
-    console.log(value.detail);
     configure.item = value.detail;
   });
   }
@@ -32,4 +32,5 @@ export class ConfigurationComponent implements OnInit {
   onAddItem() {
 this.dialogService.open(AddItemComponent);
   }
+
 }

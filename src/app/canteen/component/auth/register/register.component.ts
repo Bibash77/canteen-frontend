@@ -2,7 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {NbDialogRef} from '@nebular/theme';
 import {UserService} from '../user.service';
 import {User} from '../../modal/user';
-import {UserType} from "../../../../@core/userType";
+import {UserType} from '../../../../@core/userType';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -12,7 +13,8 @@ import {UserType} from "../../../../@core/userType";
 export class RegisterComponent implements OnInit {
   constructor(
               private userService: UserService,
-              public dialog: NbDialogRef<RegisterComponent>) { }
+              public dialog: NbDialogRef<RegisterComponent>,
+              private router: Router) { }
   user: User = new User();
 
   buildForm() {
@@ -21,10 +23,11 @@ export class RegisterComponent implements OnInit {
 
   addUser(registerForm) {
     this.user.roleType = UserType.STUDENT;
-    console.log("roletype" , this.user.roleType);
+    console.log('roletype' , this.user.roleType);
     if (this.confirmPasswordChecker(registerForm)) {
       this.userService.registerUser(this.user).subscribe(value => {
         alert('login to continue');
+        this.router.navigateByUrl('');
       });
     }  else {
       alert('Confirm password didnt matched');

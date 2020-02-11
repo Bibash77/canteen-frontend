@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {NbDialogRef} from '@nebular/theme';
 import {Wallet} from '../../../modal/wallet';
-import {WallletService} from './walllet-service.service';
 import {Router} from '@angular/router';
+
+import {WalletService} from './wallet.service';
 
 @Component({
   selector: 'app-top-up',
@@ -17,18 +18,17 @@ import {Router} from '@angular/router';
       </div>
     </nb-card-body>
     <nb-card-footer>
-      <div *ngIf="amount.valid">
-      <button nbButton hero status="primary" size="small" class="float-right" (click)="save()">Save</button>
-      </div>
+      <button nbButton hero status="danger" size="small" (click)="closeTopUp()">Cancel</button>
+      <button nbButton hero status="primary" size="small" class="float-right" (click)="save()" [disabled]="amount.invalid">submit</button>
     </nb-card-footer>
   </nb-card>`,
-  styleUrls: ['./top-up.component.scss']
 })
 export class TopUpComponent implements OnInit {
    user: any;
    wallet: Wallet = new Wallet();
 
-  constructor(private walletService: WallletService,
+  constructor(private walletService: WalletService,
+              private dialogref: NbDialogRef<TopUpComponent>,
               private router: Router) { }
 
   ngOnInit() {
@@ -44,5 +44,9 @@ export class TopUpComponent implements OnInit {
         this.router.navigate(['/canteen/configuration']);
       });
     });
+  }
+
+  closeTopUp() {
+    this.dialogref.close();
   }
 }

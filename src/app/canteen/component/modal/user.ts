@@ -8,7 +8,7 @@ export class User {
   fullName: string;
   password: string;
   confirmPassword: string;
-  username: string;
+  userName: string;
   status: string;
   roleType: UserType;
   userCode: string;

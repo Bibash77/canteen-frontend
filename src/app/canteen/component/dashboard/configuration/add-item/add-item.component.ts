@@ -4,15 +4,15 @@ import {User} from '../../../modal/user';
 import {ItemService} from './item.service';
 import {NbDialogRef} from '@nebular/theme';
 import { Router} from '@angular/router';
+import {Item} from '../../../modal/Item';
 
 @Component({
   selector: 'app-add-item',
-  templateUrl: './add-item.component.html',
-  styleUrls: ['./add-item.component.scss']
+  templateUrl: './add-item.component.html'
 })
 export class AddItemComponent implements OnInit {
   form: FormGroup;
-  singleItem: any;
+  singleItem: Item;
   constructor(private formBuilder: FormBuilder,
               private itemService: ItemService,
               public dialog: NbDialogRef<AddItemComponent>,
@@ -24,23 +24,26 @@ export class AddItemComponent implements OnInit {
   buildForm() {
     this.form = this.formBuilder.group(
       {
-        id: [this.singleItem.id !== undefined ? this.singleItem.id : undefined],
-        itemName: [this.singleItem.itemName !== undefined ? this.singleItem.itemName : undefined],
-        cookingTime: [this.singleItem.cookingTime !== undefined ? this.singleItem.cookingTime : undefined],
-        price: [this.singleItem.price !== undefined ? this.singleItem.price : undefined],
-        itemStatus: [this.singleItem.itemStatus !== undefined ? this.singleItem.itemStatus : undefined],
+        id: [this.singleItem !== undefined ? this.singleItem.id : undefined],
+        itemName: [this.singleItem !== undefined ? this.singleItem.itemName : undefined],
+        cookingTime: [this.singleItem !== undefined ? this.singleItem.cookingTime : undefined],
+        price: [this.singleItem !== undefined ? this.singleItem.price : undefined],
+        itemStatus: [this.singleItem !== undefined ? this.singleItem.itemStatus : undefined],
       }
     );
   }
 
   onSubmit() {
-    console.log(this.form.value);
     this.dialog.close();
     this.itemService.save(this.form.value).subscribe(value => {
       this.router.navigateByUrl('/canteen/dashboard').then( () => {
           this.router.navigate(['/canteen/configuration']);
       });
   });
+  }
+
+  closeDialog() {
+    this.dialog.close();
   }
 
 }

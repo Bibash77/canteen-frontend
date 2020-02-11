@@ -1,18 +1,43 @@
-<table class="table table-striped table-bordered table-hover ">
+<ng-template #dialog let-data let-ref="dialogRef">
+  <nb-card status="primary">
+    <nb-card-header class="text-center"><h5>Order {{data.itemName}}</h5></nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col">
+          <label for="quantity">Quantity</label>
+          <input class="form-control"  id="quantity" nbInput
+                 type="text" name="quantity" #quantity (keyup)="calculateTotal(data.price , quantity.value)">
+        </div>
+        <div class="col">
+          <label for="itemPrice">Total Expenses</label>
+          <input class="form-control"  id="itemPrice" nbInput [(ngModel)]="totalExpenses"
+                 type="text" readonly>
+        </div>
+      </div>
+    </nb-card-body>
+    <nb-card-footer>
+      <button nbButton hero  status="danger" (click)="ref.close()">cancel</button>
+      <button nbButton hero status="primary" class="float-right" (click)="orderItem(data , quantity.value); ref.close()">Order</button>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>
+<table class="table table-striped table-bordered table-hover">
   <ng-container>
     <thead>
-    <th>Meal Name</th>
+    <tr>
+    <th>Meal</th>
     <th>price</th>
     <th>Status</th>
     <th>Action</th>
+    </tr>
     </thead>
     <tbody>
     <tr *ngFor="let singleItem of item">
       <td>{{singleItem.itemName}}</td>
       <td>Rs.{{singleItem.price}}</td>
       <td>{{singleItem.itemStatus}}</td>
-      <td><button nbButton hero status="info" size="small" >Order</button>
-        <button nbButton hero status="success" size="small" (click)="onEditItem(singleItem)">Edit</button></td>
+      <td><button *ngIf="singleItem.itemStatus !== 'OUTOFSTOCK' && isStudent" nbButton hero status="info" size="small" (click)="openOrder(dialog , singleItem)">Order</button>
+        <button *ngIf="isAdmin" nbButton hero status="success" size="small" (click)="onEditItem(singleItem)">Edit</button></td>
     </tr>
     </tbody>
   </ng-container>
