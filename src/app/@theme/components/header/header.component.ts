@@ -3,6 +3,7 @@ import {NbMediaBreakpointsService, NbSidebarService, NbThemeService} from '@nebu
 
 import {map, takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
+import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 
 @Component({
   selector: 'app-header',
@@ -13,8 +14,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   userPictureOnly = false;
   user: any;
+  userId;
   currentTheme = 'default';
-  userMenu = [{title: 'Profile'}, {title: 'Log out'}];
+  userMenu;
   private destroy$: Subject<void> = new Subject<void>();
 
   constructor(private sidebarService: NbSidebarService,
@@ -23,6 +25,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.userId = LocalStorageUtil.getStorage().userId;
+    this.userMenu = [{title: 'Profile'}, {title: 'transaction', link: ['/canteen/transaction', this.userId]}, {title: 'Log out' ,
+      link: '/canteen/dashboard', }];
     this.currentTheme = this.themeService.currentTheme;
 
     const {xl} = this.breakpointService.getBreakpointsMap();

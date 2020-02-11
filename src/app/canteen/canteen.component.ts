@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {NbMenuItem} from '@nebular/theme';
 import {MENU_ITEMS} from './canteen-menu';
+import {AuthorityUtil} from '../@core/utils/AuthorityUtil';
 
 @Component({
   selector: 'app-canteen',
@@ -21,8 +22,12 @@ export class CanteenComponent implements OnInit {
 
   ngOnInit() {
     this.menu = [];
-    this.menu.push(MENU_ITEMS.get('Dashboard'));
-    this.menu.push(MENU_ITEMS.get('Configure'));
+    if (AuthorityUtil.checkAdmin()) {
+      this.menu.push(MENU_ITEMS.get('Configure'));
+    }
+    if(AuthorityUtil.checkStudent()){
+      this.menu.push(MENU_ITEMS.get('Dashboard'));
+    }
     this.menu.push(MENU_ITEMS.get('Notification'));
   }
 

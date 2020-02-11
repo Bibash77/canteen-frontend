@@ -17,13 +17,13 @@
         <tbody>
         <tr>
           <td>{{wallets.user.username != undefined || wallets.user.username != null ? wallets.user.username: "user"}}</td>
-          <td>{{wallets.walletAmount != null ? wallets.walletAmount : 0}}</td>
+          <td>Rs.{{wallets.walletAmount != null ? wallets.walletAmount : 0}}</td>
           <td>{{wallets.user.userCode != undefined || wallets.user.userCode != null? wallets.user.userCode: "user"}}</td>
 
-          <td><nb-toggle status="danger" [checked]="wallets.user.status == 'ACTIVE'" (click)="changeUserStatus(wallets.user)">Active</nb-toggle></td>
+          <td><nb-toggle status="danger" [checked]="wallets.user.status == 'ACTIVE'" (click)="changeUserStatus(wallets.user)">Active{{logData(wallets.user)}}</nb-toggle></td>
           <td>
             <button nbButton hero status="info" size="small" (click)="topUp(wallets.user)">Top-Up</button>
-            <button nbButton hero status="success" size="small">Transactions</button>
+            <button nbButton hero status="success" size="small" [routerLink]="['/canteen/transaction', wallets.user.id]">Transactions</button>
           </td>
         </tr>
         </tbody>

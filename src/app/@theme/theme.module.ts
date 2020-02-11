@@ -31,6 +31,7 @@ import {CORPORATE_THEME} from './styles/theme.corporate';
 import {DARK_THEME} from './styles/theme.dark';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
+import {PagingComponent} from "./components/paging/paging.component";
 
 const BASE_MODULES = [CommonModule, RouterModule, FormsModule, ReactiveFormsModule];
 
@@ -58,6 +59,7 @@ const COMPONENTS = [
   OneColumnLayoutComponent,
   ThreeColumnsLayoutComponent,
   TwoColumnsLayoutComponent,
+  PagingComponent,
 ];
 
 const ENTRY_COMPONENTS = [];

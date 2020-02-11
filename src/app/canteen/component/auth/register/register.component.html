@@ -6,17 +6,17 @@
       <div class="form-group ">
     <label for="FullName">FullName</label>
     <input nbInput fullWidth type="text" id="FullName" placeholder="Enter your full name" name="fullName"
-           [(ngModel)]="user.fullName" class="form-control" style="width: 500px">
+           [(ngModel)]="user.fullName" class="form-control">
     </div>
     <div class="form-group ">
       <label for="email">Email</label>
       <input nbInput fullWidth type="text" id="email" placeholder="Enter your email" name="email"
-             [(ngModel)]="user.email" class="form-control" style="width: 500px">
+             [(ngModel)]="user.email" class="form-control">
     </div>
     <div class="form-group ">
       <label for="batch">Select Batch</label>
    <select id="batch" class="form-control" [(ngModel)]="user.batch" name="batch">
-     <option selected>--Select Batch--</option>
+     <option [selected]="true">--Select Batch--</option>
      <option value="2018">2018</option>
      <option value="2019">2019</option>
    </select>
@@ -24,7 +24,7 @@
     <div class="form-group">
       <label for="userName">UserName</label>
       <input nbInput fullWidth type="text" id="userName" placeholder="Enter your username" name="userName"
-             [(ngModel)]="user.username" class="form-control" autofocus>
+             [(ngModel)]="user.userName" class="form-control" autofocus>
     </div>
     <div class="form-group">
       <label for="password">Password</label>

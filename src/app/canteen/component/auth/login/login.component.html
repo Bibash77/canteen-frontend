@@ -1,7 +1,6 @@
 <nb-layout>
   <nb-layout-column id="ll">
     <div class="text-center">
-      <h5>Divya Gyan Canteen For your Service</h5>
       <p>Log in to continue</p>
       <div class="container mt-3">
         <div class="row">
@@ -14,7 +13,7 @@
             <div class="card-body shadow">
               <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm.value)">
                 <div class="form-group">
-                  <input #email="ngModel" class="form-control" name="email"
+                  <input #userName="ngModel" class="form-control" name="userName"
                          ngModel placeholder="Username"
                          required type="text">
                 </div>
@@ -25,12 +24,10 @@
                 </div>
 
                 <div class="form-group">
-                  <a routerLink="/canteen/dashboard">
                     <button nbButton status="info" class="float-right" type="submit">
                     <span *ngIf="spinner" class="spinner-border spinner-border-sm"></span>
                     Sign In
                   </button>
-                  </a>
                 </div>
               </form>
             </div>

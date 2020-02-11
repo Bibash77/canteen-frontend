@@ -10,7 +10,7 @@ import {LoginComponent} from './canteen/component/auth/login/login.component';
 import {NbDialogModule, NbInputModule} from '@nebular/theme';
 import {RegisterComponent} from './canteen/component/auth/register/register.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {HttpClientModule} from "@angular/common/http";
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [

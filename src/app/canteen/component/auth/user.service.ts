@@ -8,7 +8,7 @@ import {ApiUtils} from '../../../@core/utils/ApiUtils';
 @Injectable({
   providedIn: 'root'
 })
-export class UserService extends BaseService<User>{
+export class UserService extends BaseService<User> {
 
   static API = `v1/user`;
 
@@ -28,5 +28,10 @@ export class UserService extends BaseService<User>{
   public changeStatus(user: User): Observable<any> {
     const req = ApiUtils.getRequest( `${this.getApi()}/status`);
     return this.http.post(req.url , user , {headers : req.header});
+  }
+
+  public login(user): Observable<any> {
+    const req = ApiUtils.getRequest( `${this.getApi()}/login`);
+    return this.http.post(req.url, user , {headers : req.header});
   }
 }

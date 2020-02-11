@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {CanteenComponent} from './canteen.component';
 import {DashboardComponent} from './component/dashboard/dashboard.component';
-import {ConfigurationComponent} from "./component/dashboard/configuration/configuration.component";
-import {NotificationComponent} from "./component/dashboard/notification/notification.component";
+import {ConfigurationComponent} from './component/dashboard/configuration/configuration.component';
+import {NotificationComponent} from './component/dashboard/notification/notification.component';
+import {UserTransactionComponent} from './component/dashboard/history/user-transaction/user-transaction.component';
 
 
 const routes: Routes = [
@@ -22,6 +23,10 @@ const routes: Routes = [
       {
         path: 'notification',
         component: NotificationComponent
+      },
+      {
+        path: 'transaction/:id',
+        component: UserTransactionComponent
       },
       {
         path: '',
