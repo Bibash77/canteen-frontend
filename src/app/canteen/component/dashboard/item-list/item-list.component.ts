@@ -2,7 +2,7 @@ import {Component, OnInit, TemplateRef} from '@angular/core';
 import {Item} from '../../modal/Item';
 import {ItemService} from '../configuration/add-item/item.service';
 import {AddItemComponent} from '../configuration/add-item/add-item.component';
-import {NbDialogService} from '@nebular/theme';
+import {NbDialogService, NbToastrService} from '@nebular/theme';
 import {AuthorityUtil} from '../../../../@core/utils/AuthorityUtil';
 import {OrderService} from './order.service';
 import {OrderDto} from '../../modal/orderDto';
@@ -18,6 +18,7 @@ export class ItemListComponent implements OnInit {
   constructor( private itemService: ItemService,
                private dialogService: NbDialogService,
                private orderService: OrderService,
+               private toastrService: NbToastrService,
                private router: Router) { }
 
   item: Array<Item> = new Array<Item>();
@@ -59,7 +60,7 @@ export class ItemListComponent implements OnInit {
     console.log(this.orderDto);
     this.orderService.save(this.orderDto).subscribe(value => {
       if (value.detail) {
-        alert('sucessfully ordered');
+        this.toastrService.show(value.detail.item.itemName + ' ordered sucessfully', `Toast: ${4}`);
       }
     });
   }

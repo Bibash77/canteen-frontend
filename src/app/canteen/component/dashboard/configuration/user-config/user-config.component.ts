@@ -5,6 +5,7 @@ import {UserService} from '../../../auth/user.service';
 import {User} from '../../../modal/user';
 import {Wallet} from '../../../modal/wallet';
 import {WalletService} from '../top-up/wallet.service';
+import {UserType} from "../../../../../@core/userType";
 
 @Component({
   selector: 'app-user-config',
@@ -18,6 +19,8 @@ export class UserConfigComponent implements OnInit {
 
               walletList: Array<Wallet> = new Array<Wallet>();
               userList: Array<User> = new Array<User>();
+              userType = UserType.values();
+              toogle;
   ngOnInit() {
     this.getAllUser();
   }
@@ -33,13 +36,26 @@ export class UserConfigComponent implements OnInit {
     });
   }
 
-  changeUserStatus(user) {
-    console.log(user);
+  changeUserStatus(user1, status , userType) {
+    const user = new User();
+    user.status = status;
+    user.roleType = userType;
+    user.id = user1.id;
     this.userService.changeStatus(user).subscribe(value => {
+      console.log(user);
       alert(value.detail.username + ' is' + value.detail.status + 'now');
+      this.ngOnInit();
     });
   }
 
-  logData(data) {
+  openConfig(dialog: TemplateRef<any>, user) {
+    console.log(this.userType);
+    console.log(user);
+    this.dialogService.open(dialog, { context: user });
+    return false;
+  }
+  toggleButton(status) {
+    console.log(status);
+    return status == 'ACTIVE';
   }
 }

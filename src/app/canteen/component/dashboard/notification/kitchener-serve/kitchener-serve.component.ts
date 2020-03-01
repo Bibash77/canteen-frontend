@@ -2,7 +2,8 @@ import {Component, OnInit, TemplateRef} from '@angular/core';
 import {OrderDto} from '../../../modal/orderDto';
 import {SearchDto} from '../../../modal/SearchDto';
 import {OrderService} from '../../item-list/order.service';
-import {NbDialogService} from "@nebular/theme";
+import {NbDialogService} from '@nebular/theme';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-kitchener-serve',
@@ -12,7 +13,10 @@ import {NbDialogService} from "@nebular/theme";
 export class KitchenerServeComponent implements OnInit {
 
   order: Array<OrderDto> = [];
+  searchForm: FormGroup;
   searchDto: SearchDto = new SearchDto();
+  orderDto: OrderDto = new OrderDto();
+  isFilterCollapsed = true;
   options = [
     { value: 'PENDING', label: 'Revert To Pending', checked: true },
     { value: 'READY', label: 'Notify Ready' },
@@ -25,13 +29,23 @@ export class KitchenerServeComponent implements OnInit {
   loading = false;
   constructor(
     private orderService: OrderService,
-    private dialogService: NbDialogService
+    private dialogService: NbDialogService,
+    private formBuilder: FormBuilder
   ) { }
 
   ngOnInit() {
-    this.searchDto.orderStatus = 'PENDING';
-    this.orderService.getOrderHistory(this.searchDto).subscribe(value => {
+    this.buildForm();
+    this.orderDto.orderStatus = 'PENDING';
+    this.orderService.getOrderHistory(this.orderDto).subscribe(value => {
       this.order = value.detail;
+    });
+  }
+
+  buildForm() {
+    this.searchForm = this.formBuilder.group({
+      orderStatus: [undefined],
+      orderCode: [undefined],
+      itemName: [undefined]
     });
   }
 
@@ -50,7 +64,34 @@ export class KitchenerServeComponent implements OnInit {
         });*/
   }
 
-  openDialog(dialog: TemplateRef<any>, item) {
+    openDialog(dialog: TemplateRef<any>, item) {
     this.dialogService.open(dialog, { context: item });
+  }
+
+  changeOrderStatus(order , action) {
+    console.log(order);
+    this.orderDto.id = order.id;
+    this.orderDto.orderStatus = action;
+    this.orderDto.orderCode = order.orderCode;
+    this.orderService.deliverItem(this.orderDto).subscribe(value => {
+  this.ngOnInit();
+   });
+  }
+
+  search() {
+   /* this.searchForm.valueChanges.subscribe(values => {
+      this.orderService.getOrderHistory(this.searchForm.value).subscribe(value => {
+        console.log(value);
+        this.order = value.detail;
+      });
+    });*/
+    console.log(this.searchForm.value);
+    if(this.searchForm.get('orderCode').value === ''){
+      this.searchForm.get('orderCode').setValue(null);
+    }
+    this.orderService.getOrderHistory(this.searchForm.value).subscribe(value => {
+      console.log(value);
+      this.order = value.detail;
+    });
   }
 }

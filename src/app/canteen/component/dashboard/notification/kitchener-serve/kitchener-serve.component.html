@@ -1,44 +1,100 @@
 <nb-layout windowMode>
   <nb-layout-column class="bg-white" style="padding: 0px">
-<ng-template #dialog let-data let-ref="dialogRef">
-  <nb-card accent="primary">
-    <nb-card-header class="text-center"><h6>choose your action</h6></nb-card-header>
-    <nb-card-body>
-        <nb-radio-group>
-          <nb-radio *ngFor="let option of options"
-                    [checked]="option.checked"
-                    [disabled]="option.disabled"
-                    [value]="option.value">
-            {{ option.label }}
-          </nb-radio>
-        </nb-radio-group>
-    </nb-card-body>
-    <nb-card-footer>
-      <button nbTooltip="Cancel" nbTooltipStatus="danger" nbButton hero size="tiny"  status="danger" (click)="ref.close()"><nb-icon icon="close-circle"></nb-icon></button>
-      <button nbTooltip="Save your action" nbTooltipStatus="primary" nbButton hero status="primary" size="tiny" class="float-right"><nb-icon icon="checkmark-square"></nb-icon></button>
-    </nb-card-footer>
-  </nb-card>
-</ng-template>
- <nb-card accent="success">
-   <nb-card-header></nb-card-header>
-   <nb-card-body>
-     <table class="table">
-       <tr>
-         <th>Item</th>
-         <th>Qty</th>
-         <th>Token</th>
-         <th>Action</th>
-       </tr>
-       <tr *ngFor="let order of order">
-         <td>{{order.itemName}}</td>
-         <td>{{order.quantity}}</td>
-         <td>{{order.orderCode}}</td>
-         <td>
-           <nb-icon icon="shopping-bag" status="success" (click)="openDialog(dialog , order.orderCode)"></nb-icon></td>
-       </tr>
-     </table>
-   </nb-card-body>
- </nb-card>
+    <ng-template #dialog let-data let-ref="dialogRef">
+      <nb-card accent="primary">
+        <nb-card-header class="text-center"><h6>choose your action</h6></nb-card-header>
+        <nb-card-body>
+          <nb-radio-group #action>
+            <nb-radio *ngFor="let option of options"
+                      [checked]="option.checked"
+                      [disabled]="option.disabled"
+                      [value]="option.value">
+              {{ option.label }}
+            </nb-radio>
+          </nb-radio-group>
+        </nb-card-body>
+        <nb-card-footer>
+          <button (click)="ref.close()" hero nbButton nbTooltip="Cancel" nbTooltipStatus="danger"
+                  size="tiny" status="danger">
+            <nb-icon icon="close-circle"></nb-icon>
+          </button>
+          <button (click)="changeOrderStatus(data , action.value);ref.close()"
+                  class="float-right" hero nbButton nbTooltip="Save your action"
+                  nbTooltipStatus="primary" size="tiny" status="primary">
+            <nb-icon icon="checkmark-square"></nb-icon>
+          </button>
+        </nb-card-footer>
+      </nb-card>
+    </ng-template>
+    <nb-card accent="success">
+      <nb-card-header>
+        <div class="row">
+          <button
+            (click)="isFilterCollapsed = !isFilterCollapsed"
+            [attr.aria-expanded]="!isFilterCollapsed" aria-controls="searchModel"
+            nbButton
+            shape="rectangle"
+            size="small"
+            status="success">
+            <nb-icon [hidden]="!isFilterCollapsed" icon="arrow-downward"></nb-icon>
+            <nb-icon [hidden]="isFilterCollapsed" icon="arrow-upward"></nb-icon>
+          </button>
+        </div>
+        <div [hidden]="isFilterCollapsed" class="row">
+          <form [formGroup]="searchForm">
+            <table>
+              <tr [hidden]="isFilterCollapsed">
+                <td>
+                  <nb-select #orderStatus (selectedChange)="search()" formControlName="orderStatus"
+                             placeholder="status" size="medium" status="success">
+                    <nb-option value="PENDING">Pending</nb-option>
+                    <nb-option value="READY">Ready</nb-option>
+                    <nb-option value="DELIVERED">Deliver</nb-option>
+                  </nb-select>
+                </td>
+                <td>
+                  <input #orderCode (keyup)="search()" class="form-control" fieldSize="large"
+                         formControlName="orderCode" nbInput placeholder="Token"
+                         status="success">
+                </td>
+                <td>
+                  <input #itemName (keyup)="search()" class="form-control" fieldSize="large"
+                         formControlName="itemName" nbInput placeholder="item"
+                         status="success">
+
+                </td>
+              </tr>
+            </table>
+
+          </form>
+        </div>
+      </nb-card-header>
+      <nb-card-body>
+        <table class="table">
+          <tr>
+            <th>Item</th>
+            <th>Qty</th>
+            <th>Token</th>
+            <th></th>
+          </tr>
+          <tr *ngFor="let order of order">
+            <td>{{order.itemName}}</td>
+            <td>{{order.quantity}}</td>
+            <td>{{order.orderCode}}</td>
+            <td>
+              <nb-icon (click)="openDialog(dialog , order)" *ngIf="order.orderStatus == 'PENDING'"
+                       [status]="order.orderStatus == 'PENDING'?'success':'primary'"
+                       icon="shopping-bag"></nb-icon>
+              <nb-icon (click)="openDialog(dialog , order)" *ngIf="order.orderStatus == 'DELIVERED'"
+                       icon="done-all" status="primary"></nb-icon>
+              <nb-icon (click)="openDialog(dialog , order)" *ngIf="order.orderStatus == 'READY'"
+                       icon="options" status="danger"></nb-icon>
+
+            </td>
+          </tr>
+        </table>
+      </nb-card-body>
+    </nb-card>
 
   </nb-layout-column>
 </nb-layout>

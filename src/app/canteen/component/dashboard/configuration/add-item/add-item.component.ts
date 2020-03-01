@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {User} from '../../../modal/user';
 import {ItemService} from './item.service';
-import {NbDialogRef} from '@nebular/theme';
+import {NbDialogRef, NbToastrService} from '@nebular/theme';
 import { Router} from '@angular/router';
 import {Item} from '../../../modal/Item';
 
@@ -16,6 +16,7 @@ export class AddItemComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private itemService: ItemService,
               public dialog: NbDialogRef<AddItemComponent>,
+              private toastrService: NbToastrService,
               private router: Router) { }
   ngOnInit() {
     this.buildForm();
@@ -28,7 +29,7 @@ export class AddItemComponent implements OnInit {
         itemName: [this.singleItem !== undefined ? this.singleItem.itemName : undefined],
         cookingTime: [this.singleItem !== undefined ? this.singleItem.cookingTime : undefined],
         price: [this.singleItem !== undefined ? this.singleItem.price : undefined],
-        itemStatus: [this.singleItem !== undefined ? this.singleItem.itemStatus : undefined],
+        itemStatus: [this.singleItem !== undefined ? this.singleItem.itemStatus : null],
       }
     );
   }

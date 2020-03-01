@@ -24,7 +24,7 @@
       <div class="col">
         <label>Status</label>
         <select class="form-control" formControlName="itemStatus">
-          <option selected>--Select Status--</option>
+          <option [ngValue]="null">--Select Status--</option>
           <option value="INSTOCK">INSTOCK</option>
           <option value="OUTOFSTOCK">OUTOFSTOCK</option>
         </select>

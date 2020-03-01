@@ -1,5 +1,5 @@
 export class SearchDto {
-  userId: number;
+  userId: string;
   createdAt: string;
   orderStatus: string;
 }

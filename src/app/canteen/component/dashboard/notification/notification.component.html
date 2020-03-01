@@ -1,5 +1,5 @@
 <div class="bg-white">
-<app-kitchener-serve></app-kitchener-serve>
+<app-kitchener-serve *ngIf="isAdmin"></app-kitchener-serve>
    <!-- <nb-card>
       <tr
         nbInfiniteList
@@ -11,5 +11,6 @@
         </nb-list-item>
       </tr>
     </nb-card>-->
+  <app-orders *ngIf="isStudent" [searchDto]="searchDto"></app-orders>
 
 </div>
