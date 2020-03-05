@@ -32,6 +32,7 @@ import {DARK_THEME} from './styles/theme.dark';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {PagingComponent} from "./components/paging/paging.component";
+import {NgbPaginationModule} from "@ng-bootstrap/ng-bootstrap";
 
 const BASE_MODULES = [CommonModule, RouterModule, FormsModule, ReactiveFormsModule];
 
@@ -88,7 +89,7 @@ const NB_THEME_PROVIDERS = [
 ];
 
 @NgModule({
-  imports: [...BASE_MODULES, ...NB_MODULES, ...OTHER_MODULES],
+  imports: [...BASE_MODULES, ...NB_MODULES, ...OTHER_MODULES, NgbPaginationModule],
   exports: [...BASE_MODULES, ...NB_MODULES, ...OTHER_MODULES, ...PIPES, ...COMPONENTS],
   declarations: [...COMPONENTS, ...PIPES],
   entryComponents: [...ENTRY_COMPONENTS]

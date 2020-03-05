@@ -1,11 +1,11 @@
 <div class="row col-md-12">
     <p class="col-md-6 page-custom">Showing {{(pageable.number - 1) * pageable.size + 1}}
         to {{((pageable.number - 1) * pageable.size) + pageable.numberOfElements}}
-        of {{pageable.totalElements}} entries
+        of {{pageable.totalElements}} transaction
     </p>
-   <!-- <ngb-pagination class="col-md-6 d-flex justify-content-end" [collectionSize]="pageable.totalElements"
+    <ngb-pagination class="col-md-6 d-flex justify-content-end" [collectionSize]="pageable.totalElements"
                     [pageSize]="pageable.size"
                     [(page)]="pageable.number" [maxSize]="pageable.totalPages" [rotate]="false"
                     (pageChange)="pageChanged($event)">
-    </ngb-pagination>-->
+    </ngb-pagination>
 </div>

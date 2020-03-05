@@ -93,6 +93,7 @@
             </td>
           </tr>
         </table>
+        <app-paging (changePage)="changePage($event)" *ngIf="!spinner" [pageable]="pageable" ></app-paging>
       </nb-card-body>
     </nb-card>
 

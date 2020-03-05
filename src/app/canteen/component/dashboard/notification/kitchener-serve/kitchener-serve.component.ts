@@ -4,6 +4,8 @@ import {SearchDto} from '../../../modal/SearchDto';
 import {OrderService} from '../../item-list/order.service';
 import {NbDialogService} from '@nebular/theme';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {PaginationUtils} from '../../../../../@core/utils/PaginationUtils';
+import {Pageable} from '../../../modal/common-pageable';
 
 @Component({
   selector: 'app-kitchener-serve',
@@ -11,10 +13,18 @@ import {FormBuilder, FormGroup} from '@angular/forms';
   styleUrls: ['./kitchener-serve.component.scss']
 })
 export class KitchenerServeComponent implements OnInit {
+  constructor(
+    private orderService: OrderService,
+    private dialogService: NbDialogService,
+    private formBuilder: FormBuilder
+  ) { }
 
   order: Array<OrderDto> = [];
   searchForm: FormGroup;
+  page = 1;
+  spinner = false;
   searchDto: SearchDto = new SearchDto();
+  pageable: Pageable = new Pageable();
   orderDto: OrderDto = new OrderDto();
   isFilterCollapsed = true;
   options = [
@@ -27,18 +37,22 @@ export class KitchenerServeComponent implements OnInit {
   pageSize = 10;
   pageToLoadNext = 1;
   loading = false;
-  constructor(
-    private orderService: OrderService,
-    private dialogService: NbDialogService,
-    private formBuilder: FormBuilder
-  ) { }
+
+  static loadData(other: KitchenerServeComponent) {
+    other.spinner = true;
+    other.orderService.getOrderHistory(other.orderDto , other.page, 5).subscribe((response: any) => {
+      other.order = response.detail.content;
+      other.pageable = PaginationUtils.getPageable(response.detail);
+      other.spinner = false;
+    }, error => {
+      console.error(error);
+    });
+  }
 
   ngOnInit() {
     this.buildForm();
     this.orderDto.orderStatus = 'PENDING';
-    this.orderService.getOrderHistory(this.orderDto).subscribe(value => {
-      this.order = value.detail;
-    });
+    KitchenerServeComponent.loadData(this);
   }
 
   buildForm() {
@@ -86,12 +100,14 @@ export class KitchenerServeComponent implements OnInit {
       });
     });*/
     console.log(this.searchForm.value);
-    if(this.searchForm.get('orderCode').value === ''){
+    if (this.searchForm.get('orderCode').value === '') {
       this.searchForm.get('orderCode').setValue(null);
     }
-    this.orderService.getOrderHistory(this.searchForm.value).subscribe(value => {
-      console.log(value);
-      this.order = value.detail;
-    });
+    this.orderDto = this.searchForm.value;
+    KitchenerServeComponent.loadData(this);
+  }
+  changePage(page: number) {
+    this.page = page;
+    KitchenerServeComponent.loadData(this);
   }
 }

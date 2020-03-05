@@ -25,5 +25,6 @@
       </tr>
       </tbody>
     </table>
+    <app-paging *ngIf="!spinner" [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
   </nb-card-body>
 </nb-card>

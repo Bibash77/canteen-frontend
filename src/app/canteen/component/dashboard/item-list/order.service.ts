@@ -21,8 +21,8 @@ export class OrderService extends BaseService<OrderDto> {
     return OrderService.API;
   }
 
-  public getOrderHistory(searchObj: any): Observable<any> {
-    const api = `${this.getApi()}/history`;
+  public getOrderHistory(searchObj: any , page: number = 1, size: number = 10): Observable<any> {
+    const api = `${this.getApi()}/history?page=${page}&size=${size}`;
     const req = ApiUtils.getRequest(api);
     return this.http.post(req.url, searchObj, {headers: req.header});
   }
