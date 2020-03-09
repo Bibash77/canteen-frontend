@@ -32,7 +32,6 @@ export class KitchenerServeComponent implements OnInit {
     { value: 'READY', label: 'Notify Ready' },
     { value: 'DELIVERED', label: 'Deliver Order' },
   ];
-  news = [];
   placeholders = [];
   pageSize = 10;
   pageToLoadNext = 1;
