@@ -27,6 +27,7 @@ export class RegisterComponent implements OnInit {
     if (this.confirmPasswordChecker(registerForm)) {
       this.userService.registerUser(this.user).subscribe(value => {
         alert('login to continue');
+        this.onDismiss();
         this.router.navigateByUrl('');
       });
     }  else {
@@ -45,7 +46,6 @@ export class RegisterComponent implements OnInit {
   }
 
   onDismiss() {
-
     this.dialog.close();
   }
 

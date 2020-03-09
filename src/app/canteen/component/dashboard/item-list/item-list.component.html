@@ -2,22 +2,22 @@
   <nb-card status="primary">
     <nb-card-header class="text-center"><h5>Order {{data.itemName}}</h5></nb-card-header>
     <nb-card-body>
-      <div class="row">
-        <div class="col">
+    <!--  <div class="row">
+        <div class="col">-->
           <label for="quantity">Quantity</label>
           <input class="form-control"  id="quantity" nbInput
-                 type="text" name="quantity" #quantity (keyup)="calculateTotal(data.price , quantity.value)">
-        </div>
-        <div class="col">
+                 type="text" name="quantity" #quantity (keyup)="calculateTotal(data.price , quantity.value)" required>
+        <!--</div>
+        <div class="col">-->
           <label for="itemPrice">Total Expenses</label>
           <input class="form-control"  id="itemPrice" nbInput [(ngModel)]="totalExpenses"
                  type="text" readonly>
-        </div>
-      </div>
+        <!--</div>
+      </div>-->
     </nb-card-body>
     <nb-card-footer>
-      <button nbButton hero  status="danger" (click)="ref.close()">cancel</button>
-      <button nbButton hero status="primary" class="float-right" (click)="orderItem(data , quantity.value); ref.close()">Order</button>
+      <button nbButton hero  status="danger" (click)="ref.close()" size="small">cancel</button>
+      <button *ngIf="quantity.value > 0" nbButton hero status="primary" class="float-right" (click)="orderItem(data , quantity.value); ref.close()" size="small">Order</button>
     </nb-card-footer>
   </nb-card>
 </ng-template>
@@ -27,7 +27,7 @@
     <tr>
     <th>Meal</th>
     <th>price</th>
-    <th>Status</th>
+    <!--<th>Status</th>-->
     <th>Action</th>
     </tr>
     </thead>
@@ -35,9 +35,12 @@
     <tr *ngFor="let singleItem of item">
       <td>{{singleItem.itemName}}</td>
       <td>Rs.{{singleItem.price}}</td>
-      <td>{{singleItem.itemStatus}}</td>
-      <td><button *ngIf="singleItem.itemStatus !== 'OUTOFSTOCK' && isStudent" nbButton hero status="info" size="small" (click)="openOrder(dialog , singleItem)">Order</button>
-        <button *ngIf="isAdmin" nbButton hero status="success" size="small" (click)="onEditItem(singleItem)">Edit</button></td>
+      <!--<td>{{singleItem.itemStatus}}</td>-->
+      <td>
+       <button *ngIf="singleItem.itemStatus !== 'OUTOFSTOCK' && isStudent" nbButton hero status="info" size="tiny" (click)="openOrder(dialog , singleItem)">Order</button>
+        <button *ngIf="isAdmin" nbButton hero status="success" size="small" (click)="onEditItem(singleItem)">Edit</button>
+          <nb-icon *ngIf="singleItem.itemStatus === 'OUTOFSTOCK'" icon="close" status="danger" [options]="{ animation: { type: 'zoom' }}" class="mt-2"></nb-icon>
+      </td>
     </tr>
     </tbody>
   </ng-container>

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {OrderService} from "../item-list/order.service";
 import {OrderDto} from "../../modal/orderDto";
 import {SearchDto} from "../../modal/SearchDto";
+import {LocalStorageUtil} from "../../../../@core/utils/local-storage-util";
+import {AuthorityUtil} from "../../../../@core/utils/AuthorityUtil";
 
 @Component({
   selector: 'app-notification',
@@ -11,6 +13,8 @@ import {SearchDto} from "../../modal/SearchDto";
 export class NotificationComponent implements OnInit {
   order: Array<OrderDto> = [];
   searchDto: SearchDto = new SearchDto();
+  isAdmin;
+  isStudent;
   news = [];
   placeholders = [];
   pageSize = 10;
@@ -21,10 +25,10 @@ export class NotificationComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.isAdmin = AuthorityUtil.checkAdmin();
+    this.isStudent = AuthorityUtil.checkStudent();
+    this.searchDto.userId = LocalStorageUtil.getStorage().userId;
     this.searchDto.orderStatus = 'PENDING';
-    this.orderService.getOrderHistory(this.searchDto).subscribe(value => {
-      this.order = value.detail;
-    });
   }
 
 

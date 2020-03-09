@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {NbDialogRef} from '@nebular/theme';
+import {NbDialogRef, NbToastrService} from '@nebular/theme';
 import {Wallet} from '../../../modal/wallet';
 import {Router} from '@angular/router';
 
@@ -29,7 +29,8 @@ export class TopUpComponent implements OnInit {
 
   constructor(private walletService: WalletService,
               private dialogref: NbDialogRef<TopUpComponent>,
-              private router: Router) { }
+              private router: Router,
+              private nbToastrService: NbToastrService) { }
 
   ngOnInit() {
   }
@@ -41,6 +42,7 @@ export class TopUpComponent implements OnInit {
     this.walletService.topUp(wallet).subscribe(value => {
       alert('sucessfully deposit');
       this.router.navigateByUrl('/canteen/dashboard').then( () => {
+        this.nbToastrService.show('your message', 'Success!!');
         this.router.navigate(['/canteen/configuration']);
       });
     });

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {WalletService} from '../../configuration/top-up/wallet.service';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {Pageable} from '../../../modal/common-pageable';
@@ -13,6 +13,8 @@ import {OrderDto} from '../../../modal/orderDto';
 })
 export class UserTransactionComponent implements OnInit {
 
+
+  @Input() status;
   transaction = [];
   order: Array<OrderDto> = [];
   searchDto: SearchDto = new SearchDto();
@@ -31,11 +33,7 @@ export class UserTransactionComponent implements OnInit {
       this.transaction = value.detail;
     }) ;
     this.searchDto.userId = this.id;
-    this.searchDto.createdAt = null;
-    this.searchDto.orderStatus = 'PENDING';
-    this.orderService.getOrderHistory(this.searchDto).subscribe(value => {
-    this.order = value.detail;
-    });
+    this.searchDto.orderStatus = 'DELIVERED';
   }
 
   color(value) {

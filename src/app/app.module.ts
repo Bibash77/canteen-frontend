@@ -7,10 +7,11 @@ import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {CoreModule} from './@core/core.module';
 import {ThemeModule} from './@theme/theme.module';
 import {LoginComponent} from './canteen/component/auth/login/login.component';
-import {NbDialogModule, NbInputModule} from '@nebular/theme';
+import {NbDialogModule, NbInputModule, NbToastrModule} from '@nebular/theme';
 import {RegisterComponent} from './canteen/component/auth/register/register.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HttpClientModule} from '@angular/common/http';
+import {NgbPaginationModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
   declarations: [
@@ -27,7 +28,10 @@ import {HttpClientModule} from '@angular/common/http';
     ThemeModule.forRoot(),
     ThemeModule,
     NbDialogModule.forChild(),
+    NbToastrModule.forRoot({
+    }),
     NbInputModule,
+    NgbPaginationModule,
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   entryComponents: [

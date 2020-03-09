@@ -1,0 +1,30 @@
+<nb-card accent="primary" class="p-0">
+  <nb-card-header class="text-center">
+    <b>{{searchDto.orderStatus}} ORDERS</b>
+  </nb-card-header>
+  <nb-card-body>
+    <table class="table table-striped table-bordered table-hover">
+      <thead>
+      <tr>
+        <!--<th>S.no</th>
+        <th>Status</th>-->
+        <th>Item</th>
+        <th>Qty</th>
+        <th>Amount</th>
+        <th>Token</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let order of order; let i=index">
+       <!-- <td>{{i+1}}</td>
+        <td>{{order?.orderStatus}}</td>-->
+        <td>{{order?.itemName}}</td>
+        <td>{{order?.quantity}}</td>
+        <td>Rs.{{order?.expenditure}}</td>
+        <td>{{order?.orderCode}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <app-paging *ngIf="!spinner" [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
+  </nb-card-body>
+</nb-card>

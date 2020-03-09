@@ -20,11 +20,14 @@ import { UserConfigComponent } from './component/dashboard/configuration/user-co
 import { ItemListComponent } from './component/dashboard/item-list/item-list.component';
 import { UserTransactionComponent } from './component/dashboard/history/user-transaction/user-transaction.component';
 import { KitchenerServeComponent } from './component/dashboard/notification/kitchener-serve/kitchener-serve.component';
+import {HistoryModule} from './component/dashboard/history/history.module';
+import {OrdersComponent} from './component/dashboard/history/user-transaction/orders/orders.component';
 
 
 @NgModule({
   declarations: [CanteenComponent, DashboardComponent, ConfigurationComponent,
-    NotificationComponent, AddItemComponent, TopUpComponent, UserConfigComponent, ItemListComponent, UserTransactionComponent, KitchenerServeComponent],
+    NotificationComponent, AddItemComponent, TopUpComponent, UserConfigComponent,
+    ItemListComponent, UserTransactionComponent, KitchenerServeComponent, OrdersComponent],
   imports: [
     CommonModule,
     CanteenRoutingModule,
@@ -39,6 +42,7 @@ import { KitchenerServeComponent } from './component/dashboard/notification/kitc
     NbInputModule,
     NbRadioModule,
     NbTooltipModule,
+    HistoryModule,
   ],
   entryComponents: [AddItemComponent , TopUpComponent]
 })
