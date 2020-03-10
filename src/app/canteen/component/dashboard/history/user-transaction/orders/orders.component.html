@@ -1,17 +1,25 @@
-<nb-card accent="primary" class="p-0">
+<nb-card accent="primary">
   <nb-card-header class="text-center">
     <b>{{searchDto.orderStatus}} ORDERS</b>
     <div class="row">
     <div class="col-md-12 text-right">
-      <button
+      <button *ngIf="!isFilterCollapsed"
         (click)="isFilterCollapsed = !isFilterCollapsed"
         [attr.aria-expanded]="!isFilterCollapsed" aria-controls="searchModel"
         nbButton
         shape="rectangle"
         size="small"
         status="primary">
-        <nb-icon [hidden]="!isFilterCollapsed" icon="arrow-downward"></nb-icon>
-        <nb-icon [hidden]="isFilterCollapsed" icon="arrow-upward"></nb-icon>
+        <nb-icon icon="arrow-downward"></nb-icon>
+      </button>
+      <button *ngIf="isFilterCollapsed"
+        (click)="isFilterCollapsed = !isFilterCollapsed"
+        [attr.aria-expanded]="!isFilterCollapsed" aria-controls="searchModel"
+        nbButton
+        shape="rectangle"
+        size="small"
+        status="primary">
+        <nb-icon icon="arrow-upward"></nb-icon>
       </button>
     </div>
     </div>
