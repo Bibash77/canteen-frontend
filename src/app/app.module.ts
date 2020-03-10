@@ -1,17 +1,17 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {CoreModule} from './@core/core.module';
 import {ThemeModule} from './@theme/theme.module';
 import {LoginComponent} from './canteen/component/auth/login/login.component';
-import {NbDialogModule, NbInputModule, NbToastrModule} from '@nebular/theme';
+import {NbDatepickerModule, NbDialogModule, NbInputModule, NbToastrModule} from '@nebular/theme';
 import {RegisterComponent} from './canteen/component/auth/register/register.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HttpClientModule} from '@angular/common/http';
-import {NgbPaginationModule} from "@ng-bootstrap/ng-bootstrap";
+import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -27,9 +27,9 @@ import {NgbPaginationModule} from "@ng-bootstrap/ng-bootstrap";
     CoreModule.forRoot(),
     ThemeModule.forRoot(),
     ThemeModule,
+    NbDatepickerModule.forRoot(),
     NbDialogModule.forChild(),
-    NbToastrModule.forRoot({
-    }),
+    NbToastrModule.forRoot({}),
     NbInputModule,
     NgbPaginationModule,
   ],
@@ -39,4 +39,5 @@ import {NgbPaginationModule} from "@ng-bootstrap/ng-bootstrap";
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {OrderService} from "../item-list/order.service";
-import {OrderDto} from "../../modal/orderDto";
-import {SearchDto} from "../../modal/SearchDto";
-import {LocalStorageUtil} from "../../../../@core/utils/local-storage-util";
-import {AuthorityUtil} from "../../../../@core/utils/AuthorityUtil";
+import {OrderService} from '../item-list/order.service';
+import {OrderDto} from '../../modal/orderDto';
+import {SearchDto} from '../../modal/SearchDto';
+import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
+import {AuthorityUtil} from '../../../../@core/utils/AuthorityUtil';
 
 @Component({
   selector: 'app-notification',

@@ -19,6 +19,7 @@ export class UserTransactionComponent implements OnInit {
   order: Array<OrderDto> = [];
   searchDto: SearchDto = new SearchDto();
   searchObject;
+  isFilterCollapsed = true;
   id;
   pageable: Pageable = new Pageable();
   constructor(private walletService: WalletService,

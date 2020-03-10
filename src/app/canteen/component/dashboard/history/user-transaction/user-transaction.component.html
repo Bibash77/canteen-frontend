@@ -6,6 +6,18 @@
       <nb-card accent="primary" class="p-0">
         <nb-card-header class="text-center">
           <h5>User Transaction</h5>
+          <div class="row">
+            <button
+              (click)="isFilterCollapsed = !isFilterCollapsed"
+              [attr.aria-expanded]="!isFilterCollapsed" aria-controls="searchModel"
+              nbButton
+              shape="rectangle"
+              size="small"
+              status="success">
+              <nb-icon [hidden]="!isFilterCollapsed" icon="arrow-downward"></nb-icon>
+              <nb-icon [hidden]="isFilterCollapsed" icon="arrow-upward"></nb-icon>
+            </button>
+          </div>
         </nb-card-header>
         <nb-card-body>
           <table class="table table-striped table-bordered table-hover">
