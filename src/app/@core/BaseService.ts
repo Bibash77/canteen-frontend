@@ -23,7 +23,7 @@ const req = ApiUtils.getRequest(`${this.getApi()}/all`);
 return this.http.get(req.url, {headers: req.header});
 }
 
-  public getPaginationWithSearchObject(searchObj: any, page: number = 1, size: number = 20): Observable<any> {
+  public getPaginationWithSearchObject(searchObj: any, page: number = 1, size: number = 10): Observable<any> {
     const req = ApiUtils.getRequest(`${this.getApi()}/list?page=${page}&size=${size}`);
 
     return this.http.post(req.url, searchObj, {headers: req.header});

@@ -5,7 +5,11 @@ import {UserService} from '../../../auth/user.service';
 import {User} from '../../../modal/user';
 import {Wallet} from '../../../modal/wallet';
 import {WalletService} from '../top-up/wallet.service';
-import {UserType} from "../../../../../@core/userType";
+import {UserType} from '../../../../../@core/userType';
+import {SearchDto} from '../../../modal/SearchDto';
+import {PaginationUtils} from '../../../../../@core/utils/PaginationUtils';
+import {Pageable} from '../../../modal/common-pageable';
+import {FormBuilder, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-user-config',
@@ -15,14 +19,35 @@ export class UserConfigComponent implements OnInit {
 
   constructor(private dialogService: NbDialogService,
               private userService: UserService,
-              private walletService: WalletService) { }
+              private walletService: WalletService,
+              private formBuilder: FormBuilder) { }
 
               walletList: Array<Wallet> = new Array<Wallet>();
               userList: Array<User> = new Array<User>();
               userType = UserType.values();
+  isFilterCollapsed = true;
+
+  searchForm: FormGroup;
+  page = 1;
+  search: SearchDto = new SearchDto();
+  spinner = false;
+  pageable: Pageable = new Pageable();
               toogle;
+
+  static loadData(other: UserConfigComponent) {
+    other.spinner = true;
+    other.walletService.getPaginationWithSearchObject(other.search , other.page, 10).subscribe((response: any) => {
+      other.walletList = response.detail.content;
+      other.pageable = PaginationUtils.getPageable(response.detail);
+      other.spinner = false;
+    }, error => {
+      console.error(error);
+    });
+  }
   ngOnInit() {
-    this.getAllUser();
+    this.buildForm();
+    this.search.userStatus = 'INACTIVE';
+    UserConfigComponent.loadData(this);
   }
 
 
@@ -57,5 +82,25 @@ export class UserConfigComponent implements OnInit {
   toggleButton(status) {
     console.log(status);
     return status == 'ACTIVE';
+  }
+
+  changePage(page: number) {
+    this.page = page;
+    UserConfigComponent.loadData(this);
+  }
+  searchData() {
+    console.log(this.searchForm.value);
+    if (this.searchForm.get('userCode').value === '') {
+      this.searchForm.get('userCode').setValue(null);
+    }
+    this.search = this.searchForm.value;
+    UserConfigComponent.loadData(this);
+  }
+  buildForm() {
+    this.searchForm = this.formBuilder.group({
+      userStatus: ['INACTIVE'],
+      userCode: [undefined],
+      userName: [undefined]
+    });
   }
 }

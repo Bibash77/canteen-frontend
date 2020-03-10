@@ -25,7 +25,7 @@ export class CanteenComponent implements OnInit {
     if (AuthorityUtil.checkAdmin()) {
       this.menu.push(MENU_ITEMS.get('Configure'));
     }
-    if(AuthorityUtil.checkStudent()){
+    if (AuthorityUtil.checkStudent()) {
       this.menu.push(MENU_ITEMS.get('Dashboard'));
     }
     this.menu.push(MENU_ITEMS.get('Notification'));

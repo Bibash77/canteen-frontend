@@ -1,6 +1,7 @@
 <ng-template #dialog let-data let-ref="dialogRef">
   <nb-card accent="primary">
-    <nb-card-header class="text-center"><h6>User Config</h6></nb-card-header>
+    <nb-card-header class="text-center"><h6>User Config</h6>
+    </nb-card-header>
     <nb-card-body>
       <div class="row">
 
@@ -41,6 +42,45 @@
 <nb-card accent="info">
   <nb-card-header class="text-center shadow-sm">
     <h6>Users</h6>
+    <div class="row">
+      <button
+        (click)="isFilterCollapsed = !isFilterCollapsed"
+        [attr.aria-expanded]="!isFilterCollapsed" aria-controls="searchModel"
+        nbButton
+        shape="rectangle"
+        size="small"
+        status="info">
+        <nb-icon [hidden]="!isFilterCollapsed" icon="arrow-downward"></nb-icon>
+        <nb-icon [hidden]="isFilterCollapsed" icon="arrow-upward"></nb-icon>
+      </button>
+    </div>
+    <div [hidden]="isFilterCollapsed" class="row">
+      <form [formGroup]="searchForm">
+        <table>
+          <tr [hidden]="isFilterCollapsed">
+            <td>
+              <nb-select (selectedChange)="searchData()" formControlName="userStatus"
+                         placeholder="status" size="medium" status="info">
+                <nb-option value="ACTIVE">Active</nb-option>
+                <nb-option value="INACTIVE">InActive</nb-option>
+              </nb-select>
+            </td>
+            <td>
+              <input (keyup)="searchData()" class="form-control" fieldSize="large"
+                     formControlName="userCode" nbInput placeholder="userCode"
+                     status="info">
+            </td>
+            <td>
+              <input (keyup)="searchData()" class="form-control" fieldSize="large"
+                     formControlName="userName" nbInput placeholder="userName"
+                     status="info">
+
+            </td>
+          </tr>
+        </table>
+
+      </form>
+    </div>
   </nb-card-header>
   <nb-card-body>
     <table class="table table-striped table-bordered table-hover ">
@@ -82,5 +122,6 @@
         </tbody>
       </ng-container>
     </table>
+    <app-paging *ngIf="!spinner" [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
   </nb-card-body>
 </nb-card>

@@ -6,7 +6,7 @@ import {CanteenComponent} from './canteen.component';
 import {ThemeModule} from '../@theme/theme.module';
 import {DashboardComponent} from './component/dashboard/dashboard.component';
 import {
-  NbAccordionModule, NbInputModule,
+  NbAccordionModule, NbDatepickerModule, NbInputModule,
   NbListModule, NbRadioModule,
   NbStepperModule, NbTabsetModule,
   NbToggleModule, NbTooltipModule, NbWindowModule
@@ -20,7 +20,6 @@ import { UserConfigComponent } from './component/dashboard/configuration/user-co
 import { ItemListComponent } from './component/dashboard/item-list/item-list.component';
 import { UserTransactionComponent } from './component/dashboard/history/user-transaction/user-transaction.component';
 import { KitchenerServeComponent } from './component/dashboard/notification/kitchener-serve/kitchener-serve.component';
-import {HistoryModule} from './component/dashboard/history/history.module';
 import {OrdersComponent} from './component/dashboard/history/user-transaction/orders/orders.component';
 
 
@@ -42,7 +41,7 @@ import {OrdersComponent} from './component/dashboard/history/user-transaction/or
     NbInputModule,
     NbRadioModule,
     NbTooltipModule,
-    HistoryModule,
+    NbDatepickerModule,
   ],
   entryComponents: [AddItemComponent , TopUpComponent]
 })
