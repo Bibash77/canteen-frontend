@@ -60,7 +60,7 @@ export class ItemListComponent implements OnInit {
     console.log(this.orderDto);
     this.orderService.save(this.orderDto).subscribe(value => {
       if (value.detail) {
-        this.toastrService.show(value.detail.item.itemName + ' ordered sucessfully', `Toast: ${4}`);
+        this.toastrService.show(value.detail.item.itemName + ' ordered successfully', 'Success!');
       }
     });
   }

@@ -2,12 +2,12 @@
   <nb-layout-column class="bg-white" style="padding: 0px">
     <ng-template #dialog let-data let-ref="dialogRef">
       <nb-card accent="primary">
-        <nb-card-header class="text-center"><h6>choose your action</h6></nb-card-header>
+        <nb-card-header class="text-center"><h6>choose your action</h6>
+          {{searchForm.value.orderStatus}} </nb-card-header>
         <nb-card-body>
           <nb-radio-group #action>
             <nb-radio *ngFor="let option of options"
                       [checked]="option.checked"
-                      [disabled]="option.disabled"
                       [value]="option.value">
               {{ option.label }}
             </nb-radio>
@@ -18,7 +18,7 @@
                   size="tiny" status="danger">
             <nb-icon icon="close-circle"></nb-icon>
           </button>
-          <button (click)="changeOrderStatus(data , action.value);ref.close()"
+          <button *ngIf="action.value" (click)="changeOrderStatus(data , action.value);ref.close()"
                   class="float-right" hero nbButton nbTooltip="Save your action"
                   nbTooltipStatus="primary" size="tiny" status="primary">
             <nb-icon icon="checkmark-square"></nb-icon>

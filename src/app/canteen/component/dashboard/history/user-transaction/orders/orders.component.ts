@@ -37,7 +37,8 @@ export class OrdersComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.searchDto.date = null;
+    console.log(this.searchDto);
+    /* this.searchDto.date = null;*/
     this.search = this.searchDto;
     OrdersComponent.loadData(this);
     this.buildForm();

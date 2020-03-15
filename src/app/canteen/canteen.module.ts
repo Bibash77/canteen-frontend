@@ -8,7 +8,7 @@ import {DashboardComponent} from './component/dashboard/dashboard.component';
 import {
   NbAccordionModule, NbDatepickerModule, NbInputModule,
   NbListModule, NbRadioModule,
-  NbStepperModule, NbTabsetModule,
+  NbStepperModule, NbTabsetModule, NbToastrModule,
   NbToggleModule, NbTooltipModule, NbWindowModule
 } from '@nebular/theme';
 import { ConfigurationComponent } from './component/dashboard/configuration/configuration.component';
@@ -42,6 +42,7 @@ import {OrdersComponent} from './component/dashboard/history/user-transaction/or
     NbRadioModule,
     NbTooltipModule,
     NbDatepickerModule,
+    NbToastrModule.forRoot({duration: 0})
   ],
   entryComponents: [AddItemComponent , TopUpComponent]
 })

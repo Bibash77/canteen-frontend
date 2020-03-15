@@ -2,7 +2,7 @@ import {Component, OnInit, TemplateRef} from '@angular/core';
 import {OrderDto} from '../../../modal/orderDto';
 import {SearchDto} from '../../../modal/SearchDto';
 import {OrderService} from '../../item-list/order.service';
-import {NbDialogService} from '@nebular/theme';
+import {NbDialogService, NbToastrService} from '@nebular/theme';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {PaginationUtils} from '../../../../../@core/utils/PaginationUtils';
 import {Pageable} from '../../../modal/common-pageable';
@@ -13,12 +13,6 @@ import {Pageable} from '../../../modal/common-pageable';
   styleUrls: ['./kitchener-serve.component.scss']
 })
 export class KitchenerServeComponent implements OnInit {
-  constructor(
-    private orderService: OrderService,
-    private dialogService: NbDialogService,
-    private formBuilder: FormBuilder
-  ) { }
-
   order: Array<OrderDto> = [];
   searchForm: FormGroup;
   page = 1;
@@ -28,19 +22,26 @@ export class KitchenerServeComponent implements OnInit {
   orderDto: OrderDto = new OrderDto();
   isFilterCollapsed = true;
   options = [
-    { value: 'PENDING', label: 'Revert To Pending', checked: true },
-    { value: 'READY', label: 'Notify Ready' },
-    { value: 'DELIVERED', label: 'Deliver Order' },
+    {value: 'PENDING', label: 'Revert To Pending'},
+    {value: 'READY', label: 'Notify Ready'},
+    {value: 'DELIVERED', label: 'Deliver Order'},
   ];
-
   placeholders = [];
   pageSize = 10;
   pageToLoadNext = 1;
   loading = false;
 
+  constructor(
+    private orderService: OrderService,
+    private dialogService: NbDialogService,
+    private formBuilder: FormBuilder, private toasterService: NbToastrService,
+  ) {
+  }
+
   static loadData(other: KitchenerServeComponent) {
+    console.log(other.searchDto);
     other.spinner = true;
-    other.orderService.getOrderHistory(other.orderDto , other.page, 5).subscribe((response: any) => {
+    other.orderService.getOrderHistory(other.orderDto, other.page, 5).subscribe((response: any) => {
       other.order = response.detail.content;
       other.pageable = PaginationUtils.getPageable(response.detail);
       other.spinner = false;
@@ -50,6 +51,7 @@ export class KitchenerServeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.orderDto = new OrderDto();
     this.buildForm();
     this.orderDto.orderStatus = 'PENDING';
     KitchenerServeComponent.loadData(this);
@@ -78,27 +80,29 @@ export class KitchenerServeComponent implements OnInit {
         });*/
   }
 
-    openDialog(dialog: TemplateRef<any>, item) {
-    this.dialogService.open(dialog, { context: item });
+  openDialog(dialog: TemplateRef<any>, item) {
+    this.dialogService.open(dialog, {context: item});
   }
 
-  changeOrderStatus(order , action) {
-    console.log(order);
+  changeOrderStatus(order, action) {
+    console.log(order , action);
     this.orderDto.id = order.id;
     this.orderDto.orderStatus = action;
     this.orderDto.orderCode = order.orderCode;
     this.orderService.deliverItem(this.orderDto).subscribe(value => {
-  this.ngOnInit();
-   });
+      this.toasterService.info('successfully change to ' + action, 'Success');
+
+      this.ngOnInit();
+    });
   }
 
   search() {
-   /* this.searchForm.valueChanges.subscribe(values => {
-      this.orderService.getOrderHistory(this.searchForm.value).subscribe(value => {
-        console.log(value);
-        this.order = value.detail;
-      });
-    });*/
+    /* this.searchForm.valueChanges.subscribe(values => {
+       this.orderService.getOrderHistory(this.searchForm.value).subscribe(value => {
+         console.log(value);
+         this.order = value.detail;
+       });
+     });*/
     console.log(this.searchForm.value);
     if (this.searchForm.get('orderCode').value === '') {
       this.searchForm.get('orderCode').setValue(null);
@@ -106,6 +110,7 @@ export class KitchenerServeComponent implements OnInit {
     this.orderDto = this.searchForm.value;
     KitchenerServeComponent.loadData(this);
   }
+
   changePage(page: number) {
     this.page = page;
     KitchenerServeComponent.loadData(this);

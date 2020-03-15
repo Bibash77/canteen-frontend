@@ -40,10 +40,11 @@ export class TopUpComponent implements OnInit {
     wallet.depositAmount = this.wallet.depositAmount;
     wallet.user = this.user;
     this.walletService.topUp(wallet).subscribe(value => {
-      alert('sucessfully deposit');
       this.router.navigateByUrl('/canteen/dashboard').then( () => {
-        this.nbToastrService.show('your message', 'Success!!');
-        this.router.navigate(['/canteen/configuration']);
+        this.router.navigate(['/canteen/configuration']).then(() => {
+          this.nbToastrService.show('Rs ' + wallet.depositAmount + ' TopUp successfully', 'Success!!');
+
+        });
       });
     });
   }

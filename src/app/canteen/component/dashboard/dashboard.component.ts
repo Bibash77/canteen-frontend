@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthorityUtil} from '../../../@core/utils/AuthorityUtil';
+import {LocalStorage, LocalStorageUtil} from '../../../@core/utils/local-storage-util';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {SearchDto} from '../modal/SearchDto';
+import {Pageable} from '../modal/common-pageable';
 
 @Component({
   selector: 'app-dashboard',
@@ -6,49 +11,33 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-
-  constructor() { }
-
+isAdmin: boolean;
+isKitchener: boolean;
+isStudent: boolean;
+  currentDate = new Date();
+user;
+  searchForm: SearchDto = new SearchDto();
+  page = 1;
+  spinner = false;
+  pageable: Pageable = new Pageable();
+  constructor(private formBuilder: FormBuilder) { }
+  isFilterCollapsed = true;
   ngOnInit() {
+    this.user = LocalStorageUtil.getStorage();
+    this.checkAuthority();
+    this.setDate();
   }
-/*
-  settings = {
-    add: {
-      addButtonContent: '<i class="nb-plus"></i>',
-      createButtonContent: '<i class="nb-checkmark"></i>',
-      cancelButtonContent: '<i class="nb-close"></i>',
-    },
-    edit: {
-      editButtonContent: '<i class="nb-edit"></i>',
-      saveButtonContent: '<i class="nb-checkmark"></i>',
-      cancelButtonContent: '<i class="nb-close"></i>',
-    },
-    delete: {
-      deleteButtonContent: '<i class="nb-trash"></i>',
-      confirmDelete: true,
-    },
-    columns: {
-      id: {
-        title: 'ID',
-        type: 'number',
-      },
-      foodName: {
-        title: 'Food Name',
-        type: 'string',
-      },
-      foodPrice: {
-        title: 'Food Price',
-        type: 'string',
-      },
-      deliverTime: {
-        title: 'Deliver TIme',
-        type: 'string',
-      },
-      status: {
-        title: 'Status',
-        type: 'string',
-      },
-    },
-  };*/
-
+  checkAuthority() {
+    this.isAdmin = AuthorityUtil.checkAdmin();
+    this.isKitchener = AuthorityUtil.checkKitchener();
+    this.isStudent = AuthorityUtil.checkStudent();
+  }
+  setDate() {
+    const currentDate = new Date();
+    currentDate.setDate( currentDate.getDate() - 1);
+    this.searchForm.date = JSON.stringify({
+      startDate: new Date(currentDate).toLocaleDateString(),
+      endDate: new Date(this.currentDate).toLocaleDateString()
+    });
+  }
 }

@@ -9,7 +9,7 @@ export const MENU_ITEMS: Map<string, NbMenuItem> = new Map([
   }],
   ['Configure', {
     title: 'Configure',
-    icon: 'grid-outline',
+    icon: 'settings-2-outline',
     link: '/canteen/configuration',
   }],
   ['Notification', {
