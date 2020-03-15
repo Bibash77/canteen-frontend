@@ -9,7 +9,7 @@ import {UserType} from '../../../../../@core/userType';
 import {SearchDto} from '../../../modal/SearchDto';
 import {PaginationUtils} from '../../../../../@core/utils/PaginationUtils';
 import {Pageable} from '../../../modal/common-pageable';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-user-config',

@@ -13,7 +13,7 @@ import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 })
 export class LoginComponent implements OnInit {
   spinner = false;
-  duration: number = 0;
+  duration = 0;
 
   constructor(private dialogService: NbDialogService,
               private userService: UserService,
