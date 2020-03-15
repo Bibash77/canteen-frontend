@@ -27,6 +27,7 @@ export class LocalStorage {
   userId: string;
   currentBalance: string;
   status: string;
+  userCode: string;
   userFullName: string;
   productMode: string;
 }

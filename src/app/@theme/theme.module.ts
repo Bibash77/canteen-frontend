@@ -33,6 +33,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {PagingComponent} from './components/paging/paging.component';
 import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
+import {IconCardComponent} from "./iconcard/icon-card.component";
+import { ProfileComponent } from './components/header/profile-component/profile-component.component';
 
 const BASE_MODULES = [CommonModule, RouterModule, FormsModule, ReactiveFormsModule];
 
@@ -61,6 +63,7 @@ const COMPONENTS = [
   ThreeColumnsLayoutComponent,
   TwoColumnsLayoutComponent,
   PagingComponent,
+  IconCardComponent
 ];
 
 const ENTRY_COMPONENTS = [];
@@ -85,14 +88,14 @@ const NB_THEME_PROVIDERS = [
   ...NbDatepickerModule.forRoot().providers,
   ...NbDialogModule.forRoot().providers,
   ...NbWindowModule.forRoot().providers,
-  ...NbToastrModule.forRoot().providers,
+  ...NbToastrModule.forRoot({duration: 0}).providers,
 ];
 
 @NgModule({
   imports: [...BASE_MODULES, ...NB_MODULES, ...OTHER_MODULES, NgbPaginationModule],
   exports: [...BASE_MODULES, ...NB_MODULES, ...OTHER_MODULES, ...PIPES, ...COMPONENTS],
-  declarations: [...COMPONENTS, ...PIPES],
-  entryComponents: [...ENTRY_COMPONENTS]
+  declarations: [...COMPONENTS, ...PIPES, ProfileComponent],
+  entryComponents: [...ENTRY_COMPONENTS , ProfileComponent]
 })
 export class ThemeModule {
   static forRoot(): ModuleWithProviders {

@@ -43,43 +43,60 @@
   <nb-card-header class="text-center shadow-sm">
     <h6>Users</h6>
     <div class="row">
-      <button
-        (click)="isFilterCollapsed = !isFilterCollapsed"
-        [attr.aria-expanded]="!isFilterCollapsed" aria-controls="searchModel"
-        nbButton
-        shape="rectangle"
-        size="small"
-        status="info">
-        <nb-icon [hidden]="!isFilterCollapsed" icon="arrow-downward"></nb-icon>
-        <nb-icon [hidden]="isFilterCollapsed" icon="arrow-upward"></nb-icon>
+    <div class="col-md-12 text-right">
+      <button *ngIf="!isFilterCollapsed"
+              (click)="isFilterCollapsed = !isFilterCollapsed"
+              [attr.aria-expanded]="!isFilterCollapsed" aria-controls="searchModel"
+              nbButton
+              shape="rectangle"
+              size="small"
+              status="primary">
+        <nb-icon icon="arrow-downward"></nb-icon>
       </button>
+      <button *ngIf="isFilterCollapsed"
+              (click)="isFilterCollapsed = !isFilterCollapsed"
+              [attr.aria-expanded]="!isFilterCollapsed" aria-controls="searchModel"
+              nbButton
+              shape="rectangle"
+              size="small"
+              status="primary">
+        <nb-icon icon="arrow-upward"></nb-icon>
+      </button>
+
+      <div [hidden]="isFilterCollapsed" class="offset-6">
+        <form [formGroup]="searchForm">
+          <table>
+            <tr [hidden]="isFilterCollapsed">
+              <td>
+                <nb-select (selectedChange)="searchData()" formControlName="userStatus"
+                           placeholder="status" size="medium" status="info">
+                  <nb-option value="ACTIVE">Active</nb-option>
+                  <nb-option value="INACTIVE">InActive</nb-option>
+                </nb-select>
+              </td>
+              <td>
+                <input (keyup)="searchData()" class="form-control" fieldSize="large"
+                       formControlName="userCode" nbInput placeholder="userCode"
+                       status="info">
+              </td>
+              <td>
+                <input (keyup)="searchData()" class="form-control" fieldSize="large"
+                       formControlName="userName" nbInput placeholder="userName"
+                       status="info">
+
+              </td>
+            </tr>
+          </table>
+
+        </form>
+      </div>
     </div>
-    <div [hidden]="isFilterCollapsed" class="row">
-      <form [formGroup]="searchForm">
-        <table>
-          <tr [hidden]="isFilterCollapsed">
-            <td>
-              <nb-select (selectedChange)="searchData()" formControlName="userStatus"
-                         placeholder="status" size="medium" status="info">
-                <nb-option value="ACTIVE">Active</nb-option>
-                <nb-option value="INACTIVE">InActive</nb-option>
-              </nb-select>
-            </td>
-            <td>
-              <input (keyup)="searchData()" class="form-control" fieldSize="large"
-                     formControlName="userCode" nbInput placeholder="userCode"
-                     status="info">
-            </td>
-            <td>
-              <input (keyup)="searchData()" class="form-control" fieldSize="large"
-                     formControlName="userName" nbInput placeholder="userName"
-                     status="info">
+    </div>
+    <div class="row">
+      <div class="col-md-12 text-right">
 
-            </td>
-          </tr>
-        </table>
+      </div>
 
-      </form>
     </div>
   </nb-card-header>
   <nb-card-body>

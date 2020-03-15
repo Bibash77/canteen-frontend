@@ -1,9 +1,18 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {NbMediaBreakpointsService, NbSidebarService, NbThemeService} from '@nebular/theme';
+import {
+  NbDialogService,
+  NbMediaBreakpointsService,
+  NbMenuService,
+  NbSidebarService,
+  NbThemeService
+} from '@nebular/theme';
 
-import {map, takeUntil} from 'rxjs/operators';
+import {filter, map, takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ProfileComponent} from './profile-component/profile-component.component';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -12,22 +21,30 @@ import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 
+  static LOGOUT = 'Log out';
+  static PROFILE = 'Profile';
   userPictureOnly = false;
   user: any;
   userId;
   currentTheme = 'default';
   userMenu;
+  contextMenuTag = 'user-context-menu';
   private destroy$: Subject<void> = new Subject<void>();
 
   constructor(private sidebarService: NbSidebarService,
+              private menuService: NbMenuService,
+              private dialogService: NbDialogService,
+              private router: Router,
               private themeService: NbThemeService,
               private breakpointService: NbMediaBreakpointsService) {
   }
 
   ngOnInit() {
     this.userId = LocalStorageUtil.getStorage().userId;
+    this.user = LocalStorageUtil.getStorage();
     this.userMenu = [{title: 'Profile'}, {title: 'transaction', link: ['/canteen/transaction', this.userId]}, {title: 'Log out' ,
-      link: '/canteen/dashboard', }];
+      link: '/canteen/login', }];
+    this.headerMenu();
     this.currentTheme = this.themeService.currentTheme;
 
     const {xl} = this.breakpointService.getBreakpointsMap();
@@ -55,5 +72,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.sidebarService.toggle(true, 'menu-sidebar');
 
     return false;
+  }
+
+  headerMenu(): void {
+    this.menuService.onItemClick().pipe(
+      filter(({tag}) => tag === this.contextMenuTag),
+      map(({item: {title}}) => title),
+      filter((title) =>
+        title === HeaderComponent.LOGOUT ||
+        title === HeaderComponent.PROFILE )
+    ).subscribe((value) => {
+      if (value === HeaderComponent.LOGOUT) {
+        LocalStorageUtil.clearStorage();
+        this.router.navigate(['/login']);
+      } else if (value === HeaderComponent.PROFILE) {
+        this.dialogService.open(ProfileComponent);
+      }
+    });
   }
 }

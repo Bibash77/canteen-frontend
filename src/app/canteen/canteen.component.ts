@@ -22,11 +22,9 @@ export class CanteenComponent implements OnInit {
 
   ngOnInit() {
     this.menu = [];
+    this.menu.push(MENU_ITEMS.get('Dashboard'));
     if (AuthorityUtil.checkAdmin()) {
       this.menu.push(MENU_ITEMS.get('Configure'));
-    }
-    if (AuthorityUtil.checkStudent()) {
-      this.menu.push(MENU_ITEMS.get('Dashboard'));
     }
     this.menu.push(MENU_ITEMS.get('Notification'));
   }

@@ -5,6 +5,7 @@ import {LoginComponent} from './canteen/component/auth/login/login.component';
 
 const routes: Routes = [
   {path: '' , component: LoginComponent},
+  {path: 'login' , component: LoginComponent},
   {
     path: 'canteen',
     loadChildren: () => import('./canteen/canteen.module')

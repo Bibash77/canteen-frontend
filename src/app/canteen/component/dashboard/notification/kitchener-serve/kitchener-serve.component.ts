@@ -22,7 +22,7 @@ export class KitchenerServeComponent implements OnInit {
   orderDto: OrderDto = new OrderDto();
   isFilterCollapsed = true;
   options = [
-    {value: 'PENDING', label: 'Revert To Pending', checked: true},
+    {value: 'PENDING', label: 'Revert To Pending'},
     {value: 'READY', label: 'Notify Ready'},
     {value: 'DELIVERED', label: 'Deliver Order'},
   ];
@@ -39,6 +39,7 @@ export class KitchenerServeComponent implements OnInit {
   }
 
   static loadData(other: KitchenerServeComponent) {
+    console.log(other.searchDto);
     other.spinner = true;
     other.orderService.getOrderHistory(other.orderDto, other.page, 5).subscribe((response: any) => {
       other.order = response.detail.content;
@@ -50,6 +51,7 @@ export class KitchenerServeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.orderDto = new OrderDto();
     this.buildForm();
     this.orderDto.orderStatus = 'PENDING';
     KitchenerServeComponent.loadData(this);
@@ -83,14 +85,15 @@ export class KitchenerServeComponent implements OnInit {
   }
 
   changeOrderStatus(order, action) {
-    console.log(order);
+    console.log(order , action);
     this.orderDto.id = order.id;
     this.orderDto.orderStatus = action;
     this.orderDto.orderCode = order.orderCode;
     this.orderService.deliverItem(this.orderDto).subscribe(value => {
-      this.toasterService.info('successfully change to ' + action);
+      this.toasterService.info('successfully change to ' + action, 'Success');
+
+      this.ngOnInit();
     });
-    this.ngOnInit();
   }
 
   search() {
