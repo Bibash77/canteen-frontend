@@ -33,7 +33,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {PagingComponent} from './components/paging/paging.component';
 import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
-import {IconCardComponent} from "./iconcard/icon-card.component";
+import {IconCardComponent} from './iconcard/icon-card.component';
 import { ProfileComponent } from './components/header/profile-component/profile-component.component';
 
 const BASE_MODULES = [CommonModule, RouterModule, FormsModule, ReactiveFormsModule];
