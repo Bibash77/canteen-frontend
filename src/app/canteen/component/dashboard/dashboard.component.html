@@ -1,5 +1,46 @@
 <nb-layout windowMode>
-  <nb-layout-column>
+  <nb-layout-column class="bg-white">
+    <div class="row">
+      <div class="col-md-12 text-right">
+        <button
+          (click)="isFilterCollapsed = !isFilterCollapsed"
+          [attr.aria-expanded]="!isFilterCollapsed" aria-controls="searchModel"
+          nbButton
+          shape="rectangle"
+          size="small"
+          status="success">
+          Filter
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <form [formGroup]="form" (ngSubmit)="searchOrdersByDate()">
+        <table>
+          <tr [hidden]="isFilterCollapsed">
+            <td>
+              <input [nbDatepicker]="startDate" class="form-control" formControlName="startDate"
+                     [value]="form.get('startDate').value | date:'MM/dd/yyyy'"
+                     name="startDate" nbInput placeholder="Start Date" status="primary" required>
+              <nb-datepicker #startDate></nb-datepicker>
+            </td>
+            <td>
+              <input [nbDatepicker]="endDate" formControlName="endDate" class="form-control"
+                     [value]="form.get('endDate').value | date:'MM/dd/yyyy'"
+                     name="endDate" nbInput placeholder="End Date" status="primary" required>
+              <nb-datepicker #endDate></nb-datepicker>
+            </td>
+            <td>
+              <button *ngIf="form.valid" type="submit" nbButton status="primary" size="medium"><nb-icon  icon="search"></nb-icon></button>
+            </td>
+          </tr>
+        </table>
+      </form>
+    </div>
+    <div *ngIf="isAdmin" class="row">
+      <div class="col-md-12 text-center">
+        <h6>Today Transaction</h6>
+      </div>
+    </div>
     <nb-card *ngIf="isAdmin || isKitchener">
       <nb-card-body>
         <div class="row">
@@ -10,22 +51,22 @@
         </div>
 
           <div *ngIf="isAdmin" class="col-md-4 col-sm-6 col-xs-12">
-            <a routerLink="/canteen/configuration"> <app-icon-card  title="InActive Users" type="danger">
+            <a routerLink="/canteen/configuration"> <app-icon-card  title="InActive Users" type="danger" [detail]="countOrderData?.userCount">
              <nb-icon icon="person-delete" size="large"></nb-icon>
             </app-icon-card></a>
           </div>
 
           <div *ngIf="isAdmin" class="col-md-4 col-sm-6 col-xs-12">
-            <app-icon-card  title="Sales Income" type="success">
+            <app-icon-card  title="Sales Income" type="success" [detail]="'Rs. '+countOrderData?.expenditureCount">
               <i><nb-icon icon="activity" size="large"></nb-icon></i>
             </app-icon-card>
           </div>
 
           <div class="col-md-4 col-sm-6 col-xs-12">
-            <app-icon-card *ngIf="isAdmin" title="TopUp Income" type="info">
+            <app-icon-card *ngIf="isAdmin" title="TopUp Income" type="info" [detail]="'Rs. '+countOrderData?.topUpAmount">
               <nb-icon icon="briefcase"></nb-icon>
             </app-icon-card>
-            <app-icon-card *ngIf="!isAdmin" title="Balance" type="success" detail="100">
+            <app-icon-card *ngIf="!isAdmin" title="Balance" type="success" >
               <nb-icon icon="briefcase"></nb-icon>
             </app-icon-card>
           </div>
@@ -54,18 +95,9 @@
 
               </form>-->
             </div>
-            <button
-              (click)="isFilterCollapsed = !isFilterCollapsed"
-              [attr.aria-expanded]="!isFilterCollapsed" aria-controls="searchModel"
-              nbButton
-              shape="rectangle"
-              size="small"
-              status="success">
-              Filter
-            </button>
           </div>
         </div>
-        <nb-list>
+       <!-- <nb-list>
           <nb-list-item class="item">
             <span>TopUp</span>
             <span>Income</span>
@@ -74,10 +106,10 @@
           <nb-list-item>
 
           </nb-list-item>
-        </nb-list>
-        <!--<app-orders [searchDto]="searchForm"></app-orders>-->
+        </nb-list>-->
       </nb-card-body>
     </nb-card>
+    <app-orders *ngIf="isAdmin" [searchDto]="searchForm"></app-orders>
 <nb-card *ngIf="isStudent" accent="primary">
   <nb-card-header  class="text-center"><h6>Order Menu</h6></nb-card-header>
   <nb-card-body>

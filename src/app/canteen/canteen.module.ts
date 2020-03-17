@@ -21,12 +21,13 @@ import { ItemListComponent } from './component/dashboard/item-list/item-list.com
 import { UserTransactionComponent } from './component/dashboard/history/user-transaction/user-transaction.component';
 import { KitchenerServeComponent } from './component/dashboard/notification/kitchener-serve/kitchener-serve.component';
 import {OrdersComponent} from './component/dashboard/history/user-transaction/orders/orders.component';
+import { OrderProfileComponent } from './component/dashboard/history/user-transaction/order-profile/order-profile.component';
 
 
 @NgModule({
   declarations: [CanteenComponent, DashboardComponent, ConfigurationComponent,
     NotificationComponent, AddItemComponent, TopUpComponent, UserConfigComponent,
-    ItemListComponent, UserTransactionComponent, KitchenerServeComponent, OrdersComponent],
+    ItemListComponent, UserTransactionComponent, KitchenerServeComponent, OrdersComponent, OrderProfileComponent],
   imports: [
     CommonModule,
     CanteenRoutingModule,
@@ -44,7 +45,7 @@ import {OrdersComponent} from './component/dashboard/history/user-transaction/or
     NbDatepickerModule,
     NbToastrModule.forRoot({duration: 0})
   ],
-  entryComponents: [AddItemComponent , TopUpComponent]
+  entryComponents: [AddItemComponent , TopUpComponent, OrderProfileComponent]
 })
 export class CanteenModule {
 }

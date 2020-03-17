@@ -29,4 +29,10 @@ export class WalletService extends BaseService<Wallet> {
     const req = ApiUtils.getRequest(`${this.getApi()}/history/${id}`);
     return this.http.get(req.url, {headers: req.header});
   }
+
+  public countTopUp(startDate: string , endDate: string): Observable<any> {
+    const api = `${this.getApi()}//topUpUpCount?startDate=${startDate}&endDate=${endDate}`;
+    const req = ApiUtils.getRequest(api);
+    return this.http.get(req.url, {headers: req.header});
+  }
 }
