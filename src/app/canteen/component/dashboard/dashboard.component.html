@@ -1,6 +1,6 @@
 <nb-layout windowMode>
   <nb-layout-column class="bg-white">
-    <div class="row">
+    <div *ngIf="isAdmin" class="row">
       <div class="col-md-12 text-right">
         <button
           (click)="isFilterCollapsed = !isFilterCollapsed"
