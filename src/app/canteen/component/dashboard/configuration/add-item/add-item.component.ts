@@ -37,9 +37,16 @@ export class AddItemComponent implements OnInit {
   onSubmit() {
     this.dialog.close();
     this.itemService.save(this.form.value).subscribe(value => {
-      this.router.navigateByUrl('/canteen/dashboard').then( () => {
-          this.router.navigate(['/canteen/configuration']);
-      });
+      if(value.detail) {
+        this.router.navigateByUrl('/canteen/dashboard').then( () => {
+          this.router.navigate(['/canteen/configuration']).then(() => {
+
+            this.toastrService.success('successfully added ' + this.form.get('itemName').value, 'Success');
+          });
+        });
+      } else {
+        this.toastrService.success('fail to add ' + this.form.get('itemName').value, 'Error');
+      }
   });
   }
 

@@ -24,10 +24,29 @@
               <nb-icon icon="arrow-upward"></nb-icon>
             </button>
           </div>
+          <div class="row">
+            <table>
+              <tr [hidden]="isFilterCollapsed">
+                <td>
+                  <input [nbDatepicker]="startDate" class="form-control" formControlName="startDate"
+                         name="startDate" nbInput placeholder="Start Date" status="primary" required>
+                  <nb-datepicker #startDate></nb-datepicker>
+                </td>
+                <td>
+                  <input [nbDatepicker]="endDate" formControlName="endDate" class="form-control"
+                         name="endDate" nbInput placeholder="End Date" status="primary" required>
+                  <nb-datepicker #endDate></nb-datepicker>
+                </td>
+                <td>
+                  <button *ngIf="searchForm.valid" type="submit" nbButton status="primary" size="medium"><nb-icon  icon="search"></nb-icon></button>
+                </td>
+              </tr>
+            </table>
+          </div>
         </div>
         <div class="row">
           <div class="col-md-12 text-right">
-            <form [formGroup]="searchForm" (ngSubmit)="searchDataByDate()">
+            <form [formGroup]="searchForm" (ngSubmit)="searchOrdersByDate()">
               <table>
                 <tr [hidden]="isFilterCollapsed">
                   <td>
@@ -53,23 +72,31 @@
         <table class="table table-striped table-bordered table-hover">
           <thead>
           <tr>
-            <!--<th>S.no</th>
-            <th>Status</th>-->
+            <!--<th>S.no</th>-->
             <th>Item</th>
             <th>Date</th>
             <th>Qty</th>
             <th>Amount</th>
-        <!--    <th>Token</th>-->
+            <th *ngIf="isAdmin"></th>
+            <!--    <th>Token</th>-->
           </tr>
           </thead>
           <tbody>
           <tr *ngFor="let order of order; let i=index">
-            <!-- <td>{{i+1}}</td>
-             <td>{{order?.orderStatus}}</td>-->
+            <!-- <td>{{i+1}}</td>-->
             <td>{{order?.itemName}}</td>
             <td>{{order?.createdAt| date}}</td>
             <td>{{order?.quantity}}</td>
             <td>Rs.{{order?.expenditure}}</td>
+            <td *ngIf="isAdmin"> <nb-icon *ngIf="order.orderStatus == 'PENDING'"
+                                          [status]="order.orderStatus == 'PENDING'?'success':'primary'"
+                                          icon="shopping-bag"></nb-icon>
+              <nb-icon *ngIf="order.orderStatus == 'DELIVERED'"
+                       icon="done-all" status="primary"></nb-icon>
+              <nb-icon *ngIf="order.orderStatus == 'READY'"
+                       icon="options" status="danger"></nb-icon>
+            <nb-icon icon="question-mark-circle" status="info" (click)="openOrderProfile(order)"></nb-icon>
+            </td>
             <!--<td>{{order?.orderCode}}</td>-->
           </tr>
           </tbody>

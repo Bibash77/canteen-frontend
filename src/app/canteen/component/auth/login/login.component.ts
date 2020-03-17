@@ -41,6 +41,7 @@ export class LoginComponent implements OnInit {
          storage.currentBalance = data.detail.walletAmount;
          storage.userCode = data.detail.userCode;
          storage.status = (data.detail.status);
+         storage.fullName = data.detail.fullName;
          LocalStorageUtil.setStorage(storage);
          console.log(storage);
          this.router.navigateByUrl('/canteen/dashboard');

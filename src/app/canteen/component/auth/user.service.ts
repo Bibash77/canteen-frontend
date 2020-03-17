@@ -34,4 +34,10 @@ export class UserService extends BaseService<User> {
     const req = ApiUtils.getRequest( `${this.getApi()}/login`);
     return this.http.post(req.url, user , {headers : req.header});
   }
+
+  public countUser(startDate: string , endDate: string): Observable<any> {
+    const api = `${this.getApi()}/countUser?startDate=${startDate}&endDate=${endDate}`;
+    const req = ApiUtils.getRequest(api);
+    return this.http.get(req.url, {headers: req.header});
+  }
 }
