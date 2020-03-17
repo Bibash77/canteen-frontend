@@ -22,6 +22,7 @@ export class ItemListComponent implements OnInit {
                private router: Router) { }
 
   item: Array<Item> = new Array<Item>();
+  agree = false;
   orderDto: OrderDto = new OrderDto();
   totalExpenses;
   isAdmin;
