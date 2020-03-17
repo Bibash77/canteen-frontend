@@ -11,13 +11,15 @@
         <div class="col">-->
           <label for="itemPrice">Total Expenses</label>
           <input class="form-control"  id="itemPrice" nbInput [(ngModel)]="totalExpenses"
-                 type="text" readonly>
-        <!--</div>
-      </div>-->
+                 type="text" readonly><br>
+      <nb-checkbox (checkedChange)="agree = !agree">I Agree to Terms</nb-checkbox>
+      <p> <b class="text-danger">(order cannot be cancelled!!)</b></p>
+      <!--</div>
+    </div>-->
     </nb-card-body>
     <nb-card-footer>
       <button nbButton hero  status="danger" (click)="ref.close()" size="small">cancel</button>
-      <button *ngIf="quantity.value > 0" nbButton hero status="primary" class="float-right" (click)="orderItem(data , quantity.value); ref.close()" size="small">Order</button>
+      <button *ngIf="quantity.value > 0 && agree" nbButton hero status="primary" class="float-right" (click)="orderItem(data , quantity.value); ref.close()" size="small">Order</button>
     </nb-card-footer>
   </nb-card>
 </ng-template>

@@ -24,25 +24,6 @@
               <nb-icon icon="arrow-upward"></nb-icon>
             </button>
           </div>
-          <div class="row">
-            <table>
-              <tr [hidden]="isFilterCollapsed">
-                <td>
-                  <input [nbDatepicker]="startDate" class="form-control" formControlName="startDate"
-                         name="startDate" nbInput placeholder="Start Date" status="primary" required>
-                  <nb-datepicker #startDate></nb-datepicker>
-                </td>
-                <td>
-                  <input [nbDatepicker]="endDate" formControlName="endDate" class="form-control"
-                         name="endDate" nbInput placeholder="End Date" status="primary" required>
-                  <nb-datepicker #endDate></nb-datepicker>
-                </td>
-                <td>
-                  <button *ngIf="searchForm.valid" type="submit" nbButton status="primary" size="medium"><nb-icon  icon="search"></nb-icon></button>
-                </td>
-              </tr>
-            </table>
-          </div>
         </div>
         <div class="row">
           <div class="col-md-12 text-right">

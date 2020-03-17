@@ -6,17 +6,17 @@
       <div class="form-group ">
     <label for="FullName">FullName</label>
     <input nbInput fullWidth type="text" id="FullName" placeholder="Enter your full name" name="fullName"
-           [(ngModel)]="user.fullName" class="form-control">
+           [(ngModel)]="user.fullName" class="form-control" required>
     </div>
     <div class="form-group ">
       <label for="email">Email</label>
-      <input nbInput fullWidth type="text" id="email" placeholder="Enter your email" name="email"
-             [(ngModel)]="user.email" class="form-control">
+      <input nbInput fullWidth type="email" id="email" placeholder="Enter your email" name="email"
+             [(ngModel)]="user.email" class="form-control" required>
     </div>
     <div class="form-group ">
       <label for="batch">Select Batch</label>
-   <select id="batch" class="form-control" [(ngModel)]="user.batch" name="batch">
-     <option [selected]="true">--Select Batch--</option>
+   <select id="batch" class="form-control" [(ngModel)]="user.batch" name="batch" required>
+     <option [selected]="true" [ngValue]="undefined">--Select Batch--</option>
      <option value="2018">2018</option>
      <option value="2019">2019</option>
    </select>
@@ -24,23 +24,23 @@
     <div class="form-group">
       <label for="userName">UserName</label>
       <input nbInput fullWidth type="text" id="userName" placeholder="Enter your username" name="userName"
-             [(ngModel)]="user.userName" class="form-control" autofocus>
+             [(ngModel)]="user.userName" class="form-control" required autofocus>
     </div>
     <div class="form-group">
       <label for="password">Password</label>
-      <input nbInput fullWidth type="text" id="password" placeholder="Enter strong password" class="form-control" name="password"
-             [(ngModel)]="user.password" autofocus>
+      <input nbInput fullWidth type="password" id="password" placeholder="Enter strong password" class="form-control" name="password"
+             [(ngModel)]="user.password" autofocus required>
     </div>
     <div class="form-group">
       <label for="confirmPassword">Confirm Password</label>
-      <input nbInput fullWidth type="text" id="confirmPassword" placeholder="Enter confirm password" name="confirmPassword"
-             [(ngModel)]="user.confirmPassword" class="form-control" autofocus>
+      <input nbInput fullWidth type="password" id="confirmPassword" placeholder="Enter confirm password" name="confirmPassword"
+             [(ngModel)]="user.confirmPassword" class="form-control" autofocus required>
     </div>
     </form>
   </nb-card-body>
   <nb-card-footer>
     <button nbButton hero status="danger" (click)="onDismiss()">Close</button>
-    <button nbButton hero status="primary" class="float-right" (click)="addUser(registerForm)">Register</button>
+    <button *ngIf="registerForm.valid" nbButton hero status="primary" class="float-right" (click)="addUser(registerForm)">Register</button>
   </nb-card-footer>
 </nb-card>
 </div>
