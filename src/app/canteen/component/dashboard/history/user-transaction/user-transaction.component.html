@@ -5,22 +5,56 @@
     <nb-tab tabTitle="TopUp History" tabIcon="briefcase" responsive>
       <nb-card accent="primary" class="p-0">
         <nb-card-header class="text-center">
-          <h5>User Transaction</h5>
+          <h5>User Transaction
+          </h5>
           <div class="row">
-            <button
-              (click)="isFilterCollapsed = !isFilterCollapsed"
-              [attr.aria-expanded]="!isFilterCollapsed" aria-controls="searchModel"
-              nbButton
-              shape="rectangle"
-              size="small"
-              status="success">
-              <nb-icon [hidden]="!isFilterCollapsed" icon="arrow-downward"></nb-icon>
-              <nb-icon [hidden]="isFilterCollapsed" icon="arrow-upward"></nb-icon>
-            </button>
+            <div class="col-md-12 text-right">
+              <button *ngIf="!isFilterCollapsed"
+                      (click)="isFilterCollapsed = !isFilterCollapsed"
+                      [attr.aria-expanded]="!isFilterCollapsed" aria-controls="searchModel"
+                      nbButton
+                      shape="rectangle"
+                      size="small"
+                      status="primary">
+                <nb-icon icon="arrow-downward"></nb-icon>
+              </button>
+              <button *ngIf="isFilterCollapsed"
+                      (click)="isFilterCollapsed = !isFilterCollapsed"
+                      [attr.aria-expanded]="!isFilterCollapsed" aria-controls="searchModel"
+                      nbButton
+                      shape="rectangle"
+                      size="small"
+                      status="primary">
+                <nb-icon icon="arrow-upward"></nb-icon>
+              </button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 text-right">
+              <form [formGroup]="searchForm" (ngSubmit)="searchOrdersByDate()">
+                <table>
+                  <tr [hidden]="isFilterCollapsed">
+                    <td>
+                      <input [nbDatepicker]="startingDate" formControlName="startingDate"
+                             nbInput placeholder="Start Date" status="primary">
+                      <nb-datepicker #startingDate></nb-datepicker>
+                    </td>
+                    <td>
+                      <input [nbDatepicker]="endingDate" formControlName="endingDate" class="form-control"
+                             name="endingDate" nbInput placeholder="End Date" status="primary" required>
+                      <nb-datepicker #endingDate></nb-datepicker>
+                    </td>
+                    <td>
+                      <button *ngIf="searchForm.valid" type="submit" nbButton status="primary" size="medium"><nb-icon  icon="search"></nb-icon></button>
+                    </td>
+                  </tr>
+                </table>
+              </form>
+            </div>
           </div>
         </nb-card-header>
         <nb-card-body>
-          <table class="table table-striped table-bordered table-hover">
+          <table class="table ">
             <thead>
             <tr>
               <!--<th>S.no</th>-->
@@ -30,11 +64,11 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let transaction of transaction; let i=index">
+            <tr *ngFor="let transaction of topUpHistoryData; let i=index">
               <!--<td>{{i+1}}</td>-->
-              <td>{{transaction.createdAt | date}}</td>
-              <td [ngStyle]="{'color': color(transaction.topUpAmount.toString()) ? 'red' : 'blue'}">Rs.{{transaction.topUpAmount}}</td>
-              <td>Rs.{{transaction.remainingAmount}}</td>
+              <td>{{transaction?.createdAt | date}}</td>
+              <td [ngStyle]="{'color': color(transaction?.topUpAmount.toString()) ? 'red' : 'blue'}">Rs.{{transaction?.topUpAmount}}</td>
+              <td>Rs.{{transaction?.remainingAmount}}</td>
             </tr>
             </tbody>
           </table>

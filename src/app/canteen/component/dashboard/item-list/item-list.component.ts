@@ -65,4 +65,8 @@ export class ItemListComponent implements OnInit {
       }
     });
   }
+
+  agreeChecker(chk) {
+    this.agree = !!chk;
+  }
 }

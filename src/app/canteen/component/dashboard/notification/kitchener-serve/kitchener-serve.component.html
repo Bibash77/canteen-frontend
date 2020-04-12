@@ -26,7 +26,7 @@
         </nb-card-footer>
       </nb-card>
     </ng-template>
-    <nb-card accent="success">
+    <nb-card accent="primary">
       <nb-card-header>
         <div class="row">
           <button
@@ -35,18 +35,18 @@
             nbButton
             shape="rectangle"
             size="small"
-            status="success">
+            status="primary">
             <nb-icon [hidden]="!isFilterCollapsed" icon="arrow-downward"></nb-icon>
             <nb-icon [hidden]="isFilterCollapsed" icon="arrow-upward"></nb-icon>
           </button>
         </div>
         <div [hidden]="isFilterCollapsed" class="row">
           <form [formGroup]="searchForm">
-            <table>
+            <table class="table-hover">
               <tr [hidden]="isFilterCollapsed">
                 <td>
                   <nb-select #orderStatus (selectedChange)="search()" formControlName="orderStatus"
-                             placeholder="status" size="medium" status="success">
+                             placeholder="status" size="medium" status="primary">
                     <nb-option value="PENDING">Pending</nb-option>
                     <nb-option value="READY">Ready</nb-option>
                     <nb-option value="DELIVERED">Deliver</nb-option>
@@ -55,12 +55,12 @@
                 <td>
                   <input #orderCode (keyup)="search()" class="form-control" fieldSize="large"
                          formControlName="orderCode" nbInput placeholder="Token"
-                         status="success">
+                         status="primary">
                 </td>
                 <td>
                   <input #itemName (keyup)="search()" class="form-control" fieldSize="large"
                          formControlName="itemName" nbInput placeholder="item"
-                         status="success">
+                         status="primary">
 
                 </td>
               </tr>

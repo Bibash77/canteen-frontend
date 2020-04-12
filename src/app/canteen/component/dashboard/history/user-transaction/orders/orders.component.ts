@@ -5,8 +5,8 @@ import {Pageable} from '../../../../modal/common-pageable';
 import {PaginationUtils} from '../../../../../../@core/utils/PaginationUtils';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {AuthorityUtil} from '../../../../../../@core/utils/AuthorityUtil';
-import {NbDialogService} from "@nebular/theme";
-import {OrderProfileComponent} from "../order-profile/order-profile.component";
+import {NbDialogService} from '@nebular/theme';
+import {OrderProfileComponent} from '../order-profile/order-profile.component';
 
 @Component({
   selector: 'app-orders',
@@ -17,6 +17,7 @@ export class OrdersComponent implements OnInit {
   @Input() searchDto: SearchDto;
   order = [];
   isAdmin: boolean;
+  iskitchener: boolean;
   searchForm: FormGroup;
   isFilterCollapsed = true;
   page = 1;
@@ -33,6 +34,10 @@ export class OrdersComponent implements OnInit {
     if (AuthorityUtil.checkAdmin()) {
       other.search.userId = undefined;
       other.isAdmin = true;
+    }
+    if (AuthorityUtil.checkKitchener()) {
+      other.search.userId = undefined;
+      other.iskitchener = true;
     }
     console.log(other.search);
     other.spinner = true;

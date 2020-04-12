@@ -12,7 +12,7 @@ import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
                  color="#338BC6">
         </nb-user>
         <div class="row">
-          <table class="table">
+          <table class="table table-hover">
             <tr>
               <td>UserName:</td>
               <td>{{user?.username}}</td>
@@ -24,7 +24,8 @@ import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
           </table>
         </div>
       </nb-card-body>
-    </nb-card>`,
+    </nb-card>
+  `,
   styleUrls: ['./profile-component.component.scss']
 })
 export class ProfileComponent implements OnInit {

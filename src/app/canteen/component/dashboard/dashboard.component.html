@@ -51,19 +51,19 @@
         </div>
 
           <div *ngIf="isAdmin" class="col-md-4 col-sm-6 col-xs-12">
-            <a routerLink="/canteen/configuration"> <app-icon-card  title="InActive Users" type="danger" [detail]="countOrderData?.userCount">
+            <a routerLink="/canteen/configuration"> <app-icon-card  title="InActive Users" type="danger" [detail]="countOrderData['userCount']">
              <nb-icon icon="person-delete" size="large"></nb-icon>
             </app-icon-card></a>
           </div>
 
           <div *ngIf="isAdmin" class="col-md-4 col-sm-6 col-xs-12">
-            <app-icon-card  title="Sales Income" type="success" [detail]="'Rs. '+countOrderData?.expenditureCount">
+            <app-icon-card  title="Sales Income" type="success" [detail]="'Rs. '+ countOrderData.expenditureCount">
               <i><nb-icon icon="activity" size="large"></nb-icon></i>
             </app-icon-card>
           </div>
 
           <div class="col-md-4 col-sm-6 col-xs-12">
-            <app-icon-card *ngIf="isAdmin" title="TopUp Income" type="info" [detail]="'Rs. '+countOrderData?.topUpAmount">
+            <app-icon-card *ngIf="isAdmin" title="TopUp Income" type="info" [detail]="'Rs. '+countOrderData.topUpAmount">
               <nb-icon icon="briefcase"></nb-icon>
             </app-icon-card>
             <app-icon-card *ngIf="!isAdmin" title="Balance" type="success" >
