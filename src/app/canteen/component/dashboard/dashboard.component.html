@@ -109,7 +109,7 @@
         </nb-list>-->
       </nb-card-body>
     </nb-card>
-    <app-orders *ngIf="isAdmin" [searchDto]="searchForm"></app-orders>
+    <app-user-transaction *ngIf="isAdmin"></app-user-transaction>
 <nb-card *ngIf="isStudent" accent="primary">
   <nb-card-header  class="text-center"><h6>Order Menu</h6></nb-card-header>
   <nb-card-body>

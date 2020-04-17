@@ -69,12 +69,14 @@
               <td>{{transaction?.createdAt | date}}</td>
               <td [ngStyle]="{'color': color(transaction?.topUpAmount.toString()) ? 'red' : 'blue'}">Rs.{{transaction?.topUpAmount}}</td>
               <td>Rs.{{transaction?.remainingAmount}}</td>
+              <td><!--<nb-icon icon="question-mark-circle" status="info" (click)="openHistoryDetail( transaction)"></nb-icon>--></td>
             </tr>
             </tbody>
           </table>
-          <div *ngIf="!(transaction.length>0)" class="text-center">
+          <div *ngIf="!(topUpHistoryData.length>0)" class="text-center">
             <p>No Top Up history found so far!</p>
           </div>
+          <app-paging *ngIf="!spinner" [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
         </nb-card-body>
       </nb-card>
     </nb-tab>
