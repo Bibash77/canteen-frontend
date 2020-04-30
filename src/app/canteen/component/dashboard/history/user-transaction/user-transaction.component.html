@@ -36,7 +36,7 @@
                   <tr [hidden]="isFilterCollapsed">
                     <td>
                       <input [nbDatepicker]="startingDate" formControlName="startingDate"
-                             nbInput placeholder="Start Date" status="primary">
+                             nbInput placeholder="Start Date" status="primary" name="startingDate">
                       <nb-datepicker #startingDate></nb-datepicker>
                     </td>
                     <td>
@@ -69,7 +69,7 @@
               <td>{{transaction?.createdAt | date}}</td>
               <td [ngStyle]="{'color': color(transaction?.topUpAmount.toString()) ? 'red' : 'blue'}">Rs.{{transaction?.topUpAmount}}</td>
               <td>Rs.{{transaction?.remainingAmount}}</td>
-              <td><!--<nb-icon icon="question-mark-circle" status="info" (click)="openHistoryDetail( transaction)"></nb-icon>--></td>
+              <td><nb-icon icon="question-mark-circle" status="info" (click)="openHistoryDetail( transaction)"></nb-icon></td>
             </tr>
             </tbody>
           </table>
@@ -83,6 +83,7 @@
     <nb-tab tabTitle="Order History" tabIcon="shopping-cart" responsive style="padding: 0px">
 <app-orders [searchDto]="searchDto"></app-orders>
     </nb-tab>
+    <nb-tab tabTitle="asd"></nb-tab>
   </nb-tabset>
 </nb-card>
   </nb-layout-column>

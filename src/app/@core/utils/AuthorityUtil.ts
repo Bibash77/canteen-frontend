@@ -16,4 +16,9 @@ export class AuthorityUtil {
     const localStorage = LocalStorageUtil.getStorage();
     return localStorage.roleType === UserType.KITCHENER;
   }
+
+  static isOrderable(itemAmount: number): boolean {
+    const localStorage = LocalStorageUtil.getStorage();
+    return Number(localStorage.currentBalance) > (itemAmount + 20);
+  }
 }

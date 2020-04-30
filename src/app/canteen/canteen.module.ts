@@ -11,24 +11,25 @@ import {
   NbStepperModule, NbTabsetModule, NbToastrModule,
   NbToggleModule, NbTooltipModule, NbWindowModule
 } from '@nebular/theme';
-import { ConfigurationComponent } from './component/dashboard/configuration/configuration.component';
-import { NotificationComponent } from './component/dashboard/notification/notification.component';
-import { AddItemComponent } from './component/dashboard/configuration/add-item/add-item.component';
+import {ConfigurationComponent} from './component/dashboard/configuration/configuration.component';
+import {NotificationComponent} from './component/dashboard/notification/notification.component';
+import {AddItemComponent} from './component/dashboard/configuration/add-item/add-item.component';
 import {NbDialogModule} from '@nebular/theme';
-import { TopUpComponent } from './component/dashboard/configuration/top-up/top-up.component';
-import { UserConfigComponent } from './component/dashboard/configuration/user-config/user-config.component';
-import { ItemListComponent } from './component/dashboard/item-list/item-list.component';
-import { UserTransactionComponent } from './component/dashboard/history/user-transaction/user-transaction.component';
-import { KitchenerServeComponent } from './component/dashboard/notification/kitchener-serve/kitchener-serve.component';
+import {TopUpComponent} from './component/dashboard/configuration/top-up/top-up.component';
+import {UserConfigComponent} from './component/dashboard/configuration/user-config/user-config.component';
+import {ItemListComponent} from './component/dashboard/item-list/item-list.component';
+import {UserTransactionComponent} from './component/dashboard/history/user-transaction/user-transaction.component';
+import {KitchenerServeComponent} from './component/dashboard/notification/kitchener-serve/kitchener-serve.component';
 import {OrdersComponent} from './component/dashboard/history/user-transaction/orders/orders.component';
-import { OrderProfileComponent } from './component/dashboard/history/user-transaction/order-profile/order-profile.component';
-import { TopUpProfileComponent } from './component/dashboard/history/user-transaction/top-up-profile/top-up-profile.component';
+import {OrderProfileComponent} from './component/dashboard/history/user-transaction/order-profile/order-profile.component';
+import {TopUpProfileComponent} from './component/dashboard/history/user-transaction/top-up-profile/top-up-profile.component';
 
 
 @NgModule({
   declarations: [CanteenComponent, DashboardComponent, ConfigurationComponent,
     NotificationComponent, AddItemComponent, TopUpComponent, UserConfigComponent,
-    ItemListComponent, UserTransactionComponent, KitchenerServeComponent, OrdersComponent, OrderProfileComponent, TopUpProfileComponent],
+    ItemListComponent, UserTransactionComponent, KitchenerServeComponent, OrdersComponent,
+    OrderProfileComponent, TopUpProfileComponent],
   imports: [
     CommonModule,
     CanteenRoutingModule,
@@ -46,7 +47,7 @@ import { TopUpProfileComponent } from './component/dashboard/history/user-transa
     NbDatepickerModule,
     NbToastrModule.forRoot({duration: 0})
   ],
-  entryComponents: [AddItemComponent , TopUpComponent, OrderProfileComponent, TopUpProfileComponent]
+  entryComponents: [AddItemComponent, TopUpComponent, OrderProfileComponent, TopUpProfileComponent]
 })
 export class CanteenModule {
 }

@@ -7,8 +7,7 @@ import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
     <nb-card accent="info">
       <nb-card-body>
         <nb-user size="large"
-                 [name]="user?.fullName "
-                 [title]="'(Batch: ' + user?.batch+')'"
+                 [name]="user?.fullName"
                  color="#338BC6">
         </nb-user>
         <div class="row">
