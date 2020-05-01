@@ -7,12 +7,11 @@ import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
     <nb-card accent="info">
       <nb-card-body>
         <nb-user size="large"
-                 [name]="user?.fullName "
-                 [title]="'(Batch: ' + user?.batch+')'"
+                 [name]="user?.fullName"
                  color="#338BC6">
         </nb-user>
         <div class="row">
-          <table class="table">
+          <table class="table table-hover">
             <tr>
               <td>UserName:</td>
               <td>{{user?.username}}</td>
@@ -24,7 +23,8 @@ import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
           </table>
         </div>
       </nb-card-body>
-    </nb-card>`,
+    </nb-card>
+  `,
   styleUrls: ['./profile-component.component.scss']
 })
 export class ProfileComponent implements OnInit {

@@ -28,6 +28,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(loginForm) {
+    this.spinner = true;
     const datas = {
       userName: loginForm.userName,
       password: loginForm.password
@@ -44,8 +45,10 @@ export class LoginComponent implements OnInit {
          storage.fullName = data.detail.fullName;
          LocalStorageUtil.setStorage(storage);
          console.log(storage);
+         this.spinner = false;
          this.router.navigateByUrl('/canteen/dashboard');
        } else {
+         this.spinner = false;
          this.toasterService.danger('Invalid user name or password' , 'Error', {duration: this.duration} );
        }
       },

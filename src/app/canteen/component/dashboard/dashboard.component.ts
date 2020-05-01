@@ -4,9 +4,9 @@ import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {SearchDto} from '../modal/SearchDto';
 import {Pageable} from '../modal/common-pageable';
-import {OrderService} from "./item-list/order.service";
-import {WalletService} from "./configuration/top-up/wallet.service";
-import {UserService} from "../auth/user.service";
+import {OrderService} from './item-list/order.service';
+import {WalletService} from './configuration/top-up/wallet.service';
+import {UserService} from '../auth/user.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -68,10 +68,17 @@ export class DashboardComponent implements OnInit {
     });
     this.walletService.countTopUp(startDate, endDate).subscribe(value => {
       this.countOrderData.topUpAmount = value.detail.topUpAmount;
+      if (value.detail.topUpAmount === undefined ) {
+        this.countOrderData.topUpAmount = 0;
+      }
     });
     this.userService.countUser(startDate, endDate).subscribe(value => {
       this.countOrderData.userCount = value.detail.user;
+      if (value.detail.topUpAmount == null ) {
+        this.countOrderData.userCount = 0;
+      }
     });
+    console.log(this.countOrderData);
   }
 
   searchOrdersByDate() {

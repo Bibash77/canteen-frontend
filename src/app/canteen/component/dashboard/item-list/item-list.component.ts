@@ -11,7 +11,7 @@ import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-item-list',
-  templateUrl: './item-list.component.html'
+  templateUrl: './item-list.component.html',
 })
 export class ItemListComponent implements OnInit {
 
@@ -22,8 +22,10 @@ export class ItemListComponent implements OnInit {
                private router: Router) { }
 
   item: Array<Item> = new Array<Item>();
+  quantities = [1 , 2 , 3 , 4 , 5];
   agree = false;
   orderDto: OrderDto = new OrderDto();
+  orderAble = false;
   totalExpenses;
   isAdmin;
   isStudent;
@@ -52,17 +54,25 @@ export class ItemListComponent implements OnInit {
 
   calculateTotal(price , quantity) {
     this.totalExpenses =  (price * quantity);
+    this.orderAbleChecker(price * quantity);
   }
 
   orderItem(item , quantity) {
     this.orderDto.userId = Number(LocalStorageUtil.getStorage().userId);
     this.orderDto.item = item;
     this.orderDto.quantity = quantity;
-    console.log(this.orderDto);
     this.orderService.save(this.orderDto).subscribe(value => {
       if (value.detail) {
         this.toastrService.show(value.detail.item.itemName + ' ordered successfully', 'Success!');
       }
     });
+  }
+
+  agreeChecker(chk) {
+    this.agree = !!chk;
+  }
+
+ private  orderAbleChecker(amount : number){
+    this.orderAble = AuthorityUtil.isOrderable(amount);
   }
 }

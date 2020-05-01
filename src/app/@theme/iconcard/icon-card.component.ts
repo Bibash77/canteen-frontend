@@ -8,6 +8,6 @@ import {Component, Input} from '@angular/core';
 export class IconCardComponent {
 
     @Input() title: string;
-    @Input() type: string;
-    @Input() detail: string;
+    @Input() type: any;
+    @Input() detail: any;
 }
