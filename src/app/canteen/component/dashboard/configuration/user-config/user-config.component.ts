@@ -23,7 +23,6 @@ export class UserConfigComponent implements OnInit {
               private formBuilder: FormBuilder) { }
 
               walletList: Array<Wallet> = new Array<Wallet>();
-              userList: Array<User> = new Array<User>();
               userType = UserType.values();
   isFilterCollapsed = true;
 
@@ -79,10 +78,7 @@ export class UserConfigComponent implements OnInit {
     this.dialogService.open(dialog, { context: user });
     return false;
   }
-  toggleButton(status) {
-    console.log(status);
-    return status == 'ACTIVE';
-  }
+
 
   changePage(page: number) {
     this.page = page;
