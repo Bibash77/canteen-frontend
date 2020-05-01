@@ -37,7 +37,7 @@ export class AddItemComponent implements OnInit {
   onSubmit() {
     this.dialog.close();
     this.itemService.save(this.form.value).subscribe(value => {
-      if(value.detail) {
+      if (value.detail) {
         this.router.navigateByUrl('/canteen/dashboard').then( () => {
           this.router.navigate(['/canteen/configuration']).then(() => {
 
