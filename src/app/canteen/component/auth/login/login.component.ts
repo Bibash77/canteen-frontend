@@ -5,6 +5,7 @@ import {UserService} from '../user.service';
 import {Router} from '@angular/router';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {SocketService} from "../../dashboard/notification/socket.service";
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,9 @@ export class LoginComponent implements OnInit {
 
   constructor(private dialogService: NbDialogService,
               private userService: UserService,
-              private router: Router, private toasterService: NbToastrService, ) {
+              private router: Router,
+              private toasterService: NbToastrService,
+              private socketService: SocketService) {
   }
 
   ngOnInit() {
@@ -28,6 +31,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(loginForm) {
+    this.socketService.initializeWebSocketConnection();
     this.spinner = true;
     const datas = {
       userName: loginForm.userName,

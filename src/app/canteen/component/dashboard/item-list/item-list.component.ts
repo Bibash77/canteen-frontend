@@ -8,6 +8,7 @@ import {OrderService} from './order.service';
 import {OrderDto} from '../../modal/orderDto';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {Router} from '@angular/router';
+import {SocketService} from "../notification/socket.service";
 
 @Component({
   selector: 'app-item-list',
@@ -19,7 +20,7 @@ export class ItemListComponent implements OnInit {
                private dialogService: NbDialogService,
                private orderService: OrderService,
                private toastrService: NbToastrService,
-               private router: Router) { }
+               private socketService: SocketService) { }
 
   item: Array<Item> = new Array<Item>();
   quantities = [1 , 2 , 3 , 4 , 5];
