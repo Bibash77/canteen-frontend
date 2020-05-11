@@ -19,7 +19,7 @@ import {NbDialogRef} from "@nebular/theme";
           </tr>
           <tr>
             <td>Remaining Balance</td>
-            <td>Rs.{{topUpDetails?.remainingAmount}}</td>
+            <td>Rs. {{topUpDetails?.remainingAmount}}</td>
           </tr>
         </table>
       </div>
