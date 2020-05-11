@@ -39,10 +39,8 @@ export class OrdersComponent implements OnInit {
       other.search.userId = undefined;
       other.iskitchener = true;
     }
-    console.log(other.search);
     other.spinner = true;
     other.orderService.getOrderHistory(other.search, other.page, 10).subscribe((response: any) => {
-      console.log(response.detail.content);
       other.order = response.detail.content;
       other.pageable = PaginationUtils.getPageable(response.detail);
       other.spinner = false;
@@ -52,8 +50,6 @@ export class OrdersComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.searchDto);
-    /* this.searchDto.date = null;*/
     this.search = this.searchDto;
     OrdersComponent.loadData(this);
     this.buildForm();
@@ -75,12 +71,10 @@ export class OrdersComponent implements OnInit {
       startDate: new Date(this.searchForm.get('startDate').value).toLocaleDateString(),
       endDate: new Date(this.searchForm.get('endDate').value).toLocaleDateString()
     });
-    console.log(this.search.date);
     OrdersComponent.loadData(this);
   }
 
   openOrderProfile(order) {
-    console.log(order);
     this.nbDialogService.open(OrderProfileComponent, {closeOnBackdropClick: true , closeOnEsc: true, context: {order}});
   }
 }
