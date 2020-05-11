@@ -1,5 +1,5 @@
-
-  <div class="bg-white">
+<nb-layout>
+  <nb-layout-column class="bg-white">
     <nb-card accent="primary">
       <nb-card-header class="text-center">
         <b>{{searchDto?.orderStatus}} ORDERS</b>
@@ -90,5 +90,5 @@
         <app-paging *ngIf="!spinner" [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
       </nb-card-body>
     </nb-card>
-  </div>
-
+  </nb-layout-column>
+</nb-layout>

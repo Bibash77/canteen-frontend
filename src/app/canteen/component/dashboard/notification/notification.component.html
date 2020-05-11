@@ -1,5 +1,4 @@
-<nb-layout>
-<nb-layout-column class="bg-white">
+<div class="bg-white">
 <app-kitchener-serve *ngIf="isAdmin"></app-kitchener-serve>
    <!-- <nb-card>
       <tr
@@ -14,5 +13,4 @@
     </nb-card>-->
   <app-orders *ngIf="isStudent" [searchDto]="searchDto"></app-orders>
 
-</nb-layout-column>
-</nb-layout>
+</div>

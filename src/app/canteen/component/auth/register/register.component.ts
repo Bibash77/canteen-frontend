@@ -27,6 +27,7 @@ export class RegisterComponent implements OnInit {
     console.log('roletype' , this.user.roleType);
     if (this.confirmPasswordChecker()) {
       this.userService.registerUser(this.user).subscribe(value => {
+        alert('');
         this.onDismiss();
         this.router.navigateByUrl('').then(() => {
           this.nbToastrService.success('login to continue', 'Success!');

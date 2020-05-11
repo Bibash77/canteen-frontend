@@ -7,7 +7,6 @@ import {Pageable} from '../modal/common-pageable';
 import {OrderService} from './item-list/order.service';
 import {WalletService} from './configuration/top-up/wallet.service';
 import {UserService} from '../auth/user.service';
-import {ObjectUtil} from "../../../@core/utils/ObjectUtil";
 
 @Component({
   selector: 'app-dashboard',
@@ -65,9 +64,7 @@ export class DashboardComponent implements OnInit {
 
   getCountOrdersByDate(startDate, endDate) {
     this.orderService.countOrders(startDate, endDate).subscribe(value => {
-      if (!ObjectUtil.isEmpty(value.detail.expenditureCount)) {
       this.countOrderData.expenditureCount = value.detail.expenditureCount;
-      }
     });
     this.walletService.countTopUp(startDate, endDate).subscribe(value => {
       this.countOrderData.topUpAmount = value.detail.topUpAmount;

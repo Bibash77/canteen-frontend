@@ -127,7 +127,7 @@
             </nb-toggle>
           </td>
           <td>
-            <button *ngIf="wallets.user.status == 'ACTIVE'" (click)="topUp(wallets.user)" hero nbButton size="small" status="info">
+            <button (click)="topUp(wallets.user)" hero nbButton size="small" status="info">
               Top-Up
             </button>
             <button [routerLink]="['/canteen/transaction', wallets.user.id]" hero nbButton

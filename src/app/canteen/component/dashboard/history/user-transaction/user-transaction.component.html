@@ -2,7 +2,7 @@
   <nb-layout-column>
 <nb-card>
   <nb-tabset>
-        <nb-tab tabTitle="TopUp History" tabIcon="briefcase" responsive style="padding: 0px">
+    <nb-tab tabTitle="TopUp History" tabIcon="briefcase" responsive>
       <nb-card accent="primary" class="p-0">
         <nb-card-header class="text-center">
           <h5>User Transaction
@@ -29,7 +29,7 @@
               </button>
             </div>
           </div>
-             <!-- <div class="row">
+          <div class="row">
             <div class="col-md-12 text-right">
               <form [formGroup]="searchForm" (ngSubmit)="searchOrdersByDate()">
                 <table>
@@ -51,29 +51,6 @@
                 </table>
               </form>
             </div>
-              </div>-->
-              <div class="row">
-                <div class="col-md-12 text-right">
-                  <form [formGroup]="searchForm" (ngSubmit)="searchOrdersByDate()">
-                    <table>
-                      <tr [hidden]="isFilterCollapsed">
-                        <td>
-                          <input [nbDatepicker]="startingDate" class="form-control" formControlName="startingDate"
-                                 name="startDate" nbInput placeholder="Start Date" status="primary" required>
-                          <nb-datepicker #startingDate></nb-datepicker>
-                        </td>
-                        <td>
-                          <input [nbDatepicker]="endingDate" formControlName="endingDate" class="form-control"
-                                 nbInput placeholder="End Date" status="primary" required>
-                          <nb-datepicker #endingDate></nb-datepicker>
-                        </td>
-                        <td>
-                          <button *ngIf="searchForm.valid" type="submit" nbButton status="primary" size="medium"><nb-icon  icon="search"></nb-icon></button>
-                        </td>
-                      </tr>
-                    </table>
-                  </form>
-                </div>
           </div>
         </nb-card-header>
         <nb-card-body>
@@ -106,6 +83,7 @@
     <nb-tab tabTitle="Order History" tabIcon="shopping-cart" responsive style="padding: 0px">
 <app-orders [searchDto]="searchDto"></app-orders>
     </nb-tab>
+    <nb-tab tabTitle="asd"></nb-tab>
   </nb-tabset>
 </nb-card>
   </nb-layout-column>

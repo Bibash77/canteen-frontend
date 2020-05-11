@@ -72,7 +72,7 @@ export class ItemListComponent implements OnInit {
     this.agree = !!chk;
   }
 
- private  orderAbleChecker(amount: number) {
+ private  orderAbleChecker(amount : number){
     this.orderAble = AuthorityUtil.isOrderable(amount);
   }
 }

@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, TemplateRef} from '@angular/core';
 import {WalletService} from '../../configuration/top-up/wallet.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {Pageable} from '../../../modal/common-pageable';
 import {OrderService} from '../../item-list/order.service';
 import {SearchDto} from '../../../modal/SearchDto';
@@ -8,8 +8,9 @@ import {OrderDto} from '../../../modal/orderDto';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {TopUpHistoryService} from './top-up-history.service';
 import {PaginationUtils} from '../../../../../@core/utils/PaginationUtils';
+import {AuthorityUtil} from '../../../../../@core/utils/AuthorityUtil';
 import {NbDialogService} from '@nebular/theme';
-import {TopUpProfileComponent} from './top-up-profile/top-up-profile.component';
+import {TopUpProfileComponent} from "./top-up-profile/top-up-profile.component";
 
 @Component({
   selector: 'app-user-transaction',
@@ -87,7 +88,8 @@ export class UserTransactionComponent implements OnInit {
     UserTransactionComponent.loadData(this);
   }
 
-  openHistoryDetail(topUpDetails) {
-    this.nbDialogService.open(TopUpProfileComponent, {closeOnBackdropClick: true , closeOnEsc: true, context: {topUpDetails}});
+  openHistoryDetail(item) {
+    console.log(item);
+    this.nbDialogService.open(TopUpProfileComponent);
   }
 }
