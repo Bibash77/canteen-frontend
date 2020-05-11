@@ -88,8 +88,7 @@ export class UserTransactionComponent implements OnInit {
     UserTransactionComponent.loadData(this);
   }
 
-  openHistoryDetail(item) {
-    console.log(item);
-    this.nbDialogService.open(TopUpProfileComponent);
+  openHistoryDetail(topUpDetails) {
+    this.nbDialogService.open(TopUpProfileComponent, {closeOnBackdropClick: true , closeOnEsc: true, context: {topUpDetails}});
   }
 }

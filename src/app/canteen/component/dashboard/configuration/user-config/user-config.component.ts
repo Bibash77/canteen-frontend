@@ -1,6 +1,6 @@
 import {Component, OnInit, TemplateRef} from '@angular/core';
 import {TopUpComponent} from '../top-up/top-up.component';
-import {NbDialogService} from '@nebular/theme';
+import {NbDialogService, NbToastrService} from '@nebular/theme';
 import {UserService} from '../../../auth/user.service';
 import {User} from '../../../modal/user';
 import {Wallet} from '../../../modal/wallet';
@@ -20,7 +20,8 @@ export class UserConfigComponent implements OnInit {
   constructor(private dialogService: NbDialogService,
               private userService: UserService,
               private walletService: WalletService,
-              private formBuilder: FormBuilder) { }
+              private formBuilder: FormBuilder,
+              private nbToastrService: NbToastrService) { }
 
               walletList: Array<Wallet> = new Array<Wallet>();
               userList: Array<User> = new Array<User>();
@@ -67,15 +68,12 @@ export class UserConfigComponent implements OnInit {
     user.roleType = userType;
     user.id = user1.id;
     this.userService.changeStatus(user).subscribe(value => {
-      console.log(user);
-      alert(value.detail.username + ' is' + value.detail.status + 'now');
+      this.nbToastrService.success('User is ' + value.detail.status + ' now' , 'Success!');
       this.ngOnInit();
     });
   }
 
   openConfig(dialog: TemplateRef<any>, user) {
-    console.log(this.userType);
-    console.log(user);
     this.dialogService.open(dialog, { context: user });
     return false;
   }
