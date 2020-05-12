@@ -8,7 +8,7 @@ import {OrderService} from './order.service';
 import {OrderDto} from '../../modal/orderDto';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {Router} from '@angular/router';
-import {SocketService} from "../notification/socket.service";
+import {SocketService} from '../notification/socket.service';
 
 @Component({
   selector: 'app-item-list',
@@ -49,6 +49,7 @@ export class ItemListComponent implements OnInit {
   }
 
   openOrder(dialog: TemplateRef<any>, item) {
+    this.socketService.sendMessageUsingSocket();
     this.totalExpenses = 0;
     this.dialogService.open(dialog, { context: item });
   }

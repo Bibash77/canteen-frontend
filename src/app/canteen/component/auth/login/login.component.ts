@@ -5,7 +5,7 @@ import {UserService} from '../user.service';
 import {Router} from '@angular/router';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
-import {SocketService} from "../../dashboard/notification/socket.service";
+import {SocketService} from  '../../dashboard/notification/socket.service';
 
 @Component({
   selector: 'app-login',

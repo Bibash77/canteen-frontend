@@ -41,7 +41,7 @@ export class SocketService {
   }
 
   sendMessageUsingSocket() {
-    console.log("jjjj" , this.isCustomSocketOpened);
+    console.log('jjjj' , this.isCustomSocketOpened);
     this.stompClient.send('/socket-subscriber/send/message', {}, JSON.stringify(this.message));
   }
 }
