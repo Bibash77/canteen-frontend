@@ -13,6 +13,7 @@ import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ProfileComponent} from './profile-component/profile-component.component';
 import {Router} from '@angular/router';
+import {SocketService} from "../../../canteen/component/dashboard/notification/socket.service";
 
 @Component({
   selector: 'app-header',
@@ -36,7 +37,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
               private dialogService: NbDialogService,
               private router: Router,
               private themeService: NbThemeService,
-              private breakpointService: NbMediaBreakpointsService) {
+              private breakpointService: NbMediaBreakpointsService,
+              private socketService: SocketService) {
   }
 
   ngOnInit() {
@@ -61,6 +63,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       takeUntil(this.destroy$),
     )
     .subscribe(themeName => this.currentTheme = themeName);
+    this.setupNotification();
   }
 
   ngOnDestroy() {
@@ -89,5 +92,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.dialogService.open(ProfileComponent);
       }
     });
+  }
+
+  setupNotification(): void {
+    this.socketService.initializeWebSocketConnection();
   }
 }

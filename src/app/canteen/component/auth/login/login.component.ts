@@ -31,7 +31,6 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(loginForm) {
-    this.socketService.initializeWebSocketConnection();
     this.spinner = true;
     const datas = {
       userName: loginForm.userName,
