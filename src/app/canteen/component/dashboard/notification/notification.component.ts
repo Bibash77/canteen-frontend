@@ -13,7 +13,7 @@ import {AuthorityUtil} from '../../../../@core/utils/AuthorityUtil';
 export class NotificationComponent implements OnInit {
   order: Array<OrderDto> = [];
   searchDto: SearchDto = new SearchDto();
-  isAdmin;
+  viewKitchenerNotification;
   isStudent;
   news = [];
   placeholders = [];
@@ -25,7 +25,7 @@ export class NotificationComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.isAdmin = AuthorityUtil.checkAdmin();
+    this.viewKitchenerNotification = AuthorityUtil.checkAdmin() || AuthorityUtil.checkKitchener();
     this.isStudent = AuthorityUtil.checkStudent();
     this.searchDto.userId = LocalStorageUtil.getStorage().userId;
     this.searchDto.orderStatus = 'PENDING';

@@ -41,6 +41,14 @@
                     <nb-datepicker #endDate></nb-datepicker>
                   </td>
                   <td>
+                    <nb-select #orderStatus  formControlName="orderStatus"
+                               placeholder="status" size="medium" status="primary">
+                      <nb-option value="PENDING">Pending</nb-option>
+                      <nb-option value="READY">Ready</nb-option>
+                      <nb-option value="DELIVERED">Deliver</nb-option>
+                    </nb-select>
+                  </td>
+                  <td>
                     <button *ngIf="searchForm.valid" type="submit" nbButton status="primary" size="medium"><nb-icon  icon="search"></nb-icon></button>
                   </td>
                 </tr>

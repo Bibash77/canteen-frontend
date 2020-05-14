@@ -4,6 +4,7 @@ import * as SockJS from 'sockjs-client';
 import * as Stomp from 'stompjs';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {Message} from './message';
+import {NbToastrService} from '@nebular/theme';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,9 @@ export class SocketService {
   private stompClient;
   private serverUrl = `${ApiConfig.URL}/socket`;
   userId = Number(LocalStorageUtil.getStorage().userId);
+  userRole = LocalStorageUtil.getStorage().roleType;
 
-  constructor() { }
+  constructor(private nbToastrService: NbToastrService) { }
 
 
   // Web socket configurations initialization
@@ -34,8 +36,9 @@ export class SocketService {
     this.isCustomSocketOpened = true;
     const data: Array<any> = [];
 
-    this.stompClient.subscribe(`/socket-publisher/${this.userId}`, (message) => {
-
+    console.log(this.userRole);
+    this.stompClient.subscribe(`/socket-publisher/${this.userRole}`, (message) => {
+      this.nbToastrService.success('New notification received!!!');
       console.log(message);
     });
   }

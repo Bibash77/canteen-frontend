@@ -7,8 +7,9 @@ import {AuthorityUtil} from '../../../../@core/utils/AuthorityUtil';
 import {OrderService} from './order.service';
 import {OrderDto} from '../../modal/orderDto';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
-import {Router} from '@angular/router';
 import {SocketService} from '../notification/socket.service';
+import {UserType} from "../../../../@core/userType";
+import {TransactionType} from "../../../../@core/TransactionType";
 
 @Component({
   selector: 'app-item-list',
@@ -49,7 +50,6 @@ export class ItemListComponent implements OnInit {
   }
 
   openOrder(dialog: TemplateRef<any>, item) {
-    this.socketService.sendMessageUsingSocket();
     this.totalExpenses = 0;
     this.dialogService.open(dialog, { context: item });
   }
@@ -65,6 +65,7 @@ export class ItemListComponent implements OnInit {
     this.orderDto.quantity = quantity;
     this.orderService.save(this.orderDto).subscribe(value => {
       if (value.detail) {
+        this.sendOrderNotification();
         this.toastrService.show(value.detail.item.itemName + ' ordered successfully', 'Success!');
       }
     });
@@ -76,5 +77,14 @@ export class ItemListComponent implements OnInit {
 
  private  orderAbleChecker(amount: number) {
     this.orderAble = AuthorityUtil.isOrderable(amount);
+  }
+
+  sendOrderNotification(){
+    const user =  LocalStorageUtil.getStorage();
+    this.socketService.message.date = new Date();
+    this.socketService.message.fromId = Number(user.userId);
+    this.socketService.message.transactionType = TransactionType.ORDER;
+    this.socketService.message.toRole = UserType.ADMIN;
+    this.socketService.sendMessageUsingSocket();
   }
 }

@@ -63,7 +63,8 @@ export class OrdersComponent implements OnInit {
   buildForm() {
     this.searchForm = this.formBuilder.group({
       startDate: [undefined],
-      endDate: [undefined]
+      endDate: [undefined],
+      orderStatus: [undefined]
     });
   }
   searchOrdersByDate() {
