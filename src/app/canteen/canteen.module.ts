@@ -6,7 +6,7 @@ import {CanteenComponent} from './canteen.component';
 import {ThemeModule} from '../@theme/theme.module';
 import {DashboardComponent} from './component/dashboard/dashboard.component';
 import {
-  NbAccordionModule, NbDatepickerModule, NbInputModule,
+  NbAccordionModule, NbAlertModule, NbBadgeModule, NbDatepickerModule, NbInputModule,
   NbListModule, NbRadioModule,
   NbStepperModule, NbTabsetModule, NbToastrModule,
   NbToggleModule, NbTooltipModule, NbWindowModule
@@ -45,7 +45,9 @@ import {TopUpProfileComponent} from './component/dashboard/history/user-transact
     NbRadioModule,
     NbTooltipModule,
     NbDatepickerModule,
-    NbToastrModule.forRoot({duration: 0})
+    NbToastrModule.forRoot({duration: 0}),
+    NbAlertModule,
+    NbBadgeModule
   ],
   entryComponents: [AddItemComponent, TopUpComponent, OrderProfileComponent, TopUpProfileComponent]
 })

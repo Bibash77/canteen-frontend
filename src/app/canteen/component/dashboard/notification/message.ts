@@ -1,5 +1,5 @@
 import {UserType} from '../../../../@core/userType';
-import {TransactionType} from "../../../../@core/TransactionType";
+import {TransactionType} from '../../../../@core/TransactionType';
 
 export class Message {
   id: number;
@@ -12,6 +12,9 @@ export class Message {
   date: Date;
   transactionType: TransactionType;
   itemName: string;
+  orderCode: string;
   transactionAmount: number;
+  quantity: number;
+  isSeen: boolean;
 
 }

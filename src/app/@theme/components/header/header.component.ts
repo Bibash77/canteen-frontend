@@ -14,6 +14,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ProfileComponent} from './profile-component/profile-component.component';
 import {Router} from '@angular/router';
 import {SocketService} from "../../../canteen/component/dashboard/notification/socket.service";
+import {NotificationService} from "../../../canteen/component/dashboard/notification/notifier/notification.service";
 
 @Component({
   selector: 'app-header',
@@ -31,6 +32,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   userMenu;
   contextMenuTag = 'user-context-menu';
   private destroy$: Subject<void> = new Subject<void>();
+  notificationCount;
 
   constructor(private sidebarService: NbSidebarService,
               private menuService: NbMenuService,
@@ -38,7 +40,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
               private router: Router,
               private themeService: NbThemeService,
               private breakpointService: NbMediaBreakpointsService,
-              private socketService: SocketService) {
+              private socketService: SocketService,
+              private notificationService: NotificationService) {
   }
 
   ngOnInit() {
@@ -96,5 +99,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   setupNotification(): void {
     this.socketService.initializeWebSocketConnection();
+    this.notificationService.fetchNotifications();
+    this.notificationService.notificationCount.subscribe((value => this.notificationCount = value));
+    console.log(this.notificationCount);
   }
 }

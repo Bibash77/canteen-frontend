@@ -7,7 +7,8 @@ import {Pageable} from '../modal/common-pageable';
 import {OrderService} from './item-list/order.service';
 import {WalletService} from './configuration/top-up/wallet.service';
 import {UserService} from '../auth/user.service';
-import {ObjectUtil} from "../../../@core/utils/ObjectUtil";
+import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
+import {ActivatedRoute, Params} from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -31,18 +32,25 @@ export class DashboardComponent implements OnInit {
   spinner = false;
   pageable: Pageable = new Pageable();
   isFilterCollapsed = true;
+  orderCode: string;
 
   constructor(private formBuilder: FormBuilder,
               private orderService: OrderService,
               private walletService: WalletService,
-              private userService: UserService) {
+              private userService: UserService,
+              private activatedRoute: ActivatedRoute, ) {
   }
 
   ngOnInit() {
     this.buildForm();
     this.user = LocalStorageUtil.getStorage();
     this.checkAuthority();
-    this.setDate();
+    if (this.isAdmin) {
+      this.setDate();
+    }
+    if (this.isKitchener) {
+      this.getNotifyRouteData();
+    }
   }
 
   checkAuthority() {
@@ -95,5 +103,12 @@ export class DashboardComponent implements OnInit {
       startDate: [undefined],
       endDate: [undefined]
     });
+  }
+
+  getNotifyRouteData() {
+    this.activatedRoute.queryParams.subscribe(
+      (paramsValue: Params) => {
+        this.orderCode = paramsValue.orderCode;
+      });
   }
 }

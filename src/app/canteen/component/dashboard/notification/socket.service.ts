@@ -5,6 +5,8 @@ import * as Stomp from 'stompjs';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {Message} from './message';
 import {NbToastrService} from '@nebular/theme';
+import {NotificationService} from './notifier/notification.service';
+import {AudioUtils} from "../../../../@core/utils/AudioUtils";
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +19,9 @@ export class SocketService {
   userId = Number(LocalStorageUtil.getStorage().userId);
   userRole = LocalStorageUtil.getStorage().roleType;
 
-  constructor(private nbToastrService: NbToastrService) { }
+  constructor(private nbToastrService: NbToastrService,
+              private notificationService: NotificationService ,
+  ) { }
 
 
   // Web socket configurations initialization
@@ -36,15 +40,21 @@ export class SocketService {
     this.isCustomSocketOpened = true;
     const data: Array<any> = [];
 
-    console.log(this.userRole);
-    this.stompClient.subscribe(`/socket-publisher/${this.userRole}`, (message) => {
-      this.nbToastrService.success('New notification received!!!');
-      console.log(message);
+    console.log(LocalStorageUtil.getStorage());
+    console.log(this.userRole, 'role');
+    this.stompClient.subscribe(`/socket-publisher/${this.userRole}`, (response) => {
+      const responseData = JSON.parse(response.body);
+      this.nbToastrService.success(responseData.message , 'Success');
+      AudioUtils.playSound();
+      data.push(responseData.message);
+      console.log(responseData.message , responseData);
+      this.notificationService.fetchNotifications();
     });
   }
 
   sendMessageUsingSocket() {
     console.log('jjjj' , this.isCustomSocketOpened);
+    console.log(this.userRole);
     this.stompClient.send('/socket-subscriber/send/message', {}, JSON.stringify(this.message));
   }
 }

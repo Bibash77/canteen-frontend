@@ -40,6 +40,8 @@ export class LoginComponent implements OnInit {
        if (!ObjectUtil.isEmpty(data.detail.id)) {
          const storage = LocalStorageUtil.getStorage();
          storage.roleType = data.detail.roleType;
+         console.log(data.detail.roleType , "log role");
+
          storage.username = data.detail.userName;
          storage.userId = (data.detail.id).toString();
          storage.currentBalance = data.detail.walletAmount;

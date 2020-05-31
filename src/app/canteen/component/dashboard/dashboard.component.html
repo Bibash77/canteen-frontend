@@ -85,7 +85,8 @@
 <!--  // if user is kitchener-->
 </nb-card>
     <nb-card>
-      <app-kitchener-serve *ngIf="isKitchener"></app-kitchener-serve>
+      <nb-card-header></nb-card-header>
+      <app-kitchener-serve [orderCode]="orderCode"></app-kitchener-serve>
     </nb-card>
   </nb-layout-column>
 </nb-layout>
