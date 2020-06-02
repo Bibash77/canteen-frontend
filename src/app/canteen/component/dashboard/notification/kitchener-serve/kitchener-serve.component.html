@@ -34,16 +34,17 @@
             [attr.aria-expanded]="!isFilterCollapsed" aria-controls="searchModel"
             nbButton
             shape="rectangle"
-            size="small"
+            size="tiny"
             status="primary">
-            <nb-icon [hidden]="!isFilterCollapsed" icon="arrow-downward"></nb-icon>
-            <nb-icon [hidden]="isFilterCollapsed" icon="arrow-upward"></nb-icon>
+            <!--<nb-icon [hidden]="!isFilterCollapsed" icon="arrow-downward"></nb-icon>
+            <nb-icon [hidden]="isFilterCollapsed" icon="arrow-upward"></nb-icon>-->
+            <nb-icon [icon]="isFilterCollapsed? 'arrow-upward': 'arrow-downward'"></nb-icon>
           </button>
         </div>
-        <div [hidden]="isFilterCollapsed" class="row">
+        <div id="searchModel"  class="row" [ngbCollapse]="isFilterCollapsed">
           <form [formGroup]="searchForm">
             <table class="table-hover">
-              <tr [hidden]="isFilterCollapsed">
+              <tr>
                 <td>
                   <nb-select #orderStatus (selectedChange)="search()" formControlName="orderStatus"
                              placeholder="status" size="medium" status="primary">

@@ -12,8 +12,9 @@
         </nb-list-item>
       </tr>
     </nb-card>-->
-<!--  <app-orders *ngIf="isStudent" [searchDto]="searchDto"></app-orders>-->
-  <nb-card accent="info">
+  <app-orders *ngIf="isStudent" [searchDto]="searchDto"></app-orders>
+
+  <nb-card *ngIf="!isStudent" accent="info">
     <nb-card-header>
       <nb-checkbox class="float-right" status="info">inactive</nb-checkbox>
     </nb-card-header>

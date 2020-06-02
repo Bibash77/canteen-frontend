@@ -6,8 +6,7 @@ import {NotificationService} from './notifier/notification.service';
 import {Message} from './message';
 import {NbToastrService} from '@nebular/theme';
 import {Router} from '@angular/router';
-import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
-import {Validators} from '@angular/forms';
+import {TransactionType} from "../../../../@core/TransactionType";
 
 @Component({
   selector: 'app-notification',
@@ -66,17 +65,18 @@ export class NotificationComponent implements OnInit {
     message.orderCode = message.message.match('\\:(.*?)\\.')[1];
     console.log(message.orderCode);
     this.saveMessage(message);
-    this.router.navigate(['/canteen/dashboard'], {
-      queryParams: {
-        orderCode: message.orderCode,
-      }
-    });
+    if(message.transactionType === TransactionType.ORDER) {
+      this.router.navigate(['/canteen/dashboard'], {
+        queryParams: {
+          orderCode: message.orderCode,
+        }
+      });
+    }
   }
 
   saveMessage(message) {
     this.notificationService.save(message).subscribe((updateNotification: any) => {
       this.notificationService.fetchNotifications();
-      this.nbToastrService.show('updated notification status', 'Success!!');
     }, error => {
       console.error(error);
       this.nbToastrService.show('Error updating notification status', 'ERROR!!');

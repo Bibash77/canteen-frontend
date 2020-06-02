@@ -5,6 +5,13 @@ import {NbDialogRef, NbDialogService} from '@nebular/theme';
   selector: 'app-order-profile',
   template: ` <nb-card status="primary">
     <nb-card-header class="text-center">Order Detail({{order?.itemName}})
+        <nb-icon *ngIf="order.orderStatus == 'PENDING'"
+                 status="success"
+                 icon="shopping-bag"></nb-icon>
+        <nb-icon *ngIf="order.orderStatus == 'DELIVERED'"
+                 icon="done-all" status="primary"></nb-icon>
+        <nb-icon *ngIf="order.orderStatus == 'READY'"
+                 icon="options" status="danger"></nb-icon>
     </nb-card-header>
     <nb-card-body>
         <div class="row">

@@ -43,7 +43,7 @@ export class KitchenerServeComponent implements OnInit {
   static loadData(other: KitchenerServeComponent) {
     console.log(other.searchDto);
     other.spinner = true;
-    other.orderService.getOrderHistory(other.orderDto, other.page, 5).subscribe((response: any) => {
+    other.orderService.getOrderHistory(other.orderDto, other.page, 10).subscribe((response: any) => {
       other.order = response.detail.content;
       other.pageable = PaginationUtils.getPageable(response.detail);
       other.spinner = false;

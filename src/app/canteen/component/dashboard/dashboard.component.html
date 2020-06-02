@@ -41,10 +41,10 @@
         <h6>Today Transaction</h6>
       </div>
     </div>
-    <nb-card *ngIf="isAdmin || isKitchener">
+    <nb-card *ngIf="isAdmin">
       <nb-card-body>
         <div class="row">
-          <div *ngIf="isAdmin" class="col-md-4 col-sm-6 col-xs-12">
+          <div class="col-md-4 col-sm-6 col-xs-12">
             <a routerLink="/canteen/configuration">
               <app-icon-card [detail]="countOrderData['userCount'] + ' users'"
                              title="InActive Users"
@@ -54,7 +54,7 @@
             </a>
           </div>
 
-          <div *ngIf="isAdmin" class="col-md-4 col-sm-6 col-xs-12">
+          <div class="col-md-4 col-sm-6 col-xs-12">
             <app-icon-card [detail]="'Rs. '+ countOrderData['expenditureCount']"
                            title="Sales Income"
                            type="success">
@@ -65,7 +65,7 @@
           </div>
 
           <div class="col-md-4 col-sm-6 col-xs-12">
-            <app-icon-card *ngIf="isAdmin" title="TopUp Income" type="info" [detail]="'Rs. '+countOrderData.topUpAmount">
+            <app-icon-card title="TopUp Income" type="info" [detail]="'Rs. '+countOrderData.topUpAmount">
               <nb-icon icon="briefcase"></nb-icon>
             </app-icon-card>
           </div>
@@ -85,8 +85,7 @@
 <!--  // if user is kitchener-->
 </nb-card>
     <nb-card>
-      <nb-card-header></nb-card-header>
-      <app-kitchener-serve [orderCode]="orderCode"></app-kitchener-serve>
+      <app-kitchener-serve *ngIf="isKitchener" [orderCode]="orderCode"></app-kitchener-serve>
     </nb-card>
   </nb-layout-column>
 </nb-layout>

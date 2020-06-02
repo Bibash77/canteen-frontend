@@ -98,7 +98,7 @@ export class ItemListComponent implements OnInit {
     this.socketService.message.itemName =  this.orderDto.item.itemName;
     this.socketService.message.orderCode = this.orderDto.orderCode;
     this.socketService.message.quantity = this.orderDto.quantity;
-    this.socketService.message.toRole = UserType.ADMIN;
+    this.socketService.message.toRole = UserType.KITCHENER;
     this.socketService.sendMessageUsingSocket();
   }
 }

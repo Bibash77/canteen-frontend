@@ -2,8 +2,8 @@
   <div class="bg-white">
     <nb-card accent="primary">
       <nb-card-header class="text-center">
-        <b>{{searchDto?.orderStatus}} ORDERS</b>
-        <div *ngIf="searchDto.orderStatus != 'PENDING'" class="row">
+        <b>{{searchDto?.orderStatus |titlecase}} ORDERS</b>
+        <div class="row">
           <div class="col-md-12 text-right">
             <button *ngIf="!isFilterCollapsed"
                     (click)="isFilterCollapsed = !isFilterCollapsed"
@@ -49,7 +49,7 @@
                     </nb-select>
                   </td>
                   <td>
-                    <button *ngIf="searchForm.valid" type="submit" nbButton status="primary" size="medium"><nb-icon  icon="search"></nb-icon></button>
+                    <button type="submit" nbButton status="primary" size="medium"><nb-icon  icon="search"></nb-icon></button>
                   </td>
                 </tr>
               </table>
