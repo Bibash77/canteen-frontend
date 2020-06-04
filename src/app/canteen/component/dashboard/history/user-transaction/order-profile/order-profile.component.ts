@@ -33,6 +33,15 @@ import {NbDialogRef, NbDialogService} from '@nebular/theme';
     </nb-card-body>
     <nb-card-footer>
       <button   hero nbButton status="danger" size="small" (click)="close()">close</button>
+      <span class="float-right">
+        <nb-icon *ngIf="order.orderStatus == 'PENDING'"
+                 status="success"
+                 icon="shopping-bag"></nb-icon>
+        <nb-icon *ngIf="order.orderStatus == 'DELIVERED'"
+                 icon="done-all" status="primary"></nb-icon>
+        <nb-icon *ngIf="order.orderStatus == 'READY'"
+                 icon="options" status="danger"></nb-icon>
+      </span>
     </nb-card-footer>
   </nb-card>`,
   styles: [``]

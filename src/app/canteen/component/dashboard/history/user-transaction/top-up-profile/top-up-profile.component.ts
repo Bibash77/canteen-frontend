@@ -15,10 +15,10 @@ import {NbDialogRef} from "@nebular/theme";
           </tr>
           <tr>
             <td>Amount</td>
-            <td>Rs.{{topUpDetails?.topUpAmount}}</td>
+            <td [ngStyle]="{'color': color(topUpDetails?.topUpAmount.toString()) ? 'red' : 'blue'}">Rs.{{topUpDetails?.topUpAmount}}</td>
           </tr>
           <tr>
-            <td>Remaining Balance</td>
+            <td>New Balance</td>
             <td>Rs.{{topUpDetails?.remainingAmount}}</td>
           </tr>
         </table>
@@ -39,5 +39,9 @@ export class TopUpProfileComponent implements OnInit {
 
   close() {
     this.dialog.close();
+  }
+
+  color(value) {
+    return value.indexOf('-') !== -1;
   }
 }

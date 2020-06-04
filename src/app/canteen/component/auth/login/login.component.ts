@@ -5,6 +5,7 @@ import {UserService} from '../user.service';
 import {Router} from '@angular/router';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {SocketService} from  '../../dashboard/notification/socket.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,9 @@ export class LoginComponent implements OnInit {
 
   constructor(private dialogService: NbDialogService,
               private userService: UserService,
-              private router: Router, private toasterService: NbToastrService, ) {
+              private router: Router,
+              private toasterService: NbToastrService,
+              private socketService: SocketService) {
   }
 
   ngOnInit() {
@@ -37,6 +40,8 @@ export class LoginComponent implements OnInit {
        if (!ObjectUtil.isEmpty(data.detail.id)) {
          const storage = LocalStorageUtil.getStorage();
          storage.roleType = data.detail.roleType;
+         console.log(data.detail.roleType , "log role");
+
          storage.username = data.detail.userName;
          storage.userId = (data.detail.id).toString();
          storage.currentBalance = data.detail.walletAmount;

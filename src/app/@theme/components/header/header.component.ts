@@ -13,6 +13,8 @@ import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ProfileComponent} from './profile-component/profile-component.component';
 import {Router} from '@angular/router';
+import {SocketService} from "../../../canteen/component/dashboard/notification/socket.service";
+import {NotificationService} from "../../../canteen/component/dashboard/notification/notifier/notification.service";
 
 @Component({
   selector: 'app-header',
@@ -30,13 +32,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
   userMenu;
   contextMenuTag = 'user-context-menu';
   private destroy$: Subject<void> = new Subject<void>();
+  notificationCount;
 
   constructor(private sidebarService: NbSidebarService,
               private menuService: NbMenuService,
               private dialogService: NbDialogService,
               private router: Router,
               private themeService: NbThemeService,
-              private breakpointService: NbMediaBreakpointsService) {
+              private breakpointService: NbMediaBreakpointsService,
+              private socketService: SocketService,
+              private notificationService: NotificationService) {
   }
 
   ngOnInit() {
@@ -61,6 +66,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       takeUntil(this.destroy$),
     )
     .subscribe(themeName => this.currentTheme = themeName);
+    this.setupNotification();
   }
 
   ngOnDestroy() {
@@ -89,5 +95,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.dialogService.open(ProfileComponent);
       }
     });
+  }
+
+  setupNotification(): void {
+    this.socketService.initializeWebSocketConnection();
+    this.notificationService.fetchNotifications();
+    this.notificationService.notificationCount.subscribe((value => this.notificationCount = value));
+    console.log(this.notificationCount);
   }
 }

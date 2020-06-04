@@ -6,7 +6,7 @@ import {CanteenComponent} from './canteen.component';
 import {ThemeModule} from '../@theme/theme.module';
 import {DashboardComponent} from './component/dashboard/dashboard.component';
 import {
-  NbAccordionModule, NbDatepickerModule, NbInputModule,
+  NbAccordionModule, NbAlertModule, NbBadgeModule, NbDatepickerModule, NbInputModule,
   NbListModule, NbRadioModule,
   NbStepperModule, NbTabsetModule, NbToastrModule,
   NbToggleModule, NbTooltipModule, NbWindowModule
@@ -23,6 +23,7 @@ import {KitchenerServeComponent} from './component/dashboard/notification/kitche
 import {OrdersComponent} from './component/dashboard/history/user-transaction/orders/orders.component';
 import {OrderProfileComponent} from './component/dashboard/history/user-transaction/order-profile/order-profile.component';
 import {TopUpProfileComponent} from './component/dashboard/history/user-transaction/top-up-profile/top-up-profile.component';
+import {NgbCollapseModule} from "@ng-bootstrap/ng-bootstrap";
 
 
 @NgModule({
@@ -45,7 +46,10 @@ import {TopUpProfileComponent} from './component/dashboard/history/user-transact
     NbRadioModule,
     NbTooltipModule,
     NbDatepickerModule,
-    NbToastrModule.forRoot({duration: 0})
+    NbToastrModule.forRoot({duration: 0}),
+    NbAlertModule,
+    NbBadgeModule,
+    NgbCollapseModule
   ],
   entryComponents: [AddItemComponent, TopUpComponent, OrderProfileComponent, TopUpProfileComponent]
 })

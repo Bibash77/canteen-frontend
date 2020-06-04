@@ -22,7 +22,7 @@
     </nb-card-body>
     <nb-card-footer>
       <button nbButton hero  status="danger" (click)="ref.close()" size="small">cancel</button>
-      <button *ngIf="quantity.value > 0 && agree && orderAble" nbButton hero status="primary" class="float-right" (click)="orderItem(data , quantity.selected); ref.close()" size="small">Order</button>
+      <button *ngIf="quantity.value > 0 && agree && orderAble" nbButton hero status="primary" class="float-right" (click)="orderItem(data , quantity.value); ref.close()" size="small">Order</button>
     </nb-card-footer>
   </nb-card>
 </ng-template>

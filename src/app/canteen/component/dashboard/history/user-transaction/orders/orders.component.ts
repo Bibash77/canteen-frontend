@@ -7,6 +7,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {AuthorityUtil} from '../../../../../../@core/utils/AuthorityUtil';
 import {NbDialogService} from '@nebular/theme';
 import {OrderProfileComponent} from '../order-profile/order-profile.component';
+import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 
 @Component({
   selector: 'app-orders',
@@ -39,6 +40,7 @@ export class OrdersComponent implements OnInit {
       other.search.userId = undefined;
       other.iskitchener = true;
     }
+    console.log(other.search);
     other.spinner = true;
     other.orderService.getOrderHistory(other.search, other.page, 10).subscribe((response: any) => {
       other.order = response.detail.content;
@@ -63,14 +65,20 @@ export class OrdersComponent implements OnInit {
   buildForm() {
     this.searchForm = this.formBuilder.group({
       startDate: [undefined],
-      endDate: [undefined]
+      endDate: [undefined],
+      orderStatus: [undefined]
     });
   }
   searchOrdersByDate() {
-    this.search.date = JSON.stringify({
-      startDate: new Date(this.searchForm.get('startDate').value).toLocaleDateString(),
-      endDate: new Date(this.searchForm.get('endDate').value).toLocaleDateString()
-    });
+    const startDate = this.searchForm.get('startDate').value;
+    const endDate =   this.searchForm.get('endDate').value;
+    if (!ObjectUtil.isEmpty(startDate) && !ObjectUtil.isEmpty(endDate)) {
+     this.search.date = JSON.stringify({
+       startDate: new Date(startDate).toLocaleDateString(),
+       endDate: new Date(endDate).toLocaleDateString()
+     });
+   }
+    this.search.orderStatus = this.searchForm.get('orderStatus').value;
     OrdersComponent.loadData(this);
   }
 

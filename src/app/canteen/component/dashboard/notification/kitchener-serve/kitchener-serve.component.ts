@@ -1,4 +1,4 @@
-import {Component, OnInit, TemplateRef} from '@angular/core';
+import {Component, Input, OnInit, TemplateRef} from '@angular/core';
 import {OrderDto} from '../../../modal/orderDto';
 import {SearchDto} from '../../../modal/SearchDto';
 import {OrderService} from '../../item-list/order.service';
@@ -6,6 +6,7 @@ import {NbDialogService, NbToastrService} from '@nebular/theme';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {PaginationUtils} from '../../../../../@core/utils/PaginationUtils';
 import {Pageable} from '../../../modal/common-pageable';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 
 @Component({
   selector: 'app-kitchener-serve',
@@ -13,6 +14,7 @@ import {Pageable} from '../../../modal/common-pageable';
   styleUrls: ['./kitchener-serve.component.scss']
 })
 export class KitchenerServeComponent implements OnInit {
+  @Input() orderCode;
   order: Array<OrderDto> = [];
   searchForm: FormGroup;
   page = 1;
@@ -41,7 +43,7 @@ export class KitchenerServeComponent implements OnInit {
   static loadData(other: KitchenerServeComponent) {
     console.log(other.searchDto);
     other.spinner = true;
-    other.orderService.getOrderHistory(other.orderDto, other.page, 5).subscribe((response: any) => {
+    other.orderService.getOrderHistory(other.orderDto, other.page, 10).subscribe((response: any) => {
       other.order = response.detail.content;
       other.pageable = PaginationUtils.getPageable(response.detail);
       other.spinner = false;
@@ -53,7 +55,7 @@ export class KitchenerServeComponent implements OnInit {
   ngOnInit() {
     this.orderDto = new OrderDto();
     this.buildForm();
-    this.orderDto.orderStatus = 'PENDING';
+    this.setInitialSearchParam();
     KitchenerServeComponent.loadData(this);
   }
 
@@ -114,5 +116,14 @@ export class KitchenerServeComponent implements OnInit {
   changePage(page: number) {
     this.page = page;
     KitchenerServeComponent.loadData(this);
+  }
+
+  setInitialSearchParam() {
+    if (!ObjectUtil.isEmpty(this.orderCode)) {
+      console.log(this.orderCode);
+      this.orderDto.orderCode = this.orderCode;
+    } else {
+      this.orderDto.orderStatus = 'PENDING';
+    }
   }
 }
