@@ -22,13 +22,14 @@ export class LocalStorage {
   ty: string;
   et: string;
   username: string;
-  roleName: string;
   roleType: string;
   userId: string;
   currentBalance: string;
   status: string;
   userCode: string;
   fullName: string;
+  email: string;
+  batch: string;
   productMode: string;
 }
 
