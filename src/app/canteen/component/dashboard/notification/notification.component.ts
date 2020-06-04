@@ -6,7 +6,7 @@ import {NotificationService} from './notifier/notification.service';
 import {Message} from './message';
 import {NbToastrService} from '@nebular/theme';
 import {Router} from '@angular/router';
-import {TransactionType} from "../../../../@core/TransactionType";
+import {TransactionType} from '../../../../@core/TransactionType';
 
 @Component({
   selector: 'app-notification',
@@ -56,8 +56,12 @@ export class NotificationComponent implements OnInit {
   }
 
   closeMessage(message: Message, status) {
-      message.status = status;
-      this.saveMessage(message);
+    if (!message.isSeen) {
+      this.nbToastrService.warning('Please read the notify first', 'Alert!!');
+      return false;
+    }
+    message.status = status;
+    this.saveMessage(message);
   }
 
   readMessage(message: Message) {
@@ -65,7 +69,7 @@ export class NotificationComponent implements OnInit {
     message.orderCode = message.message.match('\\:(.*?)\\.')[1];
     console.log(message.orderCode);
     this.saveMessage(message);
-    if(message.transactionType === TransactionType.ORDER) {
+    if (message.transactionType === TransactionType.ORDER) {
       this.router.navigate(['/canteen/dashboard'], {
         queryParams: {
           orderCode: message.orderCode,

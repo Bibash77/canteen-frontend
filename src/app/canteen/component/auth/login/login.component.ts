@@ -48,6 +48,8 @@ export class LoginComponent implements OnInit {
          storage.userCode = data.detail.userCode;
          storage.status = (data.detail.status);
          storage.fullName = data.detail.fullName;
+         storage.email = data.detail.email;
+         storage.batch = data.detail.batch;
          LocalStorageUtil.setStorage(storage);
          console.log(storage);
          this.spinner = false;
