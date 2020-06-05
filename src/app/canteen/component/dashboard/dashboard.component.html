@@ -75,15 +75,11 @@
     <app-user-transaction *ngIf="isAdmin"></app-user-transaction>
 
   <!--  //if user is student-->
-<nb-card *ngIf="isStudent" accent="primary">
-  <nb-card-header  class="text-center"><h6>Order Menu</h6></nb-card-header>
-  <nb-card-body>
-  <app-item-list></app-item-list>
-  </nb-card-body>
+
+  <app-item-list *ngIf="isStudent" accent="primary"></app-item-list>
 
 
 <!--  // if user is kitchener-->
-</nb-card>
     <nb-card>
       <app-kitchener-serve *ngIf="isKitchener" [orderCode]="orderCode"></app-kitchener-serve>
     </nb-card>

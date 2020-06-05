@@ -1,5 +1,6 @@
 import { LocalStorageUtil} from './local-storage-util';
 import {UserType} from '../userType';
+import {Status} from '../Status';
 
 export class AuthorityUtil {
    static checkAdmin(): boolean {
@@ -20,5 +21,10 @@ export class AuthorityUtil {
   static isOrderable(itemAmount: number): boolean {
     const localStorage = LocalStorageUtil.getStorage();
     return Number(localStorage.currentBalance) > (itemAmount + 20);
+  }
+
+  static isUserActive() {
+    const localStorage = LocalStorageUtil.getStorage();
+    return localStorage.status.toString() === Status.ACTIVE.toString();
   }
 }

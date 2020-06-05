@@ -29,7 +29,7 @@ const routes: Routes = [
         component: UserTransactionComponent
       },
       {
-        path: '',
+        path: '**',
         redirectTo: 'dashboard',
         pathMatch: 'full'
       }

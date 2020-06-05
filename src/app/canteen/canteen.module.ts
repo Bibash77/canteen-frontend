@@ -23,8 +23,8 @@ import {KitchenerServeComponent} from './component/dashboard/notification/kitche
 import {OrdersComponent} from './component/dashboard/history/user-transaction/orders/orders.component';
 import {OrderProfileComponent} from './component/dashboard/history/user-transaction/order-profile/order-profile.component';
 import {TopUpProfileComponent} from './component/dashboard/history/user-transaction/top-up-profile/top-up-profile.component';
-import {NgbCollapseModule} from "@ng-bootstrap/ng-bootstrap";
-
+import {NgbCollapseModule} from '@ng-bootstrap/ng-bootstrap';
+import {AppModule} from "../app.module";
 
 @NgModule({
   declarations: [CanteenComponent, DashboardComponent, ConfigurationComponent,
@@ -49,7 +49,7 @@ import {NgbCollapseModule} from "@ng-bootstrap/ng-bootstrap";
     NbToastrModule.forRoot({duration: 0}),
     NbAlertModule,
     NbBadgeModule,
-    NgbCollapseModule
+    NgbCollapseModule,
   ],
   entryComponents: [AddItemComponent, TopUpComponent, OrderProfileComponent, TopUpProfileComponent]
 })

@@ -83,7 +83,6 @@ export class UserConfigComponent implements OnInit {
     UserConfigComponent.loadData(this);
   }
   searchData() {
-    console.log(this.searchForm.value);
     if (this.searchForm.get('userCode').value === '') {
       this.searchForm.get('userCode').setValue(null);
     }

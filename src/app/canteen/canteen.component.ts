@@ -27,16 +27,22 @@ export class CanteenComponent implements OnInit {
 
   ngOnInit() {
     this.menu = [];
+    if (AuthorityUtil.isUserActive()){
+     this.pushMenu();
+   }
+  }
+
+  pushMenu(){
     this.menu.push(MENU_ITEMS.get('Dashboard'));
     if (AuthorityUtil.checkAdmin()) {
       this.menu.push(MENU_ITEMS.get('Configure'));
     }
     if (this.isKitchener) {
-     this.notificationService.notificationCount.subscribe(value => {
-       this.notificationCount = value;
-       MENU_ITEMS.get('Notification').title = 'Notification(' + this.notificationCount.toString() + ')';
-     });
-   }
+      this.notificationService.notificationCount.subscribe(value => {
+        this.notificationCount = value;
+        MENU_ITEMS.get('Notification').title = 'Notification(' + this.notificationCount.toString() + ')';
+      });
+    }
     this.menu.push(MENU_ITEMS.get('Notification'));
   }
 

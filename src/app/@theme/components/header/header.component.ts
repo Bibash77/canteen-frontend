@@ -15,6 +15,7 @@ import {ProfileComponent} from './profile-component/profile-component.component'
 import {Router} from '@angular/router';
 import {SocketService} from "../../../canteen/component/dashboard/notification/socket.service";
 import {NotificationService} from "../../../canteen/component/dashboard/notification/notifier/notification.service";
+import {AuthorityUtil} from "../../../@core/utils/AuthorityUtil";
 
 @Component({
   selector: 'app-header',
@@ -66,7 +67,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
       takeUntil(this.destroy$),
     )
     .subscribe(themeName => this.currentTheme = themeName);
-    this.setupNotification();
+    if (this.checkUserActive()) {
+      this.setupNotification();
+    }
   }
 
   ngOnDestroy() {
@@ -102,5 +105,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.notificationService.fetchNotifications();
     this.notificationService.notificationCount.subscribe((value => this.notificationCount = value));
     console.log(this.notificationCount);
+  }
+
+  checkUserActive() {
+    return AuthorityUtil.isUserActive();
   }
 }

@@ -25,7 +25,6 @@ export class NotificationService extends BaseService<Message> {
 
   setNotificationCount(count: any) {
     this.notificationCountSource.next(count);
-    console.log(this.notificationCount);
   }
 
   setNotificationMessage(message: Array<Message>) {

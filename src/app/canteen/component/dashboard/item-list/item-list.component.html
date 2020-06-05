@@ -5,7 +5,7 @@
 
           <label for="quantity">Quantity</label><br>
       <select #quantity (change) ="calculateTotal(data.price , quantity.value)" id="quantity"
-                  size="large" class="form-control">
+                  size="large" class="form-control custom-select">
         <option [value]="0" disabled>select Qty</option>
         <option *ngFor="let qty of quantities" [value]="qty">{{qty}}</option>
       </select>
@@ -16,7 +16,8 @@
           <input class="form-control"  id="itemPrice" nbInput [(ngModel)]="totalExpenses"
                  type="text" readonly><br>
       <nb-checkbox #chk (checkedChange)="agreeChecker(chk.checked)">I Agree to Terms</nb-checkbox>
-      <p> <b class="text-danger">(order cannot be cancelled!!)</b></p>
+      <p> <b class="text-info">(order cannot be cancelled!!)</b></p>
+       <b *ngIf="!orderAble && quantity.value > 0" class="text-warning">(Not enough Balance)</b>
       <!--</div>
     </div>-->
     </nb-card-body>
@@ -26,6 +27,9 @@
     </nb-card-footer>
   </nb-card>
 </ng-template>
+<nb-card *ngIf="checkUserActive()" accent="infos">
+  <nb-card-header  class="text-center"><h6>Order Menu</h6></nb-card-header>
+  <nb-card-body>
 <table class="table border table-hover">
   <ng-container>
     <thead>
@@ -50,3 +54,18 @@
     </tbody>
   </ng-container>
 </table>
+  </nb-card-body>
+</nb-card>
+<div *ngIf="!checkUserActive()" class="card text-center">
+  <div class="card-header">
+    Activation Error !
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">You are Inactive!!</h5>
+    <p class="card-text">Please Contact College Administrator and activate account.</p>
+    <a>Top-Up account to place Order</a>
+  </div>
+  <div class="card-footer text-muted">
+    <nb-icon icon="alert-triangle-outline"></nb-icon>
+  </div>
+</div>

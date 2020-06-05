@@ -40,7 +40,6 @@ export class OrdersComponent implements OnInit {
       other.search.userId = undefined;
       other.iskitchener = true;
     }
-    console.log(other.search);
     other.spinner = true;
     other.orderService.getOrderHistory(other.search, other.page, 10).subscribe((response: any) => {
       other.order = response.detail.content;

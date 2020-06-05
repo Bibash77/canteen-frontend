@@ -89,7 +89,6 @@ export class DashboardComponent implements OnInit {
         this.countOrderData.userCount = 0;
       }
     });
-    console.log(this.countOrderData);
   }
 
   searchOrdersByDate() {

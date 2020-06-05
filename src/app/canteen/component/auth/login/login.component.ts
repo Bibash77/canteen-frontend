@@ -6,6 +6,7 @@ import {Router} from '@angular/router';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {SocketService} from  '../../dashboard/notification/socket.service';
+import {Status} from '../../../../@core/Status';
 
 @Component({
   selector: 'app-login',
@@ -40,18 +41,19 @@ export class LoginComponent implements OnInit {
        if (!ObjectUtil.isEmpty(data.detail.id)) {
          const storage = LocalStorageUtil.getStorage();
          storage.roleType = data.detail.roleType;
-         console.log(data.detail.roleType , "log role");
-
          storage.username = data.detail.userName;
-         storage.userId = (data.detail.id).toString();
-         storage.currentBalance = data.detail.walletAmount;
-         storage.userCode = data.detail.userCode;
          storage.status = (data.detail.status);
          storage.fullName = data.detail.fullName;
          storage.email = data.detail.email;
          storage.batch = data.detail.batch;
+         /*console.log(data.detail.status === Status.INACTIVE.toString() , data.detail.status , Status.INACTIVE.toString());
+         if (data.detail.status === Status.INACTIVE.toString()) {
+           this.router.navigateByUrl('/user-inactive');
+         }*/
+         storage.userId = (data.detail.id).toString();
+         storage.currentBalance = data.detail.walletAmount;
+         storage.userCode = data.detail.userCode;
          LocalStorageUtil.setStorage(storage);
-         console.log(storage);
          this.spinner = false;
          this.router.navigateByUrl('/canteen/dashboard');
        } else {
