@@ -27,12 +27,10 @@ export class CanteenComponent implements OnInit {
 
   ngOnInit() {
     this.menu = [];
-    if (AuthorityUtil.isUserActive()){
-     this.pushMenu();
-   }
+    this.pushMenu();
   }
 
-  pushMenu(){
+  pushMenu() {
     this.menu.push(MENU_ITEMS.get('Dashboard'));
     if (AuthorityUtil.checkAdmin()) {
       this.menu.push(MENU_ITEMS.get('Configure'));

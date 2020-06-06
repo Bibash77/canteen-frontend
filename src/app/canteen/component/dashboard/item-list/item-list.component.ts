@@ -10,7 +10,6 @@ import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {SocketService} from '../notification/socket.service';
 import {UserType} from '../../../../@core/userType';
 import {TransactionType} from '../../../../@core/TransactionType';
-import {AudioUtils} from '../../../../@core/utils/AudioUtils';
 
 @Component({
   selector: 'app-item-list',
@@ -82,10 +81,6 @@ export class ItemListComponent implements OnInit {
 
  private  orderAbleChecker(amount: number) {
     this.orderAble = AuthorityUtil.isOrderable(amount);
-  }
-
-  checkUserActive() {
-    return AuthorityUtil.isUserActive();
   }
 
   sendOrderNotification(orderDto) {

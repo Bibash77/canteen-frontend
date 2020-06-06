@@ -6,7 +6,6 @@ import {ConfigurationComponent} from './component/dashboard/configuration/config
 import {NotificationComponent} from './component/dashboard/notification/notification.component';
 import {UserTransactionComponent} from './component/dashboard/history/user-transaction/user-transaction.component';
 
-
 const routes: Routes = [
   {
     path: '',

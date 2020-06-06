@@ -38,18 +38,20 @@ export class LoginComponent implements OnInit {
       password: loginForm.password
     };
     this.userService.login(datas).subscribe((data: any) => {
-       if (!ObjectUtil.isEmpty(data.detail.id)) {
+        if (!ObjectUtil.isEmpty(data.detail.id)) {
          const storage = LocalStorageUtil.getStorage();
          storage.roleType = data.detail.roleType;
          storage.username = data.detail.userName;
-         storage.status = (data.detail.status);
+         storage.status = data.detail.status;
          storage.fullName = data.detail.fullName;
          storage.email = data.detail.email;
          storage.batch = data.detail.batch;
-         /*console.log(data.detail.status === Status.INACTIVE.toString() , data.detail.status , Status.INACTIVE.toString());
+         console.log(data.detail.status === Status.INACTIVE.toString() , data.detail.status , Status.INACTIVE.toString());
          if (data.detail.status === Status.INACTIVE.toString()) {
+           LocalStorageUtil.setStorage(storage);
            this.router.navigateByUrl('/user-inactive');
-         }*/
+           return;
+         }
          storage.userId = (data.detail.id).toString();
          storage.currentBalance = data.detail.walletAmount;
          storage.userCode = data.detail.userCode;

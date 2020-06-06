@@ -24,13 +24,12 @@ import {OrdersComponent} from './component/dashboard/history/user-transaction/or
 import {OrderProfileComponent} from './component/dashboard/history/user-transaction/order-profile/order-profile.component';
 import {TopUpProfileComponent} from './component/dashboard/history/user-transaction/top-up-profile/top-up-profile.component';
 import {NgbCollapseModule} from '@ng-bootstrap/ng-bootstrap';
-import {AppModule} from "../app.module";
 
 @NgModule({
   declarations: [CanteenComponent, DashboardComponent, ConfigurationComponent,
     NotificationComponent, AddItemComponent, TopUpComponent, UserConfigComponent,
     ItemListComponent, UserTransactionComponent, KitchenerServeComponent, OrdersComponent,
-    OrderProfileComponent, TopUpProfileComponent],
+    OrderProfileComponent, TopUpProfileComponent ],
   imports: [
     CommonModule,
     CanteenRoutingModule,

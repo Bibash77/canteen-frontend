@@ -6,7 +6,7 @@ import {AuthorityUtil} from '../../../../@core/utils/AuthorityUtil';
   template: `<nb-layout>
     <nb-layout-column class="bg-white">
     <app-header></app-header>
-    <div *ngIf="!checkUserActive()" class="card text-center mt-4">
+    <div class="card text-center mt-4">
     <div class="card-header">
       Activation Error !
     </div>
