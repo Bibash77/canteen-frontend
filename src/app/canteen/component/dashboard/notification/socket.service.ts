@@ -32,7 +32,6 @@ export class SocketService {
     this.stompClient.connect({}, function(frame) {
       that.openSocket();
     });
-    console.log(this.stompClient);
     this.stompClient.debug = null;
   }
 
@@ -40,21 +39,18 @@ export class SocketService {
     this.isCustomSocketOpened = true;
     const data: Array<any> = [];
 
-    console.log(LocalStorageUtil.getStorage());
     console.log(this.userRole, 'role');
     this.stompClient.subscribe(`/socket-publisher/${this.userRole}`, (response) => {
       const responseData = JSON.parse(response.body);
       this.nbToastrService.success(responseData.message , 'Success');
       AudioUtils.playSound();
       data.push(responseData.message);
-      console.log(responseData.message , responseData);
       this.notificationService.fetchNotifications();
     });
   }
 
   sendMessageUsingSocket() {
-    console.log('jjjj' , this.isCustomSocketOpened);
-    console.log(this.userRole);
+    console.log(this.isCustomSocketOpened);
     this.stompClient.send('/socket-subscriber/send/message', {}, JSON.stringify(this.message));
   }
 }

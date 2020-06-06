@@ -41,7 +41,6 @@ export class KitchenerServeComponent implements OnInit {
   }
 
   static loadData(other: KitchenerServeComponent) {
-    console.log(other.searchDto);
     other.spinner = true;
     other.orderService.getOrderHistory(other.orderDto, other.page, 10).subscribe((response: any) => {
       other.order = response.detail.content;
@@ -87,7 +86,6 @@ export class KitchenerServeComponent implements OnInit {
   }
 
   changeOrderStatus(order, action) {
-    console.log(order , action);
     this.orderDto.id = order.id;
     this.orderDto.orderStatus = action;
     this.orderDto.orderCode = order.orderCode;
@@ -105,7 +103,6 @@ export class KitchenerServeComponent implements OnInit {
          this.order = value.detail;
        });
      });*/
-    console.log(this.searchForm.value);
     if (this.searchForm.get('orderCode').value === '') {
       this.searchForm.get('orderCode').setValue(null);
     }
@@ -120,7 +117,6 @@ export class KitchenerServeComponent implements OnInit {
 
   setInitialSearchParam() {
     if (!ObjectUtil.isEmpty(this.orderCode)) {
-      console.log(this.orderCode);
       this.orderDto.orderCode = this.orderCode;
     } else {
       this.orderDto.orderStatus = 'PENDING';

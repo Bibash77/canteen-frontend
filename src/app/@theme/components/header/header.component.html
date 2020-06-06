@@ -9,7 +9,7 @@
 
 <div class="header-container">
   <nb-actions size="small">
-    <nb-action class="control-item" icon="briefcase-outline" [routerLink]="['/canteen/transaction', userId]"></nb-action>
+    <nb-action *ngIf="checkUserActive()" class="control-item" icon="briefcase-outline" [routerLink]="['/canteen/transaction', userId]"></nb-action>
     <nb-action class="control-item" icon="bell-outline"></nb-action>
     <nb-action class="user-action">
       <nb-user [nbContextMenu]="userMenu" nbContextMenuTag="{{contextMenuTag}}" nbContextMenuTrigger="hover"

@@ -12,12 +12,14 @@ import {RegisterComponent} from './canteen/component/auth/register/register.comp
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HttpClientModule} from '@angular/common/http';
 import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
+import {InactiveUserHandlerComponent} from './canteen/component/dashboard/inactive-user-handler/inactive-user-handler.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    InactiveUserHandlerComponent
   ],
   imports: [
     BrowserModule,
@@ -36,6 +38,9 @@ import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   entryComponents: [
     RegisterComponent
+  ],
+  exports: [
+    InactiveUserHandlerComponent
   ],
   bootstrap: [AppComponent]
 })

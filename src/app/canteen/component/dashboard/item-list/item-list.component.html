@@ -5,7 +5,7 @@
 
           <label for="quantity">Quantity</label><br>
       <select #quantity (change) ="calculateTotal(data.price , quantity.value)" id="quantity"
-                  size="large" class="form-control">
+                  size="large" class="form-control custom-select">
         <option [value]="0" disabled>select Qty</option>
         <option *ngFor="let qty of quantities" [value]="qty">{{qty}}</option>
       </select>
@@ -15,8 +15,11 @@
           <label for="itemPrice">Total Expenses</label>
           <input class="form-control"  id="itemPrice" nbInput [(ngModel)]="totalExpenses"
                  type="text" readonly><br>
-      <nb-checkbox #chk (checkedChange)="agreeChecker(chk.checked)">I Agree to Terms</nb-checkbox>
-      <p> <b class="text-danger">(order cannot be cancelled!!)</b></p>
+      <nb-checkbox #chk (checkedChange)="agreeChecker(chk.checked)">I Agree to Terms</nb-checkbox><br>
+      <span>
+        <b class="text-info">(order cannot be cancelled!!)</b><br>
+       <b *ngIf="!orderAble && quantity.value > 0" class="text-danger">(Not enough Balance)</b>
+      </span>
       <!--</div>
     </div>-->
     </nb-card-body>
@@ -26,6 +29,9 @@
     </nb-card-footer>
   </nb-card>
 </ng-template>
+<nb-card accent="info">
+  <nb-card-header  class="text-center"><h6>Item Menu</h6></nb-card-header>
+  <nb-card-body>
 <table class="table border table-hover">
   <ng-container>
     <thead>
@@ -50,3 +56,5 @@
     </tbody>
   </ng-container>
 </table>
+  </nb-card-body>
+</nb-card>

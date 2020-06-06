@@ -13,8 +13,9 @@ import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ProfileComponent} from './profile-component/profile-component.component';
 import {Router} from '@angular/router';
-import {SocketService} from "../../../canteen/component/dashboard/notification/socket.service";
-import {NotificationService} from "../../../canteen/component/dashboard/notification/notifier/notification.service";
+import {SocketService} from '../../../canteen/component/dashboard/notification/socket.service';
+import {NotificationService} from '../../../canteen/component/dashboard/notification/notifier/notification.service';
+import {AuthorityUtil} from '../../../@core/utils/AuthorityUtil';
 
 @Component({
   selector: 'app-header',
@@ -29,7 +30,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   user: any;
   userId;
   currentTheme = 'default';
-  userMenu;
+  userMenu = [];
   contextMenuTag = 'user-context-menu';
   private destroy$: Subject<void> = new Subject<void>();
   notificationCount;
@@ -47,8 +48,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.userId = LocalStorageUtil.getStorage().userId;
     this.user = LocalStorageUtil.getStorage();
-    this.userMenu = [{title: 'Profile'}, {title: 'transaction', link: ['/canteen/transaction', this.userId]}, {title: 'Log out' ,
-      link: '/canteen/login', }];
+    this.headerMenuAdder();
     this.headerMenu();
     this.currentTheme = this.themeService.currentTheme;
 
@@ -66,7 +66,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
       takeUntil(this.destroy$),
     )
     .subscribe(themeName => this.currentTheme = themeName);
-    this.setupNotification();
+    if (this.checkUserActive()) {
+      this.setupNotification();
+    }
   }
 
   ngOnDestroy() {
@@ -102,5 +104,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.notificationService.fetchNotifications();
     this.notificationService.notificationCount.subscribe((value => this.notificationCount = value));
     console.log(this.notificationCount);
+  }
+
+  checkUserActive() {
+    return AuthorityUtil.isUserActive();
+  }
+
+  headerMenuAdder() {
+    this.userMenu.push({title: 'Profile'});
+    if (AuthorityUtil.isUserActive()) {
+      this.userMenu.push({title: 'transaction', link: ['/canteen/transaction', this.userId]});
+    }
+    this.userMenu.push({title: 'Log out' ,
+      link: '/canteen/login'});
   }
 }

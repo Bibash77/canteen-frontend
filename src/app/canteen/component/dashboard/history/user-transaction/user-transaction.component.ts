@@ -43,7 +43,6 @@ export class UserTransactionComponent implements OnInit {
   static loadData(other: UserTransactionComponent) {
     other.spinner = true;
     other.topUpHistoryService.topUpHistory(other.topUpSearch, other.page, 10).subscribe((response: any) => {
-      console.log(response.detail.content);
       other.topUpHistoryData = response.detail.content;
       other.pageable = PaginationUtils.getPageable(response.detail);
       other.spinner = false;
@@ -56,7 +55,6 @@ export class UserTransactionComponent implements OnInit {
     this.buildForm();
     // this.route.snapshot.params.id;
     this.id =  this.route.snapshot.paramMap.get('id');
-    console.log(this.id);
     this.searchDto.userId = this.id;
     this.topUpSearch.userId = this.id;
     this.searchDto.orderStatus = 'DELIVERED';

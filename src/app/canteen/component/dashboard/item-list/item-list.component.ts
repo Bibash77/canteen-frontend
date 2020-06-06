@@ -10,11 +10,11 @@ import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {SocketService} from '../notification/socket.service';
 import {UserType} from '../../../../@core/userType';
 import {TransactionType} from '../../../../@core/TransactionType';
-import {AudioUtils} from '../../../../@core/utils/AudioUtils';
 
 @Component({
   selector: 'app-item-list',
   templateUrl: './item-list.component.html',
+  styleUrls: ['./item-list.component.scss']
 })
 export class ItemListComponent implements OnInit {
 
@@ -43,7 +43,6 @@ export class ItemListComponent implements OnInit {
     ItemListComponent.loadData(this);
     this.isAdmin = AuthorityUtil.checkAdmin();
     this.isStudent = AuthorityUtil.checkStudent();
-    console.log(this.isAdmin);
   }
 
   onEditItem(singleItem) {  this.dialogService.open(AddItemComponent,
@@ -65,10 +64,8 @@ export class ItemListComponent implements OnInit {
     this.orderDto.userId = Number(LocalStorageUtil.getStorage().userId);
     this.orderDto.item = item;
     this.orderDto.quantity = quantity;
-    console.log(this.orderDto);
     this.orderService.save(this.orderDto).subscribe(value => {
        if (value.detail) {
-         console.log(value);
          this.orderDto.expenditure = value.detail.expenditure;
          this.orderDto.orderCode = value.detail.orderCode;
          this.sendOrderNotification(this.orderDto);
@@ -87,8 +84,6 @@ export class ItemListComponent implements OnInit {
   }
 
   sendOrderNotification(orderDto) {
-    console.log(orderDto);
-    console.log(this.orderDto);
     const user =  LocalStorageUtil.getStorage();
     this.socketService.message.date = new Date();
     this.socketService.message.fromId = Number(user.userId);

@@ -53,7 +53,6 @@ orderDetails;
 
   ngOnInit() {
     this.orderDetails = this.order;
-    console.log(this.orderDetails, this.order);
   }
 
   close() {

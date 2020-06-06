@@ -31,7 +31,6 @@ export class NotificationComponent implements OnInit {
     this.searchDto.userId = LocalStorageUtil.getStorage().userId;
     this.searchDto.orderStatus = 'PENDING';
     this.notificationService.notificationMessage.subscribe(value => this.notifications = value);
-    console.log(this.notifications);
   }
 
 
@@ -67,7 +66,6 @@ export class NotificationComponent implements OnInit {
   readMessage(message: Message) {
     message.isSeen = true;
     message.orderCode = message.message.match('\\:(.*?)\\.')[1];
-    console.log(message.orderCode);
     this.saveMessage(message);
     if (message.transactionType === TransactionType.ORDER) {
       this.router.navigate(['/canteen/dashboard'], {
