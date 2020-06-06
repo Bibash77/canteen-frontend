@@ -41,14 +41,10 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    if(this.loginForm.invalid) {
-      this.toasterService.danger('UserName and Password required' , 'Invalid!!' );
-      return;
-    }
     this.spinner = true;
     const datas = {
       userName: this.loginForm.get('userName').value,
-      password: this.loginForm.get('userName').value
+      password: this.loginForm.get('password').value
     };
     this.userService.login(datas).subscribe((data: any) => {
         if (!ObjectUtil.isEmpty(data.detail.id)) {
