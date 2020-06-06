@@ -5,8 +5,8 @@ import {UserService} from '../user.service';
 import {Router} from '@angular/router';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
-import {SocketService} from  '../../dashboard/notification/socket.service';
 import {Status} from '../../../../@core/Status';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -16,26 +16,39 @@ import {Status} from '../../../../@core/Status';
 export class LoginComponent implements OnInit {
   spinner = false;
   duration = 0;
+  loginForm: FormGroup;
 
   constructor(private dialogService: NbDialogService,
               private userService: UserService,
               private router: Router,
               private toasterService: NbToastrService,
-              private socketService: SocketService) {
+              private formBuilder: FormBuilder) {
   }
 
   ngOnInit() {
+    this.buildForm();
   }
 
   onRegister() {
     this.dialogService.open(RegisterComponent);
   }
 
-  onSubmit(loginForm) {
+  buildForm() {
+    this.loginForm =  this.formBuilder.group({
+      userName: [undefined , Validators.required],
+      password: [undefined , Validators.required]
+    });
+  }
+
+  onSubmit() {
+    if(this.loginForm.invalid) {
+      this.toasterService.danger('UserName and Password required' , 'Invalid!!' );
+      return;
+    }
     this.spinner = true;
     const datas = {
-      userName: loginForm.userName,
-      password: loginForm.password
+      userName: this.loginForm.get('userName').value,
+      password: this.loginForm.get('userName').value
     };
     this.userService.login(datas).subscribe((data: any) => {
         if (!ObjectUtil.isEmpty(data.detail.id)) {
