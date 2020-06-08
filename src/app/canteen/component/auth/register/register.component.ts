@@ -4,6 +4,8 @@ import {UserService} from '../user.service';
 import {User} from '../../modal/user';
 import {UserType} from '../../../../@core/userType';
 import {Router} from '@angular/router';
+import {OtherUtils} from '../../../../@core/utils/OtherUtils';
+import {AuthorityUtil} from '../../../../@core/utils/AuthorityUtil';
 
 @Component({
   selector: 'app-register',
@@ -17,6 +19,7 @@ export class RegisterComponent implements OnInit {
               private router: Router,
               private nbToastrService: NbToastrService) { }
   user: User = new User();
+  batchList = [];
 
   buildForm() {
   }
@@ -48,5 +51,6 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.buildForm();
+    this.batchList = OtherUtils.batchGenerator();
   }
 }

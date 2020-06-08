@@ -3,58 +3,74 @@
     <nb-card-header class="text-center"><h5>Order {{data.itemName}}</h5></nb-card-header>
     <nb-card-body>
 
-          <label for="quantity">Quantity</label><br>
-      <select #quantity (change) ="calculateTotal(data.price , quantity.value)" id="quantity"
+      <label for="quantity">Quantity</label><br>
+      <!--<select #quantity (change) ="calculateTotal(data.price , quantity.value)" id="quantity"
                   size="large" class="form-control custom-select">
         <option [value]="0" disabled>select Qty</option>
         <option *ngFor="let qty of quantities" [value]="qty">{{qty}}</option>
-      </select>
-        <!--  <input class="form-control"  id="quantity" nbInput
-                 type="number" name="quantity" #quantity (keyup)="calculateTotal(data.price , quantity.value)" (change)="calculateTotal(data.price , quantity.value)" min="1" required>
-       -->
-          <label for="itemPrice">Total Expenses</label>
-          <input class="form-control"  id="itemPrice" nbInput [(ngModel)]="totalExpenses"
-                 type="text" readonly><br>
-      <nb-checkbox #chk (checkedChange)="agreeChecker(chk.checked)">I Agree to Terms</nb-checkbox><br>
+      </select>-->
+      <nb-select #quantity (selectedChange)="calculateTotal(data.price , quantity.selected)" [selected]="0" fullWidth
+                 id="quantity"
+                 size="small" [(ngModel)]="selectedQuantity">
+        <nb-option [value]="0" disabled>select Qty</nb-option>
+        <nb-option *ngFor="let qty of quantities" [value]="qty">{{qty}}</nb-option>
+      </nb-select>
+      <br>
+      <!--  <input class="form-control"  id="quantity" nbInput
+               type="number" name="quantity" #quantity (keyup)="calculateTotal(data.price , quantity.value)" (change)="calculateTotal(data.price , quantity.value)" min="1" required>
+     -->
+      <label for="itemPrice">Total Expenses</label>
+      <input [(ngModel)]="totalExpenses" class="form-control" id="itemPrice" nbInput
+             readonly type="text"><br>
+      <nb-checkbox #chk (checkedChange)="agreeChecker(chk.checked)">I Agree to Terms</nb-checkbox>
+      <br>
       <span>
         <b class="text-info">(order cannot be cancelled!!)</b><br>
-       <b *ngIf="!orderAble && quantity.value > 0" class="text-danger">(Not enough Balance)</b>
+       <b *ngIf="!orderAble && selectedQuantity > 0" class="text-danger">(Not enough Balance)</b>
       </span>
       <!--</div>
     </div>-->
     </nb-card-body>
     <nb-card-footer>
-      <button nbButton hero  status="danger" (click)="ref.close()" size="small">cancel</button>
-      <button *ngIf="quantity.value > 0 && agree && orderAble" nbButton hero status="primary" class="float-right" (click)="orderItem(data , quantity.value); ref.close()" size="small">Order</button>
+      <button (click)="ref.close()" hero nbButton size="small" status="danger">cancel</button>
+      <button (click)="orderItem(data , quantity.selected); ref.close()" *ngIf="selectedQuantity> 0 && agree && orderAble" class="float-right" hero
+              nbButton size="small"
+              status="primary">Order
+      </button>
     </nb-card-footer>
   </nb-card>
 </ng-template>
 <nb-card accent="info">
-  <nb-card-header  class="text-center"><h6>Item Menu</h6></nb-card-header>
+  <nb-card-header class="text-center"><h6>Item Menu</h6></nb-card-header>
   <nb-card-body>
-<table class="table border table-hover">
-  <ng-container>
-    <thead>
-    <tr>
-    <th>Meal</th>
-    <th>price</th>
-    <!--<th>Status</th>-->
-    <th>Action</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let singleItem of item">
-      <td>{{singleItem.itemName}}</td>
-      <td>Rs.{{singleItem.price}}</td>
-      <!--<td>{{singleItem.itemStatus}}</td>-->
-      <td>
-       <button *ngIf="singleItem.itemStatus !== 'OUTOFSTOCK' && isStudent" nbButton hero status="info" size="tiny" (click)="openOrder(dialog , singleItem)">Order</button>
-        <button *ngIf="isAdmin" nbButton hero status="success" size="small" (click)="onEditItem(singleItem)">Edit</button>
-          <nb-icon *ngIf="singleItem.itemStatus === 'OUTOFSTOCK'" icon="close" status="danger" [options]="{ animation: { type: 'zoom' }}" class="mt-2"></nb-icon>
-      </td>
-    </tr>
-    </tbody>
-  </ng-container>
-</table>
+    <table class="table border table-hover">
+      <ng-container>
+        <thead>
+        <tr>
+          <th>Meal</th>
+          <th>price</th>
+          <!--<th>Status</th>-->
+          <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let singleItem of item">
+          <td>{{singleItem.itemName}}</td>
+          <td>Rs.{{singleItem.price}}</td>
+          <!--<td>{{singleItem.itemStatus}}</td>-->
+          <td>
+            <button (click)="openOrder(dialog , singleItem)" *ngIf="singleItem.itemStatus !== 'OUTOFSTOCK' && isStudent" hero
+                    nbButton size="tiny" status="info">Order
+            </button>
+            <button (click)="onEditItem(singleItem)" *ngIf="isAdmin" hero nbButton size="small"
+                    status="success">Edit
+            </button>
+            <nb-icon *ngIf="singleItem.itemStatus === 'OUTOFSTOCK'" [options]="{ animation: { type: 'zoom' }}" class="mt-2"
+                     icon="close" status="danger"></nb-icon>
+          </td>
+        </tr>
+        </tbody>
+      </ng-container>
+    </table>
   </nb-card-body>
 </nb-card>

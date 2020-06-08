@@ -4,7 +4,6 @@ import {HttpClient} from '@angular/common/http';
 import {OrderDto} from '../../modal/orderDto';
 import {ApiUtils} from '../../../../@core/utils/ApiUtils';
 import {Observable} from 'rxjs';
-import {SearchDto} from '../../modal/SearchDto';
 
 @Injectable({
   providedIn: 'root'

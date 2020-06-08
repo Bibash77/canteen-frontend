@@ -1,45 +1,39 @@
 <nb-layout>
-  <nb-layout-column id="ll">
-    <div class="text-center">
-      <p routerLink="/user-inactive">Log in to continue</p>
-      <div class="container mt-3">
+  <nb-layout-column class="login-block">
+    <section >
+      <div class="container">
         <div class="row">
-          <div class="card rounded col-md-6 offset-3 bg-transparent">
-            <div class="card-header mx-auto">
-              <!-- message here-->
-
-            </div>
-            <div class="card-body shadow">
-              <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm.value)">
-                <div class="form-group">
-                  <input #userName="ngModel" class="form-control" name="userName"
-                         ngModel placeholder="Username"
-                         required type="text">
+          <div class="col-md-4 login-sec">
+            <h2 class="text-center">Login Now</h2>
+            <form [formGroup]="loginForm" class="login-form">
+              <div class="form-group">
+                <label class="text-uppercase">Username</label>
+                <input class="form-control" formControlName="userName"
+                       type="text"></div>
+              <div class="form-group">
+                <label class="text-uppercase">Password</label>
+                <input class="form-control" formControlName="password" type="password">
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <button (click)="onRegister()" class="btn btn-info">Register</button>
+                  <button [disabled]="loginForm.invalid" (click)="onSubmit()" class="btn btn-info float-right" nbButton><span
+                    *ngIf="spinner" class="spinner-border spinner-border-sm"></span>
+                    <span *ngIf="!spinner"> Login</span></button>
                 </div>
+              </div>
 
-                <div class="input-group form-group">
-                  <input #password="ngModel" class="form-control" name="password" ngModel
-                         placeholder="Password" required type="password">
-                </div>
-
-                <div class="form-group">
-                    <button nbButton status="info" class="float-right" type="submit">
-                    <span *ngIf="spinner" class="spinner-border spinner-border-sm"></span>
-                   <span *ngIf="!spinner"> Sign In</span>
-                  </button>
-                </div>
-              </form>
-            </div>
-            <div class="card-footer text-center">
-              <button nbButton fullWidth outline status="info" (click)="onRegister()">Sign Up</button>
-            </div>
+            </form>
+          </div>
+          <div class="col-md-8">
+            <img alt="First slide" class="d-block img-fluid"
+                 src="../../../../assets/images/res.jpg">
           </div>
         </div>
+        <div class="bg-white">
+          <app-footer></app-footer>
+        </div>
       </div>
-    </div>
+    </section>
   </nb-layout-column>
-  <nb-layout-footer>
-    <app-footer></app-footer>
-  </nb-layout-footer>
 </nb-layout>
-

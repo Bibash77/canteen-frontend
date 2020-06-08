@@ -30,6 +30,7 @@ export class ItemListComponent implements OnInit {
   orderDto: OrderDto = new OrderDto();
   orderAble = false;
   totalExpenses;
+  selectedQuantity = 0;
   isAdmin;
   isStudent;
 
@@ -61,18 +62,19 @@ export class ItemListComponent implements OnInit {
   }
 
   orderItem(item , quantity) {
+    console.log(quantity);
     this.orderDto.userId = Number(LocalStorageUtil.getStorage().userId);
     this.orderDto.item = item;
     this.orderDto.quantity = quantity;
-    this.orderService.save(this.orderDto).subscribe(value => {
+   /* this.orderService.save(this.orderDto).subscribe(value => {
        if (value.detail) {
          this.orderDto.expenditure = value.detail.expenditure;
          this.orderDto.orderCode = value.detail.orderCode;
          this.sendOrderNotification(this.orderDto);
-    /*     AudioUtils.playSound();*/
+    /!*     AudioUtils.playSound();*!/
          this.toastrService.show(value.detail.item.itemName + ' ordered successfully', 'Order Code:' + value.detail.orderCode);
        }
-     });
+     });*/
   }
 
   agreeChecker(chk) {

@@ -1,6 +1,15 @@
-#ll{
-  background-image: url("src/assets/images/res.jpg");
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  background-size: cover;
+.login-block{
+  background: #DE6262;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to bottom,#4ca1af , #c4e0e5);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom, #4ca1af , #c4e0e5); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  float:left;
+  width:100%;
+  padding : 50px 0;
 }
+.container{background:#fff; border-radius: 10px; box-shadow:15px 20px 0px rgba(0,0,0,0.1);}
+.login-sec{padding: 50px 30px; position:relative;}
+.login-sec{padding: 50px 30px; position:relative;}
+.login-sec .copy-text{position:absolute; width:80%; bottom:20px; font-size:13px; text-align:center;}
+.login-sec h2{margin-bottom:30px; font-weight:800; font-size:30px; color: #4ca1af;}
+.login-sec h2:after{content:" "; width:100px; height:5px; background:#4ca1af; display:block; margin-top:20px; border-radius:3px; margin-left:auto;margin-right:auto}
+.btn-login{background: #4ca1af; color:#fff; font-weight:600;}
