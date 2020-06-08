@@ -10,3 +10,6 @@ th{
 .cursor {
   cursor: pointer;
 }
+nb-sidebar, nb-sidebar > div.main-container {
+  transition: width 0.4s;
+}
