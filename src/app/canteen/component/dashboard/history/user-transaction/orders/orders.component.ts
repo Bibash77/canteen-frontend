@@ -1,10 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {OrderService} from '../../../item-list/order.service';
 import {SearchDto} from '../../../../modal/SearchDto';
 import {Pageable} from '../../../../modal/common-pageable';
-import {PaginationUtils} from '../../../../../../@core/utils/PaginationUtils';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {AuthorityUtil} from '../../../../../../@core/utils/AuthorityUtil';
 import {NbDialogService} from '@nebular/theme';
 import {OrderProfileComponent} from '../order-profile/order-profile.component';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
@@ -14,7 +12,7 @@ import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
   templateUrl: './orders.component.html',
   styleUrls: ['./orders.component.scss']
 })
-export class OrdersComponent implements OnInit {
+export class OrdersComponent implements OnInit , OnChanges{
   @Input() searchDto: SearchDto;
   order = [];
   isAdmin: boolean;
@@ -25,40 +23,19 @@ export class OrdersComponent implements OnInit {
   spinner = false;
   search: SearchDto = new SearchDto();
   pageable: Pageable = new Pageable();
+  size = 10;
+  totalPages = 0;
+  pageNo = 1;
 
   constructor(private orderService: OrderService,
               private formBuilder: FormBuilder,
               private nbDialogService: NbDialogService) {
   }
 
-  static loadData(other: OrdersComponent) {
-    if (AuthorityUtil.checkAdmin()) {
-      other.search.userId = undefined;
-      other.isAdmin = true;
-    }
-    if (AuthorityUtil.checkKitchener()) {
-      other.search.userId = undefined;
-      other.iskitchener = true;
-    }
-    other.spinner = true;
-    other.orderService.getOrderHistory(other.search, other.page, 10).subscribe((response: any) => {
-      other.order = response.detail.content;
-      other.pageable = PaginationUtils.getPageable(response.detail);
-      other.spinner = false;
-    }, error => {
-      console.error(error);
-    });
-  }
-
   ngOnInit() {
     this.search = this.searchDto;
-    OrdersComponent.loadData(this);
+    this.loadData(this.size);
     this.buildForm();
-  }
-
-  changePage(page: number) {
-    this.page = page;
-    OrdersComponent.loadData(this);
   }
 
   buildForm() {
@@ -78,10 +55,42 @@ export class OrdersComponent implements OnInit {
      });
    }
     this.search.orderStatus = this.searchForm.get('orderStatus').value;
-    OrdersComponent.loadData(this);
+    this.loadData(this.size);
   }
 
   openOrderProfile(order) {
     this.nbDialogService.open(OrderProfileComponent, {closeOnBackdropClick: true , closeOnEsc: true, context: {order}});
+  }
+
+  scrollToBottom(): void {
+    this.loadData(this.size);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.loadData(this.size);
+  }
+
+  loadData(size) {
+   /* if (AuthorityUtil.checkAdmin()) {
+      this.search.userId = undefined;
+      this.isAdmin = true;
+    }
+    if (AuthorityUtil.checkKitchener()) {
+      this.search.userId = undefined;
+      this.iskitchener = true;
+    }*/
+    this.spinner = true;
+    this.orderService.getOrderHistory(this.search, this.pageNo, size).subscribe((response: any) => {
+      response.detail.content.forEach(response => {
+        this.order.push(response);
+      });
+      console.log(this.search);
+      this.totalPages = response.detail.totalPages;
+      this.pageNo = response.detail.pageable.pageNumber + 2;
+      console.log(response.detail.pageable.pageNumber);
+      this.spinner = false;
+    }, error => {
+      console.error(error);
+    });
   }
 }

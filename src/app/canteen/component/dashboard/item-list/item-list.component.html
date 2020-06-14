@@ -9,10 +9,9 @@
         <option [value]="0" disabled>select Qty</option>
         <option *ngFor="let qty of quantities" [value]="qty">{{qty}}</option>
       </select>-->
-      <nb-select #quantity (selectedChange)="calculateTotal(data.price , quantity.selected)" [selected]="0" fullWidth
+      <nb-select #quantity (selectedChange)="calculateTotal(data.price , quantity.selected)" placeholder="select Qty" fullWidth
                  id="quantity"
                  size="small" [(ngModel)]="selectedQuantity">
-        <nb-option [value]="0" disabled>select Qty</nb-option>
         <nb-option *ngFor="let qty of quantities" [value]="qty">{{qty}}</nb-option>
       </nb-select>
       <br>

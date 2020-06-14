@@ -24,6 +24,7 @@ import {OrdersComponent} from './component/dashboard/history/user-transaction/or
 import {OrderProfileComponent} from './component/dashboard/history/user-transaction/order-profile/order-profile.component';
 import {TopUpProfileComponent} from './component/dashboard/history/user-transaction/top-up-profile/top-up-profile.component';
 import {NgbCollapseModule} from '@ng-bootstrap/ng-bootstrap';
+import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [CanteenComponent, DashboardComponent, ConfigurationComponent,
@@ -49,6 +50,7 @@ import {NgbCollapseModule} from '@ng-bootstrap/ng-bootstrap';
     NbAlertModule,
     NbBadgeModule,
     NgbCollapseModule,
+    InfiniteScrollModule
   ],
   entryComponents: [AddItemComponent, TopUpComponent, OrderProfileComponent, TopUpProfileComponent]
 })

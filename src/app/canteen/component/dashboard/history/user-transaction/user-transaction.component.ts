@@ -1,4 +1,12 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {
+  AfterViewChecked,
+  AfterViewInit,
+  Component, ElementRef,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges, ViewChild
+} from '@angular/core';
 import {WalletService} from '../../configuration/top-up/wallet.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Pageable} from '../../../modal/common-pageable';
@@ -16,7 +24,7 @@ import {TopUpProfileComponent} from './top-up-profile/top-up-profile.component';
   templateUrl: './user-transaction.component.html',
   styleUrls: ['./user-transaction.component.scss']
 })
-export class UserTransactionComponent implements OnInit {
+export class UserTransactionComponent implements OnInit, OnChanges {
   constructor(private walletService: WalletService,
               private router: Router,
               private route: ActivatedRoute,
@@ -29,27 +37,18 @@ export class UserTransactionComponent implements OnInit {
 
   @Input() status;
   transaction = [];
-  page = 1;
   order: Array<OrderDto> = [];
   topUpHistoryData = [];
   searchDto: SearchDto = new SearchDto();
   topUpSearch: SearchDto = new SearchDto();
   spinner = false;
-  searchObject;
   isFilterCollapsed = true;
   id;
-  pageable: Pageable = new Pageable();
-
-  static loadData(other: UserTransactionComponent) {
-    other.spinner = true;
-    other.topUpHistoryService.topUpHistory(other.topUpSearch, other.page, 10).subscribe((response: any) => {
-      other.topUpHistoryData = response.detail.content;
-      other.pageable = PaginationUtils.getPageable(response.detail);
-      other.spinner = false;
-    }, error => {
-      console.error(error);
-    });
-  }
+ /* pageable: Pageable = new Pageable();*/
+  page = 1;
+  size = 10;
+  totalPages = 0;
+  pageNo = 1;
 
   ngOnInit() {
     this.buildForm();
@@ -58,7 +57,7 @@ export class UserTransactionComponent implements OnInit {
     this.searchDto.userId = this.id;
     this.topUpSearch.userId = this.id;
     this.searchDto.orderStatus = 'DELIVERED';
-    UserTransactionComponent.loadData(this);
+    this.loadData(this.size);
   }
 
   color(value) {
@@ -70,7 +69,7 @@ export class UserTransactionComponent implements OnInit {
       startDate: new Date(this.searchForm.get('startingDate').value).toLocaleDateString(),
       endDate: new Date(this.searchForm.get('endingDate').value).toLocaleDateString()
     });
-    UserTransactionComponent.loadData(this);
+    this.loadData(this.size);
   }
 
   buildForm() {
@@ -80,12 +79,46 @@ export class UserTransactionComponent implements OnInit {
     });
   }
 
-  changePage(page: number) {
-    this.page = page;
-    UserTransactionComponent.loadData(this);
-  }
-
   openHistoryDetail(topUpDetails) {
     this.nbDialogService.open(TopUpProfileComponent, {closeOnBackdropClick: true , closeOnEsc: true, context: {topUpDetails}});
+  }
+
+  onScrollUp() {
+   /* this.list.nativeElement.scrollTop = this.list.nativeElement.scrollHeight;*/
+  }
+
+   loadData(size) {
+    this.spinner = true;
+    this.topUpHistoryService.topUpHistory(this.topUpSearch, this.pageNo, size).subscribe((response: any) => {
+      // tslint:disable-next-line:no-shadowed-variable
+      response.detail.content.forEach( response => {
+        this.topUpHistoryData.push(response);
+      });
+      console.log(this.topUpHistoryData);
+      this.totalPages = response.detail.totalPages;
+      this.pageNo = response.detail.pageable.pageNumber + 2;
+      console.log(response.detail.pageable.pageNumber);
+      this.spinner = false;
+    }, error => {
+      console.error(error);
+    });
+  }
+
+ /* ngAfterViewChecked() {
+    // Called every time the view changes
+    this.onScrollUp();
+  }
+
+  ngAfterViewInit() {
+    // Only called ONCE => upon initialization
+    this.onScrollUp();
+  }*/
+
+  scrollToBottom(): void {
+      this.loadData(this.size);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.loadData(this.size);
   }
 }

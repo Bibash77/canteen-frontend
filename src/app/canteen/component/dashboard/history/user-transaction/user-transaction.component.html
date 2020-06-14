@@ -77,6 +77,14 @@
               </div>
             </nb-card-header>
             <nb-card-body>
+              <div #list (scrolled)="scrollToBottom()" [infiniteScrollDistance]="2"
+                   [infiniteScrollThrottle]="50"
+
+                   [infiniteScrollUpDistance]="1.5"
+                   [scrollWindow]="false"
+                   class="hide-scroll"
+                   infinite-scroll
+                   style="overflow-y: scroll; height: 350px;overflow-x: hidden;">
               <table class="table ">
                 <thead>
                 <tr>
@@ -90,7 +98,7 @@
                 <tr *ngFor="let transaction of topUpHistoryData; let i=index">
                   <!--<td>{{i+1}}</td>-->
                   <td>{{transaction?.createdAt | date}}</td>
-                  <td [ngStyle]="{'color': color(transaction?.topUpAmount.toString()) ? 'red' : 'blue'}">Rs.{{transaction?.topUpAmount}}</td>
+                  <td [ngStyle]="{'color': color(transaction?.topUpAmount?.toString()) ? 'red' : 'blue'}">Rs.{{transaction?.topUpAmount}}</td>
                   <td>Rs.{{transaction?.remainingAmount}}</td>
                   <td><nb-icon icon="question-mark-circle" status="info" (click)="openHistoryDetail( transaction)"></nb-icon></td>
                 </tr>
@@ -99,7 +107,8 @@
               <div *ngIf="!(topUpHistoryData.length>0)" class="text-center">
                 <p>No Top Up history found so far!</p>
               </div>
-              <app-paging *ngIf="!spinner" [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
+              <!--<app-paging *ngIf="!spinner" [pageable]="pageable" (changePage)="changePage($event)"></app-paging>-->
+              </div>
             </nb-card-body>
           </nb-card>
         </nb-tab>

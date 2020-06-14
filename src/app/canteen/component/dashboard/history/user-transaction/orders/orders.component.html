@@ -1,6 +1,6 @@
 
   <div class="bg-white">
-    <nb-card accent="primary">
+    <nb-card accent="primary" size="giant">
       <nb-card-header class="text-center">
         <b>{{searchDto?.orderStatus |titlecase}} ORDERS</b>
         <div class="row">
@@ -58,7 +58,13 @@
         </div>
       </nb-card-header>
       <nb-card-body>
-        <table class="table table-bordered table-striped">
+        <table class="table table-bordered table-striped hide-scroll" (scrolled)="scrollToBottom()" [infiniteScrollDistance]="2"
+               [infiniteScrollThrottle]="50"
+
+               [infiniteScrollUpDistance]="1.5"
+               [scrollWindow]="false"
+               infinite-scroll
+               style="overflow-y: scroll; height: 350px;overflow-x: hidden;">
           <thead>
           <tr>
             <!--<th>S.no</th>-->
@@ -95,7 +101,7 @@
         <div *ngIf="!(order.length>0)" class="text-center">
           <p>No Order history found so far!</p>
         </div>
-        <app-paging *ngIf="!spinner" [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
+        <!--<app-paging *ngIf="!spinner" [pageable]="pageable" (changePage)="changePage($event)"></app-paging>-->
       </nb-card-body>
     </nb-card>
   </div>

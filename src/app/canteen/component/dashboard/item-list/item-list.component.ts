@@ -52,6 +52,7 @@ export class ItemListComponent implements OnInit {
 
   openOrder(dialog: TemplateRef<any>, item) {
     this.totalExpenses = 0;
+    this.selectedQuantity = 0;
     this.agree = false;
     this.dialogService.open(dialog, { context: item });
   }
@@ -66,15 +67,15 @@ export class ItemListComponent implements OnInit {
     this.orderDto.userId = Number(LocalStorageUtil.getStorage().userId);
     this.orderDto.item = item;
     this.orderDto.quantity = quantity;
-   /* this.orderService.save(this.orderDto).subscribe(value => {
+    this.orderService.save(this.orderDto).subscribe(value => {
        if (value.detail) {
          this.orderDto.expenditure = value.detail.expenditure;
          this.orderDto.orderCode = value.detail.orderCode;
          this.sendOrderNotification(this.orderDto);
-    /!*     AudioUtils.playSound();*!/
+    /*     AudioUtils.playSound();*/
          this.toastrService.show(value.detail.item.itemName + ' ordered successfully', 'Order Code:' + value.detail.orderCode);
        }
-     });*/
+     });
   }
 
   agreeChecker(chk) {
