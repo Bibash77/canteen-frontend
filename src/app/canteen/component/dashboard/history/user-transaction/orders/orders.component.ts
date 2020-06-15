@@ -3,23 +3,23 @@ import {OrderService} from '../../../item-list/order.service';
 import {SearchDto} from '../../../../modal/SearchDto';
 import {Pageable} from '../../../../modal/common-pageable';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {NbDialogService} from '@nebular/theme';
+import {NbDialogService, NbToastrService} from '@nebular/theme';
 import {OrderProfileComponent} from '../order-profile/order-profile.component';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
+import {AuthorityUtil} from '../../../../../../@core/utils/AuthorityUtil';
 
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
   styleUrls: ['./orders.component.scss']
 })
-export class OrdersComponent implements OnInit , OnChanges{
+export class OrdersComponent implements OnInit {
   @Input() searchDto: SearchDto;
   order = [];
-  isAdmin: boolean;
-  iskitchener: boolean;
+  isAdmin = AuthorityUtil.checkAdmin();
+  iskitchener = AuthorityUtil.checkKitchener();
   searchForm: FormGroup;
   isFilterCollapsed = true;
-  page = 1;
   spinner = false;
   search: SearchDto = new SearchDto();
   pageable: Pageable = new Pageable();
@@ -29,7 +29,8 @@ export class OrdersComponent implements OnInit , OnChanges{
 
   constructor(private orderService: OrderService,
               private formBuilder: FormBuilder,
-              private nbDialogService: NbDialogService) {
+              private nbDialogService: NbDialogService,
+              private nbToastrService: NbToastrService) {
   }
 
   ngOnInit() {
@@ -62,35 +63,27 @@ export class OrdersComponent implements OnInit , OnChanges{
     this.nbDialogService.open(OrderProfileComponent, {closeOnBackdropClick: true , closeOnEsc: true, context: {order}});
   }
 
-  scrollToBottom(): void {
-    this.loadData(this.size);
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
+  loadMore(): void {
     this.loadData(this.size);
   }
 
   loadData(size) {
-   /* if (AuthorityUtil.checkAdmin()) {
-      this.search.userId = undefined;
-      this.isAdmin = true;
-    }
-    if (AuthorityUtil.checkKitchener()) {
-      this.search.userId = undefined;
-      this.iskitchener = true;
-    }*/
     this.spinner = true;
     this.orderService.getOrderHistory(this.search, this.pageNo, size).subscribe((response: any) => {
+      console.log(response.detail.content.length);
+      if (response.detail.content.length <= 0) {
+        this.nbToastrService.warning('You are All Caught Up' , 'No More Orders');
+        return;
+      }
+      // tslint:disable-next-line:no-shadowed-variable
       response.detail.content.forEach(response => {
         this.order.push(response);
       });
-      console.log(this.search);
       this.totalPages = response.detail.totalPages;
       this.pageNo = response.detail.pageable.pageNumber + 2;
-      console.log(response.detail.pageable.pageNumber);
       this.spinner = false;
     }, error => {
-      console.error(error);
+      this.nbToastrService.warning(error , 'Report Admin!!');
     });
   }
 }

@@ -13,3 +13,6 @@ th{
 nb-sidebar, nb-sidebar > div.main-container {
   transition: width 0.5s;
 }
+.grad-primary{
+  background: linear-gradient(to bottom, #096484 , #c4e0e5); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}

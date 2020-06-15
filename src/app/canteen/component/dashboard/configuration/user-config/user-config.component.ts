@@ -46,19 +46,12 @@ export class UserConfigComponent implements OnInit {
   }
   ngOnInit() {
     this.buildForm();
-    this.search.userStatus = 'INACTIVE';
     UserConfigComponent.loadData(this);
   }
 
 
   topUp(user) {
     this.dialogService.open(TopUpComponent, {closeOnBackdropClick: true , closeOnEsc: true, context: {user}});
-  }
-
-  getAllUser() {
-    this.walletService.getAll().subscribe(value => {
-      this.walletList = value.detail;
-    });
   }
 
   changeUserStatus(user1, status , userType) {

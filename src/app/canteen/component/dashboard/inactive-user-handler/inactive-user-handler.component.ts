@@ -13,7 +13,7 @@ import {AuthorityUtil} from '../../../../@core/utils/AuthorityUtil';
      <strong> Activation Error !</strong>
     </div>
     <div class="card-body grad-primary">
-      <img src="../../../../assets/images/avatar.png" class="card-img-top img-responsive" style="width: 300px" alt="...">
+      <img src="../../../../assets/images/avatar.png" class="card-img-top img-responsive" style="width: 300px; min-height: 400px" alt="...">
       <h5 class="card-title">You are Inactive!!</h5>
       <p class="card-text">Please Contact College Administrator and activate account.</p>
       <a>Top-Up account to place Order</a>

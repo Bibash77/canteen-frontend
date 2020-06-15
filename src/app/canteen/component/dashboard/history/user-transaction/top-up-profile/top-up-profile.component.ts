@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {NbDialogRef} from "@nebular/theme";
+import {NbDialogRef} from '@nebular/theme';
 
 @Component({
   selector: 'app-top-up-profile',

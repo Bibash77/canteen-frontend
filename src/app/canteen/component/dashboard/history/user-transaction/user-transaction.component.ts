@@ -16,7 +16,7 @@ import {OrderDto} from '../../../modal/orderDto';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {TopUpHistoryService} from './top-up-history.service';
 import {PaginationUtils} from '../../../../../@core/utils/PaginationUtils';
-import {NbDialogService} from '@nebular/theme';
+import {NbDialogService, NbToastrService} from '@nebular/theme';
 import {TopUpProfileComponent} from './top-up-profile/top-up-profile.component';
 
 @Component({
@@ -24,14 +24,15 @@ import {TopUpProfileComponent} from './top-up-profile/top-up-profile.component';
   templateUrl: './user-transaction.component.html',
   styleUrls: ['./user-transaction.component.scss']
 })
-export class UserTransactionComponent implements OnInit, OnChanges {
+export class UserTransactionComponent implements OnInit {
   constructor(private walletService: WalletService,
               private router: Router,
               private route: ActivatedRoute,
               private orderService: OrderService,
               private formBuilder: FormBuilder,
               protected topUpHistoryService: TopUpHistoryService,
-              private nbDialogService: NbDialogService) { }
+              private nbDialogService: NbDialogService,
+              private nbToastrService: NbToastrService) { }
 
   searchForm: FormGroup;
 
@@ -44,7 +45,6 @@ export class UserTransactionComponent implements OnInit, OnChanges {
   spinner = false;
   isFilterCollapsed = true;
   id;
- /* pageable: Pageable = new Pageable();*/
   page = 1;
   size = 10;
   totalPages = 0;
@@ -56,8 +56,8 @@ export class UserTransactionComponent implements OnInit, OnChanges {
     this.id =  this.route.snapshot.paramMap.get('id');
     this.searchDto.userId = this.id;
     this.topUpSearch.userId = this.id;
-    this.searchDto.orderStatus = 'DELIVERED';
-    this.loadData(this.size);
+    /*this.searchDto.orderStatus = 'DELIVERED';*/
+    this.loadData();
   }
 
   color(value) {
@@ -69,7 +69,7 @@ export class UserTransactionComponent implements OnInit, OnChanges {
       startDate: new Date(this.searchForm.get('startingDate').value).toLocaleDateString(),
       endDate: new Date(this.searchForm.get('endingDate').value).toLocaleDateString()
     });
-    this.loadData(this.size);
+    this.loadData();
   }
 
   buildForm() {
@@ -83,13 +83,13 @@ export class UserTransactionComponent implements OnInit, OnChanges {
     this.nbDialogService.open(TopUpProfileComponent, {closeOnBackdropClick: true , closeOnEsc: true, context: {topUpDetails}});
   }
 
-  onScrollUp() {
-   /* this.list.nativeElement.scrollTop = this.list.nativeElement.scrollHeight;*/
-  }
-
-   loadData(size) {
+   loadData() {
     this.spinner = true;
-    this.topUpHistoryService.topUpHistory(this.topUpSearch, this.pageNo, size).subscribe((response: any) => {
+    this.topUpHistoryService.topUpHistory(this.topUpSearch, this.pageNo, this.size).subscribe((response: any) => {
+      if (response.detail.content.length <= 0) {
+        this.nbToastrService.warning('You are All Caught Up' , 'No More Transaction');
+        return;
+      }
       // tslint:disable-next-line:no-shadowed-variable
       response.detail.content.forEach( response => {
         this.topUpHistoryData.push(response);
@@ -104,21 +104,7 @@ export class UserTransactionComponent implements OnInit, OnChanges {
     });
   }
 
- /* ngAfterViewChecked() {
-    // Called every time the view changes
-    this.onScrollUp();
-  }
-
-  ngAfterViewInit() {
-    // Only called ONCE => upon initialization
-    this.onScrollUp();
-  }*/
-
-  scrollToBottom(): void {
-      this.loadData(this.size);
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    this.loadData(this.size);
+  loadMore(): void {
+      this.loadData();
   }
 }
