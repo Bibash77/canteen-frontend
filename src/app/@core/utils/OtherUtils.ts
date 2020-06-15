@@ -5,7 +5,7 @@ export class OtherUtils {
     let year = 2018;
     const currentYear = new Date().getFullYear();
     while (year < currentYear) {
-      totalYear.push(year);
+      totalYear.push(year.toString());
       year++;
     }
     return totalYear;

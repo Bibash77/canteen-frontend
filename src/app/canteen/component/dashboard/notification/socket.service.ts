@@ -6,7 +6,7 @@ import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {Message} from './message';
 import {NbToastrService} from '@nebular/theme';
 import {NotificationService} from './notifier/notification.service';
-import {AudioUtils} from "../../../../@core/utils/AudioUtils";
+import {AudioUtils} from '../../../../@core/utils/AudioUtils';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +29,7 @@ export class SocketService {
     const ws = new SockJS(this.serverUrl);
     this.stompClient = Stomp.over(ws);
     const that = this;
+    // tslint:disable-next-line:only-arrow-functions
     this.stompClient.connect({}, function(frame) {
       that.openSocket();
     });

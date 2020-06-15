@@ -43,9 +43,9 @@
                   <td>
                     <nb-select #orderStatus  formControlName="orderStatus"
                                placeholder="status" size="medium" status="primary">
-                      <nb-option value="PENDING">Pending</nb-option>
-                      <nb-option value="READY">Ready</nb-option>
-                      <nb-option value="DELIVERED">Deliver</nb-option>
+                      <nb-option [value]="'PENDING'">Pending</nb-option>
+                      <nb-option [value]="'READY'">Ready</nb-option>
+                      <nb-option [value]="'DELIVERED'">Deliver</nb-option>
                     </nb-select>
                   </td>
                   <td>
@@ -58,7 +58,8 @@
         </div>
       </nb-card-header>
       <nb-card-body>
-        <table class="table table-bordered table-striped">
+        <div  style="flow-from: scroll; min-height: 100%;overflow-x: hidden;">
+        <table class="table table-bordered">
           <thead>
           <tr>
             <!--<th>S.no</th>-->
@@ -92,10 +93,15 @@
           </tr>
           </tbody>
         </table>
+        <div class="row">
+          <div class="col-md-12">
+            <button nbButton (click)="loadMore()" fullWidth outline status="primary">Load More</button>
+          </div>
+        </div>
         <div *ngIf="!(order.length>0)" class="text-center">
           <p>No Order history found so far!</p>
         </div>
-        <app-paging *ngIf="!spinner" [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
+        </div>
       </nb-card-body>
     </nb-card>
   </div>

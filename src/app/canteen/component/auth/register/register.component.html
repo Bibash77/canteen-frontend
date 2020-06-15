@@ -15,9 +15,11 @@
     </div>
     <div class="form-group ">
       <label for="batch">Select Batch</label>
-      <nb-select  [selected]="0" fullWidth name="batch" placeholder="select batch"
-                 id="batch" size="small" [(ngModel)]="batchList" required>
-        <nb-option *ngFor="let batch of batchList" [value]="batch">{{batch}}</nb-option>
+      <nb-select   fullWidth name="batch" placeholder="select batch"
+                 id="batch" size="small" [(ngModel)]="batchList" required><!--
+        <nb-option *ngFor="let batch of batchList" [value]="batch">{{batch}}</nb-option>-->
+        <nb-option value="2018">2018</nb-option>
+        <nb-option value="2019">2019</nb-option>
       </nb-select>
     </div>
     <div class="form-group">
