@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
          this.router.navigateByUrl('/canteen/dashboard');
        } else {
          this.spinner = false;
-         this.toasterService.danger('Invalid user name or password' , 'Error', {duration: this.duration} );
+         this.toasterService.danger('Invalid user name or password' , 'Error', {duration: this.duration });
        }
       },
       error => {

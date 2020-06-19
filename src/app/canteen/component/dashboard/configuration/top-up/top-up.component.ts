@@ -4,6 +4,7 @@ import {Wallet} from '../../../modal/wallet';
 import {Router} from '@angular/router';
 
 import {WalletService} from './wallet.service';
+import {OtherUtils} from '../../../../../@core/utils/OtherUtils';
 
 @Component({
   selector: 'app-top-up',
@@ -42,7 +43,8 @@ export class TopUpComponent implements OnInit {
     this.walletService.topUp(wallet).subscribe(value => {
       this.router.navigateByUrl('/canteen/dashboard').then( () => {
         this.router.navigate(['/canteen/configuration']).then(() => {
-          this.nbToastrService.show('Rs ' + wallet.depositAmount + ' TopUp successfully', 'Success!!');
+         this.nbToastrService.info('Rs ' + wallet.depositAmount + ' TopUp successfully', 'Success!!',
+           OtherUtils.getIconConfig('gift-outline'));
 
         });
       });

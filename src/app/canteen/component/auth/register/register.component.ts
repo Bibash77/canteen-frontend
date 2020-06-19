@@ -32,7 +32,7 @@ export class RegisterComponent implements OnInit {
       this.userService.registerUser(this.user).subscribe(value => {
         this.onDismiss();
         this.router.navigateByUrl('').then(() => {
-          this.nbToastrService.success('login to continue', 'Success!');
+          this.nbToastrService.success('login to continue', 'Success!', OtherUtils.getIconConfig('person-done-outline'));
           }
         );
       });
