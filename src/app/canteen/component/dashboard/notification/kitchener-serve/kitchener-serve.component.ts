@@ -1,8 +1,7 @@
 import {Component, Input, OnInit, TemplateRef} from '@angular/core';
 import {OrderDto} from '../../../modal/orderDto';
-import {SearchDto} from '../../../modal/SearchDto';
 import {OrderService} from '../../item-list/order.service';
-import {NbDialogService, NbIconConfig, NbToastrService} from '@nebular/theme';
+import {NbDialogService, NbToastrService} from '@nebular/theme';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {OtherUtils} from '../../../../../@core/utils/OtherUtils';
@@ -39,11 +38,11 @@ export class KitchenerServeComponent implements OnInit {
     this.spinner = true;
     this.orderService.getOrderHistory(this.orderDto, this.page, this.pageSize).subscribe((response: any) => {
       if (response.detail.content.length <= 0) {
-        this.toasterService.info('You are All Caught Up' , 'No More orders ' , OtherUtils.getIconConfig('backspace-outline'));
+        this.toasterService.info('You are All Caught Up', 'No More orders ', OtherUtils.getIconConfig('backspace-outline'));
         return;
       }
       // tslint:disable-next-line:no-shadowed-variable
-      response.detail.content.forEach( response => {
+      response.detail.content.forEach(response => {
         this.order.push(response);
       });
       this.page = response.detail.pageable.pageNumber + 2;
@@ -77,7 +76,7 @@ export class KitchenerServeComponent implements OnInit {
     this.orderDto.orderStatus = action;
     this.orderDto.orderCode = order.orderCode;
     this.orderService.deliverItem(this.orderDto).subscribe(value => {
-      this.toasterService.info('successfully change to ' + action, 'Success' , OtherUtils.getIconConfig('checkmark-circle-outline'));
+      this.toasterService.info('successfully change to ' + action, 'Success', OtherUtils.getIconConfig('checkmark-circle-outline'));
 
       this.ngOnInit();
     });
