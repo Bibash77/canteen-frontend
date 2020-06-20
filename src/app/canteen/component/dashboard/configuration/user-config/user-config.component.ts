@@ -10,6 +10,7 @@ import {SearchDto} from '../../../modal/SearchDto';
 import {PaginationUtils} from '../../../../../@core/utils/PaginationUtils';
 import {Pageable} from '../../../modal/common-pageable';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {OtherUtils} from '../../../../../@core/utils/OtherUtils';
 
 @Component({
   selector: 'app-user-config',
@@ -60,7 +61,7 @@ export class UserConfigComponent implements OnInit {
     user.roleType = userType;
     user.id = user1.id;
     this.userService.changeStatus(user).subscribe(value => {
-      this.nbToastrService.success('User is ' + value.detail.status + ' now' , 'Success!');
+      this.nbToastrService.success('User is ' + value.detail.status + ' now' , 'Success!', OtherUtils.getIconConfig('person-done-outline'));
       this.ngOnInit();
     });
   }

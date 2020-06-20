@@ -7,6 +7,7 @@ import {NbDialogService, NbToastrService} from '@nebular/theme';
 import {OrderProfileComponent} from '../order-profile/order-profile.component';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {AuthorityUtil} from '../../../../../../@core/utils/AuthorityUtil';
+import {OtherUtils} from '../../../../../../@core/utils/OtherUtils';
 
 @Component({
   selector: 'app-orders',
@@ -72,7 +73,7 @@ export class OrdersComponent implements OnInit {
     this.orderService.getOrderHistory(this.search, this.pageNo, size).subscribe((response: any) => {
       console.log(response.detail.content.length);
       if (response.detail.content.length <= 0) {
-        this.nbToastrService.warning('You are All Caught Up' , 'No More Orders');
+        this.nbToastrService.info('You are All Caught Up' , 'No More Orders' , OtherUtils.getIconConfig('backspace-outline'));
         return;
       }
       // tslint:disable-next-line:no-shadowed-variable

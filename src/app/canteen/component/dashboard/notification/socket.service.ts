@@ -7,6 +7,7 @@ import {Message} from './message';
 import {NbToastrService} from '@nebular/theme';
 import {NotificationService} from './notifier/notification.service';
 import {AudioUtils} from '../../../../@core/utils/AudioUtils';
+import {OtherUtils} from '../../../../@core/utils/OtherUtils';
 
 @Injectable({
   providedIn: 'root'
@@ -43,7 +44,7 @@ export class SocketService {
     console.log(this.userRole, 'role');
     this.stompClient.subscribe(`/socket-publisher/${this.userRole}`, (response) => {
       const responseData = JSON.parse(response.body);
-      this.nbToastrService.success(responseData.message , 'Success');
+      this.nbToastrService.success(responseData.message , 'Success' , OtherUtils.getIconConfig('bell-outline'));
       AudioUtils.playSound();
       data.push(responseData.message);
       this.notificationService.fetchNotifications();

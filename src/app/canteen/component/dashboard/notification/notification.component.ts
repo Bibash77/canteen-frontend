@@ -7,6 +7,7 @@ import {Message} from './message';
 import {NbToastrService} from '@nebular/theme';
 import {Router} from '@angular/router';
 import {TransactionType} from '../../../../@core/TransactionType';
+import {OtherUtils} from '../../../../@core/utils/OtherUtils';
 
 @Component({
   selector: 'app-notification',
@@ -56,7 +57,7 @@ export class NotificationComponent implements OnInit {
 
   closeMessage(message: Message, status) {
     if (!message.isSeen) {
-      this.nbToastrService.warning('Please read the notify first', 'Alert!!');
+      this.nbToastrService.info('Please read the notify first', 'Alert!!' , OtherUtils.getIconConfig('bell-off-outline'));
       return false;
     }
     message.status = status;

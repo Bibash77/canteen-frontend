@@ -1,3 +1,5 @@
+import {NbIconConfig} from '@nebular/theme';
+
 export class OtherUtils {
 
   static batchGenerator() {
@@ -9,5 +11,10 @@ export class OtherUtils {
       year++;
     }
     return totalYear;
+  }
+
+  static getIconConfig(iconName) {
+    const iconConfig: NbIconConfig  = { icon: iconName, pack: 'eva' };
+    return iconConfig;
   }
 }

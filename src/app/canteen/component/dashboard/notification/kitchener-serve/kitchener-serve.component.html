@@ -29,6 +29,7 @@
     <nb-card accent="primary">
       <nb-card-header>
         <div class="row">
+          <div class="col-md-12">
           <button
             (click)="isFilterCollapsed = !isFilterCollapsed"
             [attr.aria-expanded]="!isFilterCollapsed" aria-controls="searchModel"
@@ -38,40 +39,41 @@
             status="primary">
             <!--<nb-icon [hidden]="!isFilterCollapsed" icon="arrow-downward"></nb-icon>
             <nb-icon [hidden]="isFilterCollapsed" icon="arrow-upward"></nb-icon>-->
-            <nb-icon [icon]="isFilterCollapsed? 'arrow-upward': 'arrow-downward'"></nb-icon>
+            <nb-icon [icon]="'funnel-outline'"></nb-icon>
           </button>
+          <div id="searchModel"   [ngbCollapse]="isFilterCollapsed">
+            <form [formGroup]="searchForm">
+              <table class="table-hover">
+                <tr>
+                  <td>
+                    <input #orderCode (keyup)="search()" class="form-control" fieldSize="large"
+                           formControlName="orderCode" nbInput placeholder="Token"
+                           status="primary">
+                  </td>
+                  <td>
+                    <input #itemName (keyup)="search()" class="form-control" fieldSize="large"
+                           formControlName="itemName" nbInput placeholder="item"
+                           status="primary">
+
+                  </td>
+                  <td>
+                    <nb-select (selectedChange)="search()" formControlName="orderStatus"
+                               placeholder="status" status="primary">
+                      <nb-option value="PENDING">Pending</nb-option>
+                      <nb-option value="READY">Ready</nb-option>
+                      <nb-option value="DELIVERED">Deliver</nb-option>
+                    </nb-select>
+                  </td>
+                </tr>
+              </table>
+
+            </form>
+          </div>
         </div>
-        <div id="searchModel"  class="row" [ngbCollapse]="isFilterCollapsed">
-          <form [formGroup]="searchForm">
-            <table class="table-hover">
-              <tr>
-                <td>
-                  <nb-select #orderStatus (selectedChange)="search()" formControlName="orderStatus"
-                             placeholder="status" size="medium" status="primary">
-                    <nb-option value="PENDING">Pending</nb-option>
-                    <nb-option value="READY">Ready</nb-option>
-                    <nb-option value="DELIVERED">Deliver</nb-option>
-                  </nb-select>
-                </td>
-                <td>
-                  <input #orderCode (keyup)="search()" class="form-control" fieldSize="large"
-                         formControlName="orderCode" nbInput placeholder="Token"
-                         status="primary">
-                </td>
-                <td>
-                  <input #itemName (keyup)="search()" class="form-control" fieldSize="large"
-                         formControlName="itemName" nbInput placeholder="item"
-                         status="primary">
-
-                </td>
-              </tr>
-            </table>
-
-          </form>
         </div>
       </nb-card-header>
       <nb-card-body>
-        <table class="table">
+        <table class="table table-bordered">
           <tr>
             <th>Item</th>
             <th>Qty</th>
@@ -94,7 +96,11 @@
             </td>
           </tr>
         </table>
-        <app-paging (changePage)="changePage($event)" *ngIf="!spinner" [pageable]="pageable" ></app-paging>
+        <div *ngIf="order.length > 0" class="row">
+          <div class="col-md-12">
+            <button nbButton (click)="loadData()" fullWidth outline status="primary">Load More</button>
+          </div>
+        </div>
       </nb-card-body>
     </nb-card>
 

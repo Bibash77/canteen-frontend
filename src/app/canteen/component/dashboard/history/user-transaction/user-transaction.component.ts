@@ -15,9 +15,9 @@ import {SearchDto} from '../../../modal/SearchDto';
 import {OrderDto} from '../../../modal/orderDto';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {TopUpHistoryService} from './top-up-history.service';
-import {PaginationUtils} from '../../../../../@core/utils/PaginationUtils';
 import {NbDialogService, NbToastrService} from '@nebular/theme';
 import {TopUpProfileComponent} from './top-up-profile/top-up-profile.component';
+import {OtherUtils} from '../../../../../@core/utils/OtherUtils';
 
 @Component({
   selector: 'app-user-transaction',
@@ -87,7 +87,7 @@ export class UserTransactionComponent implements OnInit {
     this.spinner = true;
     this.topUpHistoryService.topUpHistory(this.topUpSearch, this.pageNo, this.size).subscribe((response: any) => {
       if (response.detail.content.length <= 0) {
-        this.nbToastrService.warning('You are All Caught Up' , 'No More Transaction');
+        this.nbToastrService.info('You are All Caught Up' , 'No More Transaction' , OtherUtils.getIconConfig('backspace-outline'));
         return;
       }
       // tslint:disable-next-line:no-shadowed-variable
