@@ -5,6 +5,8 @@ import {NbDialogService, NbToastrService} from '@nebular/theme';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {OtherUtils} from '../../../../../@core/utils/OtherUtils';
+import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
+import {SocketService} from '../socket.service';
 
 @Component({
   selector: 'app-kitchener-serve',
@@ -31,6 +33,7 @@ export class KitchenerServeComponent implements OnInit {
     private dialogService: NbDialogService,
     private formBuilder: FormBuilder,
     private toasterService: NbToastrService,
+    private socketService: SocketService
   ) {
   }
 
@@ -74,11 +77,15 @@ export class KitchenerServeComponent implements OnInit {
   changeOrderStatus(order, action) {
     this.orderDto.id = order.id;
     this.orderDto.orderStatus = action;
+    this.orderDto.itemName = order.itemName;
     this.orderDto.orderCode = order.orderCode;
     this.orderService.deliverItem(this.orderDto).subscribe(value => {
       this.toasterService.info('successfully change to ' + action, 'Success', OtherUtils.getIconConfig('checkmark-circle-outline'));
-
-      this.ngOnInit();
+      if (this.orderDto.orderStatus !== 'PENDING') {
+        this.socketService.message.quantity = value.detail.quantity;
+        this.sendOrderNotification(this.orderDto , order.user.id);
+      }
+      this.loadData();
     });
   }
 
@@ -105,5 +112,17 @@ export class KitchenerServeComponent implements OnInit {
     } else {
       this.orderDto.orderStatus = 'PENDING';
     }
+  }
+
+  sendOrderNotification(orderDto , toId) {
+    const user =  LocalStorageUtil.getStorage();
+    this.socketService.message.date = new Date();
+    this.socketService.message.fromId = Number(user.userId);
+    this.socketService.message.fromRole = Number(user.roleType);
+    this.socketService.message.actionType = orderDto.orderStatus.toString();
+    this.socketService.message.itemName =  this.orderDto.itemName;
+    this.socketService.message.orderCode = this.orderDto.orderCode;
+    this.socketService.message.toId = toId;
+    this.socketService.sendMessageUsingSocket();
   }
 }

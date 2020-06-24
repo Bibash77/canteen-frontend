@@ -16,4 +16,6 @@ export class OrderDto {
   orderStatus: string;
 
   expenditure: number;
+
+  user;
 }

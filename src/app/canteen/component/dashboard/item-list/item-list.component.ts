@@ -9,7 +9,6 @@ import {OrderDto} from '../../modal/orderDto';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {SocketService} from '../notification/socket.service';
 import {UserType} from '../../../../@core/userType';
-import {TransactionType} from '../../../../@core/TransactionType';
 
 @Component({
   selector: 'app-item-list',
@@ -69,9 +68,10 @@ export class ItemListComponent implements OnInit {
     this.orderDto.quantity = quantity;
     this.orderService.save(this.orderDto).subscribe(value => {
        if (value.detail) {
+         console.log(value.detail);
          this.orderDto.expenditure = value.detail.expenditure;
          this.orderDto.orderCode = value.detail.orderCode;
-         this.sendOrderNotification(this.orderDto);
+         this.sendOrderNotification(value.detail.orderCode);
     /*     AudioUtils.playSound();*/
          this.toastrService.show(value.detail.item.itemName + ' ordered successfully', 'Order Code:' + value.detail.orderCode);
        }
@@ -86,15 +86,15 @@ export class ItemListComponent implements OnInit {
     this.orderAble = AuthorityUtil.isOrderable(amount);
   }
 
-  sendOrderNotification(orderDto) {
+  sendOrderNotification(orderCode) {
     const user =  LocalStorageUtil.getStorage();
     this.socketService.message.date = new Date();
     this.socketService.message.fromId = Number(user.userId);
     this.socketService.message.fromRole = Number(user.roleType);
-    this.socketService.message.transactionType = TransactionType.ORDER;
+    this.socketService.message.actionType = 'ORDER';
     this.socketService.message.transactionAmount = this.orderDto.expenditure;
     this.socketService.message.itemName =  this.orderDto.item.itemName;
-    this.socketService.message.orderCode = this.orderDto.orderCode;
+    this.socketService.message.orderCode = orderCode;
     this.socketService.message.quantity = this.orderDto.quantity;
     this.socketService.message.toRole = UserType.KITCHENER;
     this.socketService.sendMessageUsingSocket();

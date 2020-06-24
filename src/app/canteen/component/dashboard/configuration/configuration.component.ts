@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {NbDialogService, NbWindowRef, NbWindowService} from '@nebular/theme';
+import {NbDialogService, NbWindowService} from '@nebular/theme';
 import { AddItemComponent } from './add-item/add-item.component';
 import {Item} from '../../modal/Item';
 import {ItemService} from './add-item/item.service';
-import {TopUpComponent} from './top-up/top-up.component';
 import {UserService} from '../../auth/user.service';
-import {AuthorityUtil} from '../../../../@core/utils/AuthorityUtil';
 
 @Component({
   selector: 'app-configuration',

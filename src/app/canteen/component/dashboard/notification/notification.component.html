@@ -12,18 +12,18 @@
         </nb-list-item>
       </tr>
     </nb-card>-->
-  <app-orders *ngIf="isStudent" [searchDto]="searchDto"></app-orders>
+<!--  <app-orders *ngIf="isStudent" [searchDto]="searchDto"></app-orders>-->
 
-  <nb-card *ngIf="!isStudent" accent="info">
-    <nb-card-header>
-      <nb-checkbox class="float-right" status="info">inactive</nb-checkbox>
+  <nb-card accent="info">
+    <nb-card-header style="position: relative;">
+      <nb-badge [text]="'+' + notificationCount"  status="info" position="top right"></nb-badge>
     </nb-card-header>
     <nb-card-body class="example-last-child-no-b-margin">
       <ng-container *ngFor="let notification of notifications">
         <div><b style="font-size: 11px">{{notification.date |date}} {{dateHourFormatter(notification.date)}}</b></div>
       <nb-alert class="cursor" status="basic" closable (close)="closeMessage(notification , 'INACTIVE')">
         <nb-badge *ngIf="notification.isSeen !== true" [text]="'new'" status="danger" position="bottom left"></nb-badge>
-       <p  (click)="readMessage(notification)">{{notification.message}}. {{notification.quantity}}</p>
+       <p  (click)="readMessage(notification)">{{notification.message}}</p>
       </nb-alert>
       </ng-container>
     </nb-card-body>
