@@ -80,9 +80,11 @@ export class KitchenerServeComponent implements OnInit {
     this.orderDto.itemName = order.itemName;
     this.orderDto.orderCode = order.orderCode;
     this.orderService.deliverItem(this.orderDto).subscribe(value => {
-      this.socketService.message.quantity = value.detail.quantity;
       this.toasterService.info('successfully change to ' + action, 'Success', OtherUtils.getIconConfig('checkmark-circle-outline'));
-      this.sendOrderNotification(this.orderDto , order.user.id);
+      if (this.orderDto.orderStatus !== 'PENDING') {
+        this.socketService.message.quantity = value.detail.quantity;
+        this.sendOrderNotification(this.orderDto , order.user.id);
+      }
       this.loadData();
     });
   }
