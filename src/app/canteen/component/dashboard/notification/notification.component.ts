@@ -1,13 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {SearchDto} from '../../modal/SearchDto';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
-import {AuthorityUtil} from '../../../../@core/utils/AuthorityUtil';
 import {NotificationService} from './notifier/notification.service';
 import {Message} from './message';
 import {NbToastrService} from '@nebular/theme';
 import {Router} from '@angular/router';
-import {TransactionType} from '../../../../@core/TransactionType';
 import {OtherUtils} from '../../../../@core/utils/OtherUtils';
+import {SocketService} from './socket.service';
+import {Status} from '../../../../@core/Status';
+import {UserType} from '../../../../@core/userType';
 
 @Component({
   selector: 'app-notification',
@@ -16,37 +17,24 @@ import {OtherUtils} from '../../../../@core/utils/OtherUtils';
 })
 export class NotificationComponent implements OnInit {
   searchDto: SearchDto = new SearchDto();
-  isStudent;
+  userType = (LocalStorageUtil).getStorage().roleType;
   notificationCount;
   notifications: Array<Message> = new Array<Message>();
 
   constructor(
     private notificationService: NotificationService,
     private nbToastrService: NbToastrService,
-    private router: Router
+    private router: Router,
+    private socketService: SocketService
   ) {
   }
 
   ngOnInit() {
-    this.isStudent = AuthorityUtil.checkStudent();
-    this.searchDto.userId = LocalStorageUtil.getStorage().userId;
-    this.searchDto.orderStatus = 'PENDING';
-    this.notificationService.notificationMessage.subscribe(value => this.notifications = value);
-  }
-
-
-  loadNext() {
-/*    if (this.loading) { return }
-
-    this.loading = true;
-    this.placeholders = new Array(this.pageSize);
-    this.newsService.load(this.pageToLoadNext, this.pageSize)
-    .subscribe(news => {
-      this.placeholders = [];
-      this.news.push(...news);
-      this.loading = false;
-      this.pageToLoadNext++;
-    });*/
+    this.fetchNotifications();
+    this.socketService.newMsgCount.subscribe((res) => {
+      this.notificationCount += 1;
+      this.notifications.push(res);
+    });
   }
 
   dateHourFormatter(date) {
@@ -62,14 +50,16 @@ export class NotificationComponent implements OnInit {
     }
     message.status = status;
     this.saveMessage(message);
+    this.notifications.splice(this.notifications.indexOf(message) , 1);
   }
 
   readMessage(message: Message) {
+    console.log(message);
     message.isSeen = true;
-    message.orderCode = message.message.match('\\:(.*?)\\.')[1];
     this.saveMessage(message);
-    if (message.transactionType === TransactionType.ORDER) {
-      this.router.navigate(['/canteen/dashboard'], {
+    if (message.actionType.toString() === 'ORDER' && this.userType !== 'Student' ) {
+    message.orderCode = message.message.match('\\:(.*?)\\.')[1];
+    this.router.navigate(['/canteen/dashboard'], {
         queryParams: {
           orderCode: message.orderCode,
         }
@@ -79,10 +69,31 @@ export class NotificationComponent implements OnInit {
 
   saveMessage(message) {
     this.notificationService.save(message).subscribe((updateNotification: any) => {
-      this.notificationService.fetchNotifications();
     }, error => {
       console.error(error);
       this.nbToastrService.show('Error updating notification status', 'ERROR!!');
+    });
+  }
+
+  fetchNotifications(): void {
+    const notificationSearchObject = {
+      toId: LocalStorageUtil.getStorage().userId,
+      toRole: null,
+      status: Status.ACTIVE
+    };
+    if (this.userType !== UserType.STUDENT) {
+      notificationSearchObject.toId = null;
+      notificationSearchObject.toRole = this.userType;
+    }
+    this.notificationService.getPaginationWithSearchObject(notificationSearchObject, 1, 150).subscribe((response: any) => {
+      const mes: Array<Message> = response.detail.content;
+      this.notificationCount = response.detail.totalElements;
+      mes.forEach(value => {
+        this.notifications.push(value);
+       });
+      console.log('notification fetching' , response.detail.content);
+    }, error => {
+      console.error(error);
     });
   }
 }

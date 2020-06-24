@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {ApiConfig} from '../../../../@core/utils/ApiConfig';
 import * as SockJS from 'sockjs-client';
 import * as Stomp from 'stompjs';
@@ -13,6 +13,7 @@ import {OtherUtils} from '../../../../@core/utils/OtherUtils';
   providedIn: 'root'
 })
 export class SocketService {
+  newMsgCount: EventEmitter<Message> = new EventEmitter<Message>();
   isCustomSocketOpened = false;
   message: Message = new Message();
   private stompClient;
@@ -32,23 +33,33 @@ export class SocketService {
     const that = this;
     // tslint:disable-next-line:only-arrow-functions
     this.stompClient.connect({}, function(frame) {
-      that.openSocket();
+      that.openSocketByRole();
+      that.openSocketById();
     });
     this.stompClient.debug = null;
   }
 
-  openSocket() {
+  openSocketByRole() {
     this.isCustomSocketOpened = true;
-    const data: Array<any> = [];
-
-    console.log(this.userRole, 'role');
     this.stompClient.subscribe(`/socket-publisher/${this.userRole}`, (response) => {
-      const responseData = JSON.parse(response.body);
-      this.nbToastrService.success(responseData.message , 'Success' , OtherUtils.getIconConfig('bell-outline'));
-      AudioUtils.playSound();
-      data.push(responseData.message);
-      this.notificationService.fetchNotifications();
+      this.handleResponseData(response);
     });
+  }
+
+  openSocketById() {
+    this.stompClient.subscribe(`/socket-publisher/${this.userId}`, (response) => {
+      this.handleResponseData(response);
+    });
+  }
+
+  handleResponseData(response) {
+    const data: Array<any> = [];
+    const responseData = JSON.parse(response.body);
+    this.nbToastrService.success(responseData.message , 'Success' , OtherUtils.getIconConfig('bell-outline'));
+    AudioUtils.playSound();
+    /*this.notificationService.fetchNotifications();
+    data.push(responseData.message);*/
+    this.newMsgCount.emit(responseData);
   }
 
   sendMessageUsingSocket() {

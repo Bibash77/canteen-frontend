@@ -1,15 +1,6 @@
-import {
-  AfterViewChecked,
-  AfterViewInit,
-  Component, ElementRef,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges, ViewChild
-} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {WalletService} from '../../configuration/top-up/wallet.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Pageable} from '../../../modal/common-pageable';
 import {OrderService} from '../../item-list/order.service';
 import {SearchDto} from '../../../modal/SearchDto';
 import {OrderDto} from '../../../modal/orderDto';

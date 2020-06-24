@@ -67,7 +67,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     )
     .subscribe(themeName => this.currentTheme = themeName);
     if (this.checkUserActive()) {
-      this.setupNotification();
+      this.socketService.initializeWebSocketConnection();
     }
   }
 
@@ -97,13 +97,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.dialogService.open(ProfileComponent);
       }
     });
-  }
-
-  setupNotification(): void {
-    this.socketService.initializeWebSocketConnection();
-    this.notificationService.fetchNotifications();
-    this.notificationService.notificationCount.subscribe((value => this.notificationCount = value));
-    console.log(this.notificationCount);
   }
 
   checkUserActive() {
