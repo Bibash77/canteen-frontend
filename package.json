@@ -20,6 +20,7 @@
     "@angular/platform-browser": "~8.2.14",
     "@angular/platform-browser-dynamic": "~8.2.14",
     "@angular/router": "~8.2.14",
+    "@babel/compat-data": "^7.8.0",
     "@nebular/eva-icons": "^4.6.0",
     "@nebular/theme": "^4.6.0",
     "@ng-bootstrap/ng-bootstrap": "^5.1.1",
