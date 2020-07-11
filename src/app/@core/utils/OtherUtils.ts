@@ -1,4 +1,5 @@
 import {NbIconConfig} from '@nebular/theme';
+import {LocalStorage, LocalStorageUtil} from "./local-storage-util";
 
 export class OtherUtils {
 
@@ -16,5 +17,11 @@ export class OtherUtils {
   static getIconConfig(iconName) {
     const iconConfig: NbIconConfig  = { icon: iconName, pack: 'eva' };
     return iconConfig;
+  }
+
+  static resetUserWallet(deductBalance){
+    const  localStorage: LocalStorage = LocalStorageUtil.getStorage();
+    localStorage.currentBalance = (Number(localStorage.currentBalance) - deductBalance).toString();
+    LocalStorageUtil.setStorage(localStorage);
   }
 }

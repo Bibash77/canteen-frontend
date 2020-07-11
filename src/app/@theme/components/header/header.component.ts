@@ -16,6 +16,7 @@ import {Router} from '@angular/router';
 import {SocketService} from '../../../canteen/component/dashboard/notification/socket.service';
 import {NotificationService} from '../../../canteen/component/dashboard/notification/notifier/notification.service';
 import {AuthorityUtil} from '../../../@core/utils/AuthorityUtil';
+import {ChangePasswordComponent} from './change-password/change-password.component';
 
 @Component({
   selector: 'app-header',
@@ -26,6 +27,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   static LOGOUT = 'Log out';
   static PROFILE = 'Profile';
+  static CHANGE_PASSWORD = 'Change Password';
   userPictureOnly = false;
   user: any;
   userId;
@@ -33,7 +35,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   userMenu = [];
   contextMenuTag = 'user-context-menu';
   private destroy$: Subject<void> = new Subject<void>();
-  notificationCount;
 
   constructor(private sidebarService: NbSidebarService,
               private menuService: NbMenuService,
@@ -41,8 +42,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
               private router: Router,
               private themeService: NbThemeService,
               private breakpointService: NbMediaBreakpointsService,
-              private socketService: SocketService,
-              private notificationService: NotificationService) {
+              private socketService: SocketService, ) {
   }
 
   ngOnInit() {
@@ -88,13 +88,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
       map(({item: {title}}) => title),
       filter((title) =>
         title === HeaderComponent.LOGOUT ||
-        title === HeaderComponent.PROFILE )
+        title === HeaderComponent.PROFILE ||
+        title === HeaderComponent.CHANGE_PASSWORD)
     ).subscribe((value) => {
       if (value === HeaderComponent.LOGOUT) {
         LocalStorageUtil.clearStorage();
         this.router.navigate(['/login']);
       } else if (value === HeaderComponent.PROFILE) {
         this.dialogService.open(ProfileComponent);
+      } else if (value === HeaderComponent.CHANGE_PASSWORD) {
+        this.dialogService.open(ChangePasswordComponent);
       }
     });
   }
@@ -105,9 +108,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   headerMenuAdder() {
     this.userMenu.push({title: 'Profile'});
-    if (AuthorityUtil.isUserActive()) {
-      this.userMenu.push({title: 'transaction', link: ['/canteen/transaction', this.userId]});
-    }
+    this.userMenu.push({title: 'Change Password'});
     this.userMenu.push({title: 'Log out' ,
       link: '/canteen/login'});
   }

@@ -40,6 +40,7 @@ export class SocketService {
   }
 
   openSocketByRole() {
+    console.log(this.userRole);
     this.isCustomSocketOpened = true;
     this.stompClient.subscribe(`/socket-publisher/${this.userRole}`, (response) => {
       this.handleResponseData(response);

@@ -64,7 +64,6 @@
           <tr>
             <!--<th>S.no</th>-->
             <th>Item</th>
-            <th>Date</th>
             <th>Qty</th>
             <th>Amount</th>
             <th>Token</th>
@@ -76,7 +75,6 @@
           <tr *ngFor="let singleOrder of order; let i=index">
             <!-- <td>{{i+1}}</td>-->
             <td>{{singleOrder?.itemName}}</td>
-            <td>{{singleOrder?.createdAt| date}}</td>
             <td>{{singleOrder?.quantity}}</td>
             <td>Rs.{{singleOrder?.expenditure}}</td>
 
@@ -95,7 +93,8 @@
         </table>
         <div class="row">
           <div class="col-md-12">
-            <button nbButton (click)="loadMore()" fullWidth outline status="primary">Load More</button>
+          <!--  <button  (click)="loadMore()" class="btn btn-outline-dark full-width btn-block">Load More</button>-->
+            <button nbButton status="basic" fullWidth (click)="loadMore()">Load More</button>
           </div>
         </div>
         <div *ngIf="!(order.length>0)" class="text-center">

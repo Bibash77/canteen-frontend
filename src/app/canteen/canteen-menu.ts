@@ -16,5 +16,10 @@ export const MENU_ITEMS: Map<string, NbMenuItem> = new Map([
     title: 'Notification',
     icon: 'bell-outline',
     link: '/canteen/notification',
+  }],
+  ['Transaction', {
+    title: 'Transaction',
+    icon: 'shopping-cart-outline',
+    link: '/canteen/transaction',
   }]
 ]);
