@@ -9,6 +9,7 @@ import {OrderDto} from '../../modal/orderDto';
 import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {SocketService} from '../notification/socket.service';
 import {UserType} from '../../../../@core/userType';
+import {OtherUtils} from "../../../../@core/utils/OtherUtils";
 
 @Component({
   selector: 'app-item-list',
@@ -72,10 +73,14 @@ export class ItemListComponent implements OnInit {
          this.orderDto.expenditure = value.detail.expenditure;
          this.orderDto.orderCode = value.detail.orderCode;
          this.sendOrderNotification(value.detail.orderCode);
+         OtherUtils.resetUserWallet(value.detail.expenditure);
     /*     AudioUtils.playSound();*/
          this.toastrService.show(value.detail.item.itemName + ' ordered successfully', 'Order Code:' + value.detail.orderCode);
        }
-     });
+     }, error => {
+      console.log(error.error.message);
+      this.toastrService.danger(error.error.message , 'Invalid Order' , OtherUtils.getIconConfig('close-circle-outline'));
+    });
   }
 
   agreeChecker(chk) {

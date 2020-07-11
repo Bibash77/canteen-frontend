@@ -35,6 +35,7 @@ import {PagingComponent} from './components/paging/paging.component';
 import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import {IconCardComponent} from './iconcard/icon-card.component';
 import { ProfileComponent } from './components/header/profile-component/profile-component.component';
+import { ChangePasswordComponent } from './components/header/change-password/change-password.component';
 
 const BASE_MODULES = [CommonModule, RouterModule, FormsModule, ReactiveFormsModule];
 
@@ -66,7 +67,9 @@ const COMPONENTS = [
   IconCardComponent
 ];
 
-const ENTRY_COMPONENTS = [];
+const ENTRY_COMPONENTS = [
+  ChangePasswordComponent
+];
 
 const PIPES = [
   CapitalizePipe,
@@ -94,7 +97,7 @@ const NB_THEME_PROVIDERS = [
 @NgModule({
   imports: [...BASE_MODULES, ...NB_MODULES, ...OTHER_MODULES, NgbPaginationModule],
   exports: [...BASE_MODULES, ...NB_MODULES, ...OTHER_MODULES, ...PIPES, ...COMPONENTS],
-  declarations: [...COMPONENTS, ...PIPES, ProfileComponent],
+  declarations: [...COMPONENTS, ...PIPES, ProfileComponent, ChangePasswordComponent],
   entryComponents: [...ENTRY_COMPONENTS , ProfileComponent]
 })
 export class ThemeModule {

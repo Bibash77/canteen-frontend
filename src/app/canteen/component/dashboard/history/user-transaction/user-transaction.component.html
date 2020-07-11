@@ -3,7 +3,7 @@
     <nb-card>
       <nb-tabset fullWidth>
         <nb-tab tabTitle="TopUp History" tabIcon="briefcase" responsive style="padding: 0px">
-          <nb-card accent="primary" class="p-0" >
+          <nb-card accent="info" class="p-0" >
             <nb-card-header class="text-center">
               <h5>User Transaction
               </h5>
@@ -77,7 +77,7 @@
               </table>
                 <div class="row">
                   <div class="col-md-12">
-                    <button nbButton (click)="loadMore()" fullWidth outline status="primary">Load More</button>
+                    <button nbButton status="basic" fullWidth (click)="loadMore()">Load More</button>
                   </div>
                 </div>
               <div *ngIf="!(topUpHistoryData.length>0)" class="text-center">

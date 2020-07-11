@@ -85,9 +85,6 @@ export class DashboardComponent implements OnInit {
     });
     this.userService.countUser(startDate, endDate).subscribe(value => {
       this.countOrderData.userCount = value.detail.user;
-      if (value.detail.topUpAmount == null ) {
-        this.countOrderData.userCount = 0;
-      }
     });
   }
 

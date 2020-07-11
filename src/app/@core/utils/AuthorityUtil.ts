@@ -20,7 +20,7 @@ export class AuthorityUtil {
 
   static isOrderable(itemAmount: number): boolean {
     const localStorage = LocalStorageUtil.getStorage();
-    return Number(localStorage.currentBalance) > (itemAmount + 20);
+    return Number(localStorage.currentBalance) > (itemAmount);
   }
 
   static isUserActive() {
