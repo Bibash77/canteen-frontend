@@ -37,7 +37,7 @@ export class SocketService {
     // tslint:disable-next-line:only-arrow-functions
     this.stompClient.connect({}, function(frame) {
       that.openSocketByRole();
-     /* that.openSocketById();*/
+      that.openSocketById();
     });
     this.stompClient.debug = null;
   }
