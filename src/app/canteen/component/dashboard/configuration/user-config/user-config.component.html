@@ -113,8 +113,8 @@
       <ng-container *ngFor="let wallets of walletList">
         <tbody>
         <tr>
-          <td>{{wallets.user.userName != undefined || wallets.user.userName != null
-              ? wallets.user.userName : "user"}}</td>
+          <td>{{wallets.user.username != undefined || wallets.user.username != null
+              ? wallets.user.username : "user"}}</td>
           <td>Rs.{{wallets.walletAmount != null ? wallets.walletAmount : 0}}</td>
           <td>{{wallets.user.userCode != undefined || wallets.user.userCode != null
               ? wallets.user.userCode : "user"}}</td>

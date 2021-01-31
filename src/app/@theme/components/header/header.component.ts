@@ -67,6 +67,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     )
     .subscribe(themeName => this.currentTheme = themeName);
     if (this.checkUserActive()) {
+      console.log('jjj.l');
       this.socketService.initializeWebSocketConnection();
     }
   }

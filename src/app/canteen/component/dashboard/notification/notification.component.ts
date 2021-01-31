@@ -16,10 +16,6 @@ import {UserType} from '../../../../@core/userType';
   styleUrls: ['./notification.component.scss']
 })
 export class NotificationComponent implements OnInit {
-  searchDto: SearchDto = new SearchDto();
-  userType = (LocalStorageUtil).getStorage().roleType;
-  notificationCount;
-  notifications: Array<Message> = new Array<Message>();
 
   constructor(
     private notificationService: NotificationService,
@@ -28,9 +24,35 @@ export class NotificationComponent implements OnInit {
     private socketService: SocketService
   ) {
   }
+  searchDto: SearchDto = new SearchDto();
+  userType = (LocalStorageUtil).getStorage().roleType;
+  notificationCount;
+  notifications: Array<Message> = new Array<Message>();
+
+  static fetchNotifications(n: NotificationComponent): void {
+    const notificationSearchObject = {
+      toId: LocalStorageUtil.getStorage().userId,
+      toRole: null,
+      status: Status.ACTIVE
+    };
+    if (n.userType !== UserType.STUDENT) {
+      notificationSearchObject.toId = null;
+      notificationSearchObject.toRole = n.userType;
+    }
+    n.notificationService.getPaginationWithSearchObject(notificationSearchObject, 1, 150).subscribe((response: any) => {
+      const mes: Array<Message> = response.detail.content;
+      n.notificationCount = response.detail.totalElements;
+      mes.forEach(value => {
+        n.notifications.push(value);
+       });
+      console.log('notification fetching' , response.detail.content);
+    }, error => {
+      console.error(error);
+    });
+  }
 
   ngOnInit() {
-    this.fetchNotifications();
+    NotificationComponent.fetchNotifications(this);
     this.socketService.newMsgCount.subscribe((res) => {
       this.notificationCount += 1;
       this.notifications.push(res);
@@ -72,28 +94,6 @@ export class NotificationComponent implements OnInit {
     }, error => {
       console.error(error);
       this.nbToastrService.show('Error updating notification status', 'ERROR!!');
-    });
-  }
-
-  fetchNotifications(): void {
-    const notificationSearchObject = {
-      toId: LocalStorageUtil.getStorage().userId,
-      toRole: null,
-      status: Status.ACTIVE
-    };
-    if (this.userType !== UserType.STUDENT) {
-      notificationSearchObject.toId = null;
-      notificationSearchObject.toRole = this.userType;
-    }
-    this.notificationService.getPaginationWithSearchObject(notificationSearchObject, 1, 150).subscribe((response: any) => {
-      const mes: Array<Message> = response.detail.content;
-      this.notificationCount = response.detail.totalElements;
-      mes.forEach(value => {
-        this.notifications.push(value);
-       });
-      console.log('notification fetching' , response.detail.content);
-    }, error => {
-      console.error(error);
     });
   }
 }

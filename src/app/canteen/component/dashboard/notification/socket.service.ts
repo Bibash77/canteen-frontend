@@ -8,6 +8,7 @@ import {NbToastrService} from '@nebular/theme';
 import {NotificationService} from './notifier/notification.service';
 import {AudioUtils} from '../../../../@core/utils/AudioUtils';
 import {OtherUtils} from '../../../../@core/utils/OtherUtils';
+import {NotificationComponent} from './notification.component';
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +35,7 @@ export class SocketService {
     // tslint:disable-next-line:only-arrow-functions
     this.stompClient.connect({}, function(frame) {
       that.openSocketByRole();
-      that.openSocketById();
+     /* that.openSocketById();*/
     });
     this.stompClient.debug = null;
   }
@@ -44,6 +45,7 @@ export class SocketService {
     this.isCustomSocketOpened = true;
     this.stompClient.subscribe(`/socket-publisher/${this.userRole}`, (response) => {
       this.handleResponseData(response);
+      console.log(response);
     });
   }
 
@@ -58,8 +60,7 @@ export class SocketService {
     const responseData = JSON.parse(response.body);
     this.nbToastrService.success(responseData.message , 'Success' , OtherUtils.getIconConfig('bell-outline'));
     AudioUtils.playSound();
-    /*this.notificationService.fetchNotifications();
-    data.push(responseData.message);*/
+    NotificationComponent.fetchNotifications();
     this.newMsgCount.emit(responseData);
   }
 

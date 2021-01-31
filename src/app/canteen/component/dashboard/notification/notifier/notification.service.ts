@@ -3,6 +3,8 @@ import {BaseService} from '../../../../../@core/BaseService';
 import {Message} from '../message';
 import {HttpClient} from '@angular/common/http';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
+import {Status} from '../../../../../@core/Status';
+import {UserType} from '../../../../../@core/userType';
 
 @Injectable({
   providedIn: 'root'
