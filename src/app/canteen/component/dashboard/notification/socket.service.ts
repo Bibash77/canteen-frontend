@@ -9,12 +9,14 @@ import {NotificationService} from './notifier/notification.service';
 import {AudioUtils} from '../../../../@core/utils/AudioUtils';
 import {OtherUtils} from '../../../../@core/utils/OtherUtils';
 import {NotificationComponent} from './notification.component';
+import {root} from 'rxjs/internal-compatibility';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SocketService {
   newMsgCount: EventEmitter<Message> = new EventEmitter<Message>();
+
   isCustomSocketOpened = false;
   message: Message = new Message();
   private stompClient;
@@ -60,7 +62,7 @@ export class SocketService {
     const responseData = JSON.parse(response.body);
     this.nbToastrService.success(responseData.message , 'Success' , OtherUtils.getIconConfig('bell-outline'));
     AudioUtils.playSound();
-    NotificationComponent.fetchNotifications();
+    console.log('collecting data' , response , responseData);
     this.newMsgCount.emit(responseData);
   }
 

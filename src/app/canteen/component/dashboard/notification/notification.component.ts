@@ -54,6 +54,7 @@ export class NotificationComponent implements OnInit {
   ngOnInit() {
     NotificationComponent.fetchNotifications(this);
     this.socketService.newMsgCount.subscribe((res) => {
+      console.log(res);
       this.notificationCount += 1;
       this.notifications.push(res);
     });
