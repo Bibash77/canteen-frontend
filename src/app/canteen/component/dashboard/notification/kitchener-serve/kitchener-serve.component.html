@@ -78,12 +78,14 @@
             <th>Item</th>
             <th>Qty</th>
             <th>Token</th>
+            <th>OrderBy</th>
             <th></th>
           </tr>
           <tr *ngFor="let order of order">
             <td>{{order.itemName}}</td>
             <td>{{order.quantity}}</td>
             <td>{{order.orderCode}}</td>
+            <td>{{order?.user?.userName}}</td>
             <td>
               <nb-icon (click)="openDialog(dialog , order)" *ngIf="order.orderStatus == 'PENDING'"
                        [status]="order.orderStatus == 'PENDING'?'success':'primary'"
