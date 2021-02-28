@@ -1,20 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {
-  NbDialogService,
-  NbMediaBreakpointsService,
-  NbMenuService,
-  NbSidebarService,
-  NbThemeService
-} from '@nebular/theme';
+import {NbDialogService, NbMediaBreakpointsService, NbMenuService, NbSidebarService, NbThemeService} from '@nebular/theme';
 
 import {filter, map, takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ProfileComponent} from './profile-component/profile-component.component';
 import {Router} from '@angular/router';
 import {SocketService} from '../../../canteen/component/dashboard/notification/socket.service';
-import {NotificationService} from '../../../canteen/component/dashboard/notification/notifier/notification.service';
 import {AuthorityUtil} from '../../../@core/utils/AuthorityUtil';
 import {ChangePasswordComponent} from './change-password/change-password.component';
 
@@ -96,7 +88,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
         LocalStorageUtil.clearStorage();
         this.router.navigate(['/login']);
       } else if (value === HeaderComponent.PROFILE) {
-        this.dialogService.open(ProfileComponent);
+        const user = LocalStorageUtil.getStorage();
+        this.dialogService.open(ProfileComponent, {context: {user}});
       } else if (value === HeaderComponent.CHANGE_PASSWORD) {
         this.dialogService.open(ChangePasswordComponent);
       }

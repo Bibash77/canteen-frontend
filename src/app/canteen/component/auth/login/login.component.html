@@ -16,10 +16,10 @@
               </div>
               <div class="row">
                 <div class="col-md-12">
-                  <button (click)="onRegister()" class="btn btn-info">Register</button>
-                  <button [disabled]="loginForm.invalid" (click)="onSubmit()" class="btn btn-info float-right" nbButton><span
+                  <button (click)="onSubmit()" class="btn btn-info" nbButton><span
                     *ngIf="spinner" class="spinner-border spinner-border-sm"></span>
                     <span *ngIf="!spinner"> Login</span></button>
+                  <button (click)="onRegister()" class="btn btn-info  float-right">Register</button>
                 </div>
               </div>
             </form>

@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {NbDialogRef} from '@nebular/theme';
 
 @Component({
@@ -62,7 +61,6 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.user = LocalStorageUtil.getStorage();
   }
 
   close() {

@@ -7,6 +7,7 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {OtherUtils} from '../../../../../@core/utils/OtherUtils';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {SocketService} from '../socket.service';
+import {ProfileComponent} from '../../../../../@theme/components/header/profile-component/profile-component.component';
 
 @Component({
   selector: 'app-kitchener-serve',
@@ -72,6 +73,10 @@ export class KitchenerServeComponent implements OnInit {
 
   openDialog(dialog: TemplateRef<any>, item) {
     this.dialogService.open(dialog, {context: item});
+  }
+
+  openUserProfile(user) {
+    this.dialogService.open(ProfileComponent, {context: {user}});
   }
 
   changeOrderStatus(order, action) {

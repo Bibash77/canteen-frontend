@@ -5,7 +5,6 @@ import {User} from '../../modal/user';
 import {UserType} from '../../../../@core/userType';
 import {Router} from '@angular/router';
 import {OtherUtils} from '../../../../@core/utils/OtherUtils';
-import {AuthorityUtil} from '../../../../@core/utils/AuthorityUtil';
 
 @Component({
   selector: 'app-register',
@@ -32,9 +31,12 @@ export class RegisterComponent implements OnInit {
       this.userService.registerUser(this.user).subscribe(value => {
         this.onDismiss();
         this.router.navigateByUrl('').then(() => {
-          this.nbToastrService.success('login to continue', 'Success!', OtherUtils.getIconConfig('person-done-outline'));
+            this.nbToastrService.success('login to continue', 'Success!', OtherUtils.getIconConfig('person-done-outline'));
           }
         );
+      }, error => {
+        this.nbToastrService.warning(error.error, 'Error!', OtherUtils.getIconConfig('cross-outline'));
+
       });
     }  else {
       this.nbToastrService.warning('Confirm password didnt matched', 'Error');

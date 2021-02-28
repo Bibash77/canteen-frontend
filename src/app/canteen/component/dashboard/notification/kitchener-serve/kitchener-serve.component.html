@@ -1,5 +1,5 @@
 <nb-layout windowMode>
-  <nb-layout-column class="bg-white" style="padding: 0px">
+  <nb-layout-column class="bg-white" style="padding: 0">
     <ng-template #dialog let-data let-ref="dialogRef">
       <nb-card accent="primary">
         <nb-card-header class="text-center"><h6>choose your action</h6>
@@ -78,14 +78,12 @@
             <th>Item</th>
             <th>Qty</th>
             <th>Token</th>
-            <th>OrderBy</th>
             <th></th>
           </tr>
           <tr *ngFor="let order of order">
             <td>{{order.itemName}}</td>
             <td>{{order.quantity}}</td>
             <td>{{order.orderCode}}</td>
-            <td>{{order?.user?.userName}}</td>
             <td>
               <nb-icon (click)="openDialog(dialog , order)" *ngIf="order.orderStatus == 'PENDING'"
                        [status]="order.orderStatus == 'PENDING'?'success':'primary'"
@@ -94,6 +92,8 @@
                        icon="done-all" status="primary"></nb-icon>
               <nb-icon (click)="openDialog(dialog , order)" *ngIf="order.orderStatus == 'READY'"
                        icon="options" status="danger"></nb-icon>
+
+              <nb-icon (click)="openUserProfile(order?.user)" icon="person" status="danger"></nb-icon>
 
             </td>
           </tr>

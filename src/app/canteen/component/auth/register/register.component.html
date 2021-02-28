@@ -15,11 +15,9 @@
     </div>
     <div class="form-group ">
       <label for="batch">Select Batch</label>
-      <nb-select   fullWidth name="batch" placeholder="select batch"
-                 id="batch" size="small" [(ngModel)]="batchList" required><!--
-        <nb-option *ngFor="let batch of batchList" [value]="batch">{{batch}}</nb-option>-->
-        <nb-option value="2018">2018</nb-option>
-        <nb-option value="2019">2019</nb-option>
+      <nb-select [(ngModel)]="user.batch" fullWidth id="batch"
+                 name="batch" placeholder="Select Batch" required size="small">
+        <nb-option *ngFor="let batch of batchList" [value]="batch">{{batch}}</nb-option>
       </nb-select>
     </div>
     <div class="form-group">
@@ -41,7 +39,9 @@
   </nb-card-body>
   <nb-card-footer>
     <button nbButton hero status="danger" (click)="onDismiss()">Close</button>
-    <button *ngIf="registerForm.valid" nbButton hero size="small" status="primary" class="float-right" (click)="addUser(registerForm)">Register</button>
+    <button (click)="addUser(registerForm)" [disabled]="registerForm.invalid" class="float-right" hero nbButton
+            size="small" status="primary">Register
+    </button>
   </nb-card-footer>
 </nb-card>
 </div>

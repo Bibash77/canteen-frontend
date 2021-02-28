@@ -7,8 +7,8 @@ import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {Status} from '../../../../@core/Status';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {ApiConfig} from "../../../../@core/utils/ApiConfig";
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {ApiConfig} from '../../../../@core/utils/ApiConfig';
 
 @Component({
   selector: 'app-login',
@@ -50,14 +50,18 @@ export class LoginComponent implements OnInit {
   }
 
   async onSubmit() {
+    if (this.loginForm.invalid) {
+      this.toasterService.danger('Invalid user name or password', 'Error', {duration: this.duration});
+      return;
+    }
     this.spinner = true;
     const datas = `grant_type=password&username=${this.loginForm.get('userName').value}&password=${
       this.loginForm.get('password').value}`;
     console.log(datas);
-    console.log(this.securityUrl , this.headers , ApiConfig.TOKEN , ApiConfig.URL);
+    console.log(this.securityUrl, this.headers, ApiConfig.TOKEN, ApiConfig.URL);
     await this.http.post(this.securityUrl, datas.toString(), {headers: this.headers})
       .subscribe(async (responseToken: any) => {
-        console.log("asdasd");
+        console.log('asdasd');
         const storage = LocalStorageUtil.getStorage();
         storage.at = responseToken.access_token;
         storage.rt = responseToken.refresh_token;
